@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, Users, Clock, Award, ArrowRight } from "lucide-react";
+import { Heart, Users, Clock, Award, ArrowRight, Shield, Sparkles, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,6 +16,13 @@ const benefits = [
   { icon: Award, title: "Gain Experience", desc: "Build valuable skills and receive certification for your work." },
 ];
 
+const features = [
+  { icon: Shield, title: "Become A Volunteer", desc: "There are many ways you can help us in creating a world with better mental health care for all." },
+  { icon: Heart, title: "Shelter For Homeless", desc: "Providing safe spaces and mental health support for the homeless and displaced communities." },
+  { icon: Sparkles, title: "Make World Happier", desc: "Our programs bring joy and healing to thousands of people around the globe every year." },
+  { icon: Brain, title: "Give Healthy Life", desc: "Through quality mental health care, we help people reclaim healthy, fulfilling lives." },
+];
+
 const Volunteers = () => {
   const [submitted, setSubmitted] = useState(false);
 
@@ -23,6 +30,7 @@ const Volunteers = () => {
     <div>
       <PageHero title="Become a Volunteer" subtitle="Join us in creating a world where mental health care is accessible to all" bgImage={philanthropyBg} />
 
+      {/* Why Volunteer */}
       <section className="section-padding">
         <div className="container mx-auto">
           <SectionHeading label="Why Volunteer" title="Be Part of the Change" />
@@ -38,8 +46,31 @@ const Volunteers = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Join Form */}
+      {/* Features */}
+      <section className="section-padding bg-muted">
+        <div className="container mx-auto">
+          <SectionHeading label="What We Do" title="Our Impact Areas" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((f, i) => (
+              <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className="bg-card rounded-xl p-6 text-center shadow-soft group">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-hero-gradient transition-all">
+                  <f.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground" />
+                </div>
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">{f.title}</h3>
+                <p className="text-sm text-muted-foreground">{f.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Join Form */}
+      <section className="section-padding">
+        <div className="container mx-auto">
           <div className="max-w-2xl mx-auto">
             <SectionHeading label="Join Us" title="Apply to Volunteer" description="Fill out the form below and our team will be in touch." />
             {submitted ? (
