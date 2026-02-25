@@ -85,8 +85,8 @@ Your donations are eligible for tax deduction.                 
             <li className="flex items-center gap-2">
               <Phone className="w-4 h-4 shrink-0 text-accent" /> +27 75 452 4052
             </li>
-            <li className="flex items-center gap-2">
-              <Mail className="w-4 h-4 shrink-0 text-accent" /> info@worldchangersmhc.org
+            <li className="flex items-center gap-2">info@worldchangersmh.org
+            <Mail className="w-4 h-4 shrink-0 text-accent" /> info@worldchangersmhc.org
             </li>
             <li className="flex items-start gap-2">
               <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-accent" /> 114 George Street, Kenilworth, Johannesburg, 2190
