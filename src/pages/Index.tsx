@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Globe, Phone, MapPin, Building, Star, Quote } from "lucide-react";
+import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Phone, Building, Star, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -322,40 +322,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Portfolio / Case Studies */}
+      {/* Portfolio CTA */}
       <section className="section-padding">
-        <div className="container mx-auto">
+        <div className="container mx-auto text-center">
           <SectionHeading label="Our Portfolio" title="Successful Projects" description="See the impact of our programs across the globe." />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { title: "Help the Mental Health System", cats: ["Mental Health", "Medical Health"] },
-              { title: "Clean Mind Initiatives", cats: ["Wellness", "Community"] },
-              { title: "Healthy Living for All", cats: ["Counseling", "Support"] },
-              { title: "Youth Mental Wellness Program", cats: ["Education", "Mental Health"] },
-              { title: "Community Counseling Centers", cats: ["Community", "Medical Health"] },
-              { title: "Better Lives Through Therapy", cats: ["Wellness", "Support"] },
-            ].map((project, i) => (
-              <motion.div key={project.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-                className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group">
-                <div className="aspect-[4/5] bg-primary/5 flex items-center justify-center">
-                  <Globe className="w-16 h-16 text-primary/20" />
-                </div>
-                <div className="p-5">
-                  <div className="flex gap-2 mb-2">
-                    {project.cats.map(c => (
-                      <span key={c} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{c}</span>
-                    ))}
-                  </div>
-                  <h3 className="font-heading text-lg font-semibold text-foreground">{project.title}</h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <Link to="/gallery">Explore More <ArrowRight className="w-4 h-4 ml-2" /></Link>
-            </Button>
-          </div>
+          <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
+            <Link to="/portfolio">View All Projects <ArrowRight className="w-4 h-4 ml-2" /></Link>
+          </Button>
         </div>
       </section>
 

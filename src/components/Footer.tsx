@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Heart, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Youtube } from "lucide-react";
+import { Heart, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Youtube, Instagram } from "lucide-react";
 
 const Footer = () => (
   <footer className="bg-foreground text-primary-foreground">
@@ -10,14 +10,15 @@ const Footer = () => (
           <span className="text-accent font-semibold">Welcome</span> to the Mental Health & Philanthropy
         </span>
         <span className="flex items-center gap-2">
-          <MapPin className="w-3.5 h-3.5 text-accent" /> 123 Serenity Lane, New York, United States
+          <MapPin className="w-3.5 h-3.5 text-accent" /> 114 George Street, Kenilworth, Johannesburg, 2190
         </span>
         <div className="flex items-center gap-3">
           <span>Follow Us:</span>
-          <a href="#" className="hover:text-accent transition-colors"><Facebook className="w-4 h-4" /></a>
-          <a href="#" className="hover:text-accent transition-colors"><Twitter className="w-4 h-4" /></a>
-          <a href="#" className="hover:text-accent transition-colors"><Linkedin className="w-4 h-4" /></a>
-          <a href="#" className="hover:text-accent transition-colors"><Youtube className="w-4 h-4" /></a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors"><Facebook className="w-4 h-4" /></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors"><Twitter className="w-4 h-4" /></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors"><Instagram className="w-4 h-4" /></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors"><Linkedin className="w-4 h-4" /></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors"><Youtube className="w-4 h-4" /></a>
         </div>
       </div>
     </div>
@@ -32,9 +33,16 @@ const Footer = () => (
             </div>
             <span className="font-heading text-lg font-bold">World Changers</span>
           </div>
-          <p className="text-sm opacity-70 leading-relaxed">
+          <p className="text-sm opacity-70 leading-relaxed mb-4">
             Transforming lives through compassionate mental health care and meaningful philanthropic action across the globe.
           </p>
+          <div className="flex gap-3">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Facebook className="w-4 h-4" /></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Twitter className="w-4 h-4" /></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Instagram className="w-4 h-4" /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Linkedin className="w-4 h-4" /></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Youtube className="w-4 h-4" /></a>
+          </div>
         </div>
 
         {/* Quick Links */}
@@ -45,14 +53,13 @@ const Footer = () => (
               { label: "About Us", path: "/about" },
               { label: "Mental Health", path: "/mental-health" },
               { label: "Philanthropy", path: "/philanthropy" },
+              { label: "Campaigns", path: "/campaigns" },
               { label: "Our Team", path: "/team" },
-              { label: "Volunteers", path: "/volunteers" },
+              { label: "Portfolio", path: "/portfolio" },
               { label: "Contact", path: "/contact" },
             ].map((l) => (
               <li key={l.path}>
-                <Link to={l.path} className="hover:opacity-100 hover:text-accent transition-all">
-                  {l.label}
-                </Link>
+                <Link to={l.path} className="hover:opacity-100 hover:text-accent transition-all">{l.label}</Link>
               </li>
             ))}
           </ul>
@@ -76,13 +83,13 @@ const Footer = () => (
           <h4 className="font-heading text-base font-semibold mb-4">Contact Info</h4>
           <ul className="space-y-3 text-sm opacity-70">
             <li className="flex items-center gap-2">
-              <Phone className="w-4 h-4 shrink-0 text-accent" /> +1 (555) 123-4567
+              <Phone className="w-4 h-4 shrink-0 text-accent" /> +27 75 452 4052
             </li>
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4 shrink-0 text-accent" /> info@worldchangersmhc.org
             </li>
             <li className="flex items-start gap-2">
-              <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-accent" /> 123 Serenity Lane, New York, NY 10001
+              <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-accent" /> 114 George Street, Kenilworth, Johannesburg, 2190
             </li>
           </ul>
         </div>
