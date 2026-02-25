@@ -8,9 +8,9 @@ import PageHero from "@/components/PageHero";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const contactInfo = [
-  { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
+  { icon: Phone, label: "Phone", value: "+27 75 452 4052" },
   { icon: Mail, label: "Email", value: "info@worldchangersmhc.org" },
-  { icon: MapPin, label: "Address", value: "123 Serenity Lane, New York, NY 10001" },
+  { icon: MapPin, label: "Address", value: "114 George Street, Kenilworth, Johannesburg, 2190" },
   { icon: Clock, label: "Hours", value: "Mon – Fri: 8AM – 6PM" },
 ];
 
@@ -81,6 +81,28 @@ const Contact = () => {
               )}
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Interactive Map */}
+      <section className="pb-0">
+        <div className="container mx-auto px-4 mb-10">
+          <div className="text-center">
+            <span className="text-sm font-semibold text-accent uppercase tracking-wider">Our Location</span>
+            <h2 className="font-heading text-3xl font-bold text-foreground mt-2">Find Us On The Map</h2>
+          </div>
+        </div>
+        <div className="w-full h-[450px]">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.4!2d28.0456!3d-26.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s114+George+Street%2C+Kenilworth%2C+Johannesburg%2C+2190!5e0!3m2!1sen!2sza!4v1700000000000!5m2!1sen!2sza"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="World Changers MHC Location"
+          />
         </div>
       </section>
     </div>
