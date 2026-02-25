@@ -33,15 +33,15 @@ const Footer = () =>
             </div>
             <span className="font-heading text-lg font-bold">World Changers</span>
           </div>
-          <p className="text-sm opacity-70 leading-relaxed mb-4">NGO REG :238-677    
-POB Number : 930084594  
+          <p className="text-sm opacity-70 leading-relaxed mb-4">NGO REG :238-677    
+POB Number : 930084594  
+
 
 Your donations are eligible for tax deduction.                 
 
 
 
 
-        
         </p>
           <div className="flex gap-3">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors opacity-100 w-[36px] h-[36px]"><Facebook className="w-4 h-4" /></a>
