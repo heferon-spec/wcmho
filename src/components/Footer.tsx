@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { Heart, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Youtube, Instagram } from "lucide-react";
 
-const Footer = () => (
-  <footer className="bg-foreground text-primary-foreground">
+const Footer = () =>
+<footer className="bg-foreground text-primary-foreground">
     {/* Top Bar */}
     <div className="border-b border-primary-foreground/10">
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-sm opacity-70">
@@ -33,9 +33,9 @@ const Footer = () => (
             </div>
             <span className="font-heading text-lg font-bold">World Changers</span>
           </div>
-          <p className="text-sm opacity-70 leading-relaxed mb-4">
-            Transforming lives through compassionate mental health care and meaningful philanthropic action across the globe.
-          </p>
+          <p className="text-sm opacity-70 leading-relaxed mb-4">NGO REG :238-677
+POB Number : 930084594
+        </p>
           <div className="flex gap-3">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Facebook className="w-4 h-4" /></a>
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Twitter className="w-4 h-4" /></a>
@@ -50,18 +50,18 @@ const Footer = () => (
           <h4 className="font-heading text-base font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm opacity-70">
             {[
-              { label: "About Us", path: "/about" },
-              { label: "Mental Health", path: "/mental-health" },
-              { label: "Philanthropy", path: "/philanthropy" },
-              { label: "Campaigns", path: "/campaigns" },
-              { label: "Our Team", path: "/team" },
-              { label: "Portfolio", path: "/portfolio" },
-              { label: "Contact", path: "/contact" },
-            ].map((l) => (
-              <li key={l.path}>
+          { label: "About Us", path: "/about" },
+          { label: "Mental Health", path: "/mental-health" },
+          { label: "Philanthropy", path: "/philanthropy" },
+          { label: "Campaigns", path: "/campaigns" },
+          { label: "Our Team", path: "/team" },
+          { label: "Portfolio", path: "/portfolio" },
+          { label: "Contact", path: "/contact" }].
+          map((l) =>
+          <li key={l.path}>
                 <Link to={l.path} className="hover:opacity-100 hover:text-accent transition-all">{l.label}</Link>
               </li>
-            ))}
+          )}
           </ul>
         </div>
 
@@ -103,7 +103,7 @@ const Footer = () => (
         </div>
       </div>
     </div>
-  </footer>
-);
+  </footer>;
+
 
 export default Footer;
