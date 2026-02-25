@@ -33,11 +33,11 @@ const Footer = () =>
             </div>
             <span className="font-heading text-lg font-bold">World Changers</span>
           </div>
-          <p className="text-sm opacity-70 leading-relaxed mb-4">NGO REG :238-677  
+          <p className="text-sm opacity-70 leading-relaxed mb-4">NGO REG :238-677   
 POB Number : 930084594 
-
-
 Your donations are eligible for tax deduction.                 
+
+
 
 
         </p>
