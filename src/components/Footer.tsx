@@ -33,13 +33,15 @@ const Footer = () =>
             </div>
             <span className="font-heading text-lg font-bold">World Changers</span>
           </div>
-          <p className="text-sm opacity-70 leading-relaxed mb-4">NGO REG :238-677   
-POB Number : 930084594 
+          <p className="text-sm opacity-70 leading-relaxed mb-4">NGO REG :238-677    
+POB Number : 930084594  
+
 Your donations are eligible for tax deduction.                 
 
 
 
 
+        
         </p>
           <div className="flex gap-3">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors opacity-100 w-[36px] h-[36px]"><Facebook className="w-4 h-4" /></a>
@@ -54,9 +56,7 @@ Your donations are eligible for tax deduction.                 
         <div>
           <h4 className="font-heading text-base font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm opacity-70">
-            {[{ label: "About Us", path: "/about" }, { label: "Mental Health", path: "/mental-health" }, { label: "Philanthropy", path: "/philanthropy" }, { label: "Campaigns", path: "/campaigns" }, { label: "Our Team", path: "/team" },
-          { label: "Portfolio", path: "/portfolio" },
-          { label: "Contact", path: "/contact" }].
+            {[{ label: "About Us", path: "/about" }, { label: "Mental Health", path: "/mental-health" }, { label: "Philanthropy", path: "/philanthropy" }, { label: "Campaigns", path: "/campaigns" }, { label: "Our Team", path: "/team" }, { label: "Portfolio", path: "/portfolio" }, { label: "Contact", path: "/contact" }].
           map((l) =>
           <li key={l.path}>
                 <Link to={l.path} className="hover:opacity-100 hover:text-accent transition-all">{l.label}</Link>
