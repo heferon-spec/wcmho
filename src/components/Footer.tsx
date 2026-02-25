@@ -37,7 +37,7 @@ const Footer = () =>
 POB Number : 930084594
         </p>
           <div className="flex gap-3">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors opacity-80"><Facebook className="w-4 h-4" /></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors opacity-80 h-[29px]"><Facebook className="w-4 h-4" /></a>
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Twitter className="w-4 h-4" /></a>
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Instagram className="w-4 h-4" /></a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"><Linkedin className="w-4 h-4" /></a>
