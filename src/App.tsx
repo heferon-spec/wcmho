@@ -20,6 +20,7 @@ import FAQ from "./pages/FAQ";
 import Shop from "./pages/Shop";
 import News from "./pages/News";
 import Login from "./pages/Login";
+import Events from "./pages/Events";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/volunteers" element={<Volunteers />} />
             <Route path="/become-volunteer" element={<BecomeVolunteer />} />
             <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/events" element={<Events />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/shop" element={<Shop />} />

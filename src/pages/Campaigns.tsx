@@ -4,7 +4,7 @@ import { Brain, Heart, Users, ArrowRight, TrendingUp, DollarSign, Target, BarCha
 import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
-import heroBg from "@/assets/hero-bg.jpg";
+import campaignBg from "@/assets/campaign-bg.jpg";
 import aboutBg from "@/assets/about-bg.jpg";
 import prof1 from "@/assets/professional-1.jpg";
 import prof2 from "@/assets/professional-2.jpg";
@@ -44,7 +44,7 @@ const fadeUp = {
 
 const Campaigns = () => (
   <div>
-    <PageHero title="Our Campaigns" subtitle="Support our mental health initiatives and make a real difference" bgImage={heroBg} />
+    <PageHero title="Donor Dashboard" subtitle="Support our mental health initiatives and make a real difference" bgImage={campaignBg} />
 
     {/* User Dashboard Stats */}
     <section className="relative -mt-16 z-10 px-4">

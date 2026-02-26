@@ -9,7 +9,7 @@ import aboutBg from "@/assets/about-bg.jpg";
 
 const contactInfo = [
   { icon: Phone, label: "Phone", value: "+27 75 452 4052" },
-  { icon: Mail, label: "Email", value: "info@worldchangersmhc.org" },
+  { icon: Mail, label: "Email", value: "info@worldchangersmh.org" },
   { icon: MapPin, label: "Address", value: "114 George Street, Kenilworth, Johannesburg, 2190" },
   { icon: Clock, label: "Hours", value: "Mon – Fri: 8AM – 6PM" },
 ];

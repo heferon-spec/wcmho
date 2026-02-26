@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Phone, Building, Star, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
+import volunteerHero from "@/assets/volunteer-hero.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
 import aboutBg from "@/assets/about-bg.jpg";
 import prof1 from "@/assets/professional-1.jpg";
@@ -81,7 +82,7 @@ const Index = () => {
     <div>
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={volunteerHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-overlay-gradient" />
         <div className="absolute inset-0 bg-primary/30" />
         <div className="relative container mx-auto px-4 pt-20">

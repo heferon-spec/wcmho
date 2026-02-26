@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
-import heroBg from "@/assets/hero-bg.jpg";
+import mentalHealthBg from "@/assets/mental-health-bg.jpg";
 import prof1 from "@/assets/professional-1.jpg";
 import prof2 from "@/assets/professional-2.jpg";
 import prof3 from "@/assets/professional-3.jpg";
@@ -50,7 +50,7 @@ const fadeUp = {
 
 const MentalHealth = () => (
   <div>
-    <PageHero title="Mental Health Care" subtitle="Specialized programs and professionals dedicated to your wellbeing" bgImage={heroBg} />
+    <PageHero title="Mental Health Care" subtitle="Specialized programs and professionals dedicated to your wellbeing" bgImage={mentalHealthBg} />
 
     {/* Programs */}
     <section className="section-padding">
