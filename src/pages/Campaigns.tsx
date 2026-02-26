@@ -180,6 +180,41 @@ const Campaigns = () => (
       </div>
     </section>
 
+    {/* Offline Donation Instructions */}
+    <section className="section-padding bg-muted">
+      <div className="container mx-auto">
+        <SectionHeading label="Bank Transfer" title="Offline Donation" description="To make an offline donation toward the organization, please use the details below:" />
+        <div className="max-w-2xl mx-auto bg-card rounded-2xl shadow-card p-8 border border-border">
+          <div className="space-y-4 text-sm text-foreground">
+            <div className="flex justify-between border-b border-border pb-3">
+              <span className="font-semibold">Account Name</span>
+              <span className="text-right">WORLD CHANGERS MENTAL HEALTH CARE ORGANISATION</span>
+            </div>
+            <div className="flex justify-between border-b border-border pb-3">
+              <span className="font-semibold">Bank Name</span>
+              <span>Standard Bank</span>
+            </div>
+            <div className="flex justify-between border-b border-border pb-3">
+              <span className="font-semibold">Account Number</span>
+              <span>10169316864</span>
+            </div>
+            <div className="flex justify-between border-b border-border pb-3">
+              <span className="font-semibold">Branch Code</span>
+              <span>051001</span>
+            </div>
+            <div className="flex justify-between border-b border-border pb-3">
+              <span className="font-semibold">SWIFT Address</span>
+              <span>SBZA ZA JJ</span>
+            </div>
+          </div>
+          <div className="mt-6 p-4 bg-accent/10 rounded-xl text-center">
+            <p className="text-sm text-foreground">Your tax-deductible donation is greatly appreciated!</p>
+            <p className="text-lg font-heading font-bold text-primary mt-2">PBO NUMBER: 930084594</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     {/* CTA */}
     <section className="py-20 bg-accent">
       <div className="container mx-auto px-4 text-center">
