@@ -38,7 +38,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between h-20 px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="World Changers" className="h-12 w-auto" />
+          <img src={logo} alt="World Changers" className="h-16 w-auto" />
         </Link>
 
         {/* Desktop Nav */}
@@ -46,7 +46,7 @@ const Navbar = () => {
           {navLinks.map((link) =>
             link.children ? (
               <div key={link.label} className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-                <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors rounded-lg">
+                <button className="flex items-center gap-1 px-4 py-2 text-sm font-bold text-foreground hover:text-primary transition-colors rounded-lg">
                   {link.label} <ChevronDown className="w-3.5 h-3.5" />
                 </button>
                 <AnimatePresence>
@@ -64,7 +64,7 @@ const Navbar = () => {
               </div>
             ) : (
               <Link key={link.path} to={link.path!}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${location.pathname === link.path ? "text-primary bg-primary/10" : "text-foreground hover:text-primary"}`}>
+                className={`px-4 py-2 text-sm font-bold rounded-lg transition-colors ${location.pathname === link.path ? "text-primary bg-primary/10" : "text-foreground hover:text-primary"}`}>
                 {link.label}
               </Link>
             )
