@@ -8,7 +8,7 @@ import prof1 from "@/assets/professional-1.jpg";
 import prof2 from "@/assets/professional-2.jpg";
 import prof3 from "@/assets/professional-3.jpg";
 
-const images = [
+const baseImages = [
   { src: heroBg, alt: "Mindfulness session" },
   { src: prof1, alt: "Team member" },
   { src: philanthropyBg, alt: "Community outreach" },
@@ -18,7 +18,14 @@ const images = [
   { src: heroBg, alt: "Wellness workshop" },
   { src: philanthropyBg, alt: "Outreach program" },
   { src: prof1, alt: "Professional support" },
+  { src: aboutBg, alt: "Support group" },
 ];
+
+// Generate 40 images by cycling through base images
+const images = Array.from({ length: 40 }, (_, i) => ({
+  ...baseImages[i % baseImages.length],
+  alt: `${baseImages[i % baseImages.length].alt} ${Math.floor(i / baseImages.length) + 1}`,
+}));
 
 const Gallery = () => (
   <div>
@@ -26,15 +33,15 @@ const Gallery = () => (
     <section className="section-padding">
       <div className="container mx-auto">
         <SectionHeading label="Visual Impact" title="Our Work in Pictures" />
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {images.map((img, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.05, duration: 0.4 }}
-              className="rounded-xl overflow-hidden shadow-soft border border-border aspect-[4/3]"
+              transition={{ delay: (i % 8) * 0.04, duration: 0.4 }}
+              className="rounded-xl overflow-hidden shadow-soft border border-border aspect-square"
             >
               <img
                 src={img.src}

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
-import logo from "@/assets/logo-wc.png";
 
 const socialLinks = [
   { label: "Instagram", url: "https://www.instagram.com/wc_mentalhealthcare", icon: "instagram" },
@@ -16,9 +15,7 @@ const Footer = () => (
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
         <div>
-          <div className="flex items-center gap-2 mb-4">
-            <img src={logo} alt="World Changers" className="h-10 w-auto brightness-0 invert" />
-          </div>
+          <h4 className="font-heading text-base font-semibold mb-4">World Changers MHC</h4>
           <p className="text-sm opacity-70 leading-relaxed mb-4">
             NGO REG: 238-677<br />
             POB Number: 930084594<br /><br />
@@ -64,13 +61,16 @@ const Footer = () => (
           <h4 className="font-heading text-base font-semibold mb-4">Contact Info</h4>
           <ul className="space-y-3 text-sm opacity-70">
             <li className="flex items-center gap-2">
-              <Phone className="w-4 h-4 shrink-0 text-accent" /> +27 75 452 4052
+              <Phone className="w-4 h-4 shrink-0 text-accent" />
+              <a href="tel:+27754524052" className="hover:opacity-100 hover:text-accent transition-all">+27 75 452 4052</a>
             </li>
             <li className="flex items-center gap-2">
-              <Mail className="w-4 h-4 shrink-0 text-accent" /> info@worldchangersmh.org
+              <Mail className="w-4 h-4 shrink-0 text-accent" />
+              <a href="mailto:info@worldchangersmh.org" className="hover:opacity-100 hover:text-accent transition-all">info@worldchangersmh.org</a>
             </li>
             <li className="flex items-start gap-2">
-              <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-accent" /> 114 George Street, Kenilworth, Johannesburg, 2190
+              <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-accent" />
+              <a href="https://maps.google.com/?q=114+George+Street,+Kenilworth,+Johannesburg,+2190" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 hover:text-accent transition-all">114 George Street, Kenilworth, Johannesburg, 2190</a>
             </li>
           </ul>
         </div>

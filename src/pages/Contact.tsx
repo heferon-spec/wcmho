@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, Newspaper } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,14 +8,16 @@ import PageHero from "@/components/PageHero";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const contactInfo = [
-  { icon: Phone, label: "Phone", value: "+27 75 452 4052" },
-  { icon: Mail, label: "Email", value: "info@worldchangersmh.org" },
-  { icon: MapPin, label: "Address", value: "114 George Street, Kenilworth, Johannesburg, 2190" },
-  { icon: Clock, label: "Hours", value: "Mon – Fri: 8AM – 6PM" },
+  { icon: Phone, label: "Phone", value: "+27 75 452 4052", href: "tel:+27754524052" },
+  { icon: Mail, label: "Email", value: "info@worldchangersmh.org", href: "mailto:info@worldchangersmh.org" },
+  { icon: MapPin, label: "Address", value: "114 George Street, Kenilworth, Johannesburg, 2190", href: "https://maps.google.com/?q=114+George+Street,+Kenilworth,+Johannesburg,+2190" },
+  { icon: Clock, label: "Hours", value: "Mon – Fri: 8AM – 6PM", href: undefined },
 ];
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
 
   return (
     <div>
@@ -36,7 +38,14 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">{c.label}</p>
-                      <p className="text-sm text-muted-foreground">{c.value}</p>
+                      {c.href ? (
+                        <a href={c.href} target={c.label === "Address" ? "_blank" : undefined} rel="noopener noreferrer"
+                          className="text-sm text-primary hover:underline">
+                          {c.value}
+                        </a>
+                      ) : (
+                        <p className="text-sm text-muted-foreground">{c.value}</p>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -80,6 +89,39 @@ const Contact = () => {
                 </form>
               )}
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="section-padding bg-muted">
+        <div className="container mx-auto">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+              <Newspaper className="w-8 h-8 text-primary" />
+            </div>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">Subscribe to Our Newsletter</h2>
+            <p className="text-muted-foreground mb-8">Stay updated with our latest news, events, and mental health resources delivered straight to your inbox.</p>
+            {newsletterSubmitted ? (
+              <div className="bg-card rounded-xl p-6 shadow-soft border border-border">
+                <p className="text-primary font-semibold">Thank you for subscribing! 🎉</p>
+                <p className="text-sm text-muted-foreground mt-1">You'll receive our next newsletter soon.</p>
+              </div>
+            ) : (
+              <form onSubmit={(e) => { e.preventDefault(); setNewsletterSubmitted(true); }} className="flex flex-col sm:flex-row gap-3">
+                <Input
+                  type="email"
+                  placeholder="Enter your email address"
+                  required
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  className="flex-1"
+                />
+                <Button type="submit" className="bg-hero-gradient text-primary-foreground hover:opacity-90 px-8">
+                  Subscribe <Mail className="w-4 h-4 ml-2" />
+                </Button>
+              </form>
+            )}
           </div>
         </div>
       </section>
