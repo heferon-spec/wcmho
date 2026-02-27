@@ -35,6 +35,7 @@ const Footer = () => (
               { label: "Our Team", path: "/team" },
               { label: "Events", path: "/events" },
               { label: "Contact", path: "/contact" },
+              { label: "Policies", path: "/policies" },
             ].map((l) => (
               <li key={l.path}>
                 <Link to={l.path} className="hover:opacity-100 hover:text-accent transition-all">{l.label}</Link>

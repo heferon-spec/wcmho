@@ -21,6 +21,7 @@ import Shop from "./pages/Shop";
 import News from "./pages/News";
 import Login from "./pages/Login";
 import Events from "./pages/Events";
+import Policies from "./pages/Policies";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -50,6 +51,7 @@ const App = () => (
             <Route path="/shop" element={<Shop />} />
             <Route path="/news" element={<News />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/policies" element={<Policies />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
