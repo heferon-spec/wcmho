@@ -38,7 +38,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between h-20 px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <img alt="World Changers" className="h-20 w-auto mix-blend-multiply" src="/lovable-uploads/3fb8f64f-b432-4b5d-8ea4-a5049407bbe7.png" />
+          <img alt="World Changers" className="h-20 w-auto mix-blend-multiply" src="/lovable-uploads/23ca8ce6-94a0-490f-b830-aa186f641c8c.png" />
         </Link>
 
         {/* Desktop Nav */}
