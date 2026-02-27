@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Phone, Building, Star, Eye, Target, Lightbulb, Globe, BookOpen } from "lucide-react";
+import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Phone, Building, Star, Eye, Target, Lightbulb, Globe, BookOpen, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import volunteerHero from "@/assets/volunteer-hero.jpg";
 import aboutBg from "@/assets/about-bg.jpg";
+import teamPhoto from "@/assets/team-photo.jpg";
 import prof1 from "@/assets/professional-1.jpg";
 import prof2 from "@/assets/professional-2.jpg";
 import prof3 from "@/assets/professional-3.jpg";
@@ -47,57 +48,12 @@ const boardMembers = [
   { name: "TBA", role: "Administrator", image: prof3 },
 ];
 
-const legalTeam = [
-  { name: "TBA", role: "Legal Team 1", image: prof1 },
-  { name: "TBA", role: "Legal Team 2", image: prof2 },
-  { name: "TBA", role: "Internal Auditor", image: prof3 },
-];
-
-const headsOfDepartments = [
-  { name: "TBA", role: "HR Executive", image: prof1 },
-  { name: "TBA", role: "HR Assistant", image: prof2 },
-  { name: "TBA", role: "Humanitarian Executive", image: prof3 },
-  { name: "TBA", role: "Mental Health Executive", image: prof1 },
-  { name: "TBA", role: "CFO", image: prof2 },
-  { name: "TBA", role: "CMO", image: prof3 },
-  { name: "TBA", role: "Digital Marketing Officer", image: prof1 },
-  { name: "TBA", role: "Marketing Director", image: prof2 },
-];
-
-const consultants = [
-  { name: "TBA", role: "Business Consultant", image: prof1 },
-  { name: "TBA", role: "Stakeholder Manager", image: prof2 },
-  { name: "TBA", role: "Stakeholder Manager", image: prof3 },
-];
-
 const marqueeItems = ["Mental Health", "Education", "Counseling", "Wellness", "Support", "Donation"];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.5 } }),
 };
-
-interface TeamMember { name: string; role: string; image: string; }
-
-const TeamSection = ({ title: sectionTitle, members }: { title: string; members: TeamMember[] }) => (
-  <div className="mb-12">
-    <h3 className="font-heading text-2xl font-bold text-foreground mb-8 text-center">{sectionTitle}</h3>
-    <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {members.map((m, i) => (
-        <motion.div key={m.role + i} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-          className="bg-card rounded-2xl overflow-hidden shadow-card group text-center">
-          <div className="aspect-[3/4] overflow-hidden">
-            <img src={m.image} alt={m.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-          </div>
-          <div className="p-5">
-            <h3 className="font-heading text-lg font-semibold text-foreground">{m.name}</h3>
-            <p className="text-sm text-primary mt-1">{m.role}</p>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-);
 
 const Index = () => {
   return (
@@ -120,8 +76,12 @@ const Index = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6">
-              Empowering Communities Through Compassion, Knowledge and Care
+              className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-snug mb-6">
+              Empowering Communities
+              <br />
+              Through Compassion,
+              <br />
+              Knowledge and Care
             </motion.h1>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -214,8 +174,30 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Vision & Mission */}
+      {/* Introductory Video Section */}
       <section className="section-padding bg-muted">
+        <div className="container mx-auto">
+          <SectionHeading label="Watch Our Story" title="Our Impact in Action" description="A look into our community work and a message from our founder." />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-elevated aspect-video bg-foreground/5"
+          >
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+              <div className="w-20 h-20 rounded-full bg-accent flex items-center justify-center mb-6 shadow-elevated cursor-pointer hover:scale-110 transition-transform">
+                <Play className="w-8 h-8 text-accent-foreground ml-1" />
+              </div>
+              <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-2">Founder's Message & Community Impact</h3>
+              <p className="text-muted-foreground text-sm max-w-lg">Upload your introductory video here — we recommend a mix of community impact shots and a personal message from the founder.</p>
+            </div>
+            <img src={teamPhoto} alt="Team" className="w-full h-full object-cover opacity-30" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Vision & Mission */}
+      <section className="section-padding">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -243,7 +225,7 @@ const Index = () => {
       </section>
 
       {/* Our Values */}
-      <section className="section-padding">
+      <section className="section-padding bg-muted">
         <div className="container mx-auto">
           <SectionHeading label="What We Stand For" title="Our Core Values" description="The principles that guide our work and define who we are." />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -305,15 +287,37 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Team - Matching Team page layout */}
+      {/* Team - Board Members Only with Team Photo */}
       <section className="section-padding bg-muted">
         <div className="container mx-auto">
           <SectionHeading label="Leadership" title="Meet Our Team" description="Passionate professionals committed to making a difference." />
-          <TeamSection title="Board Members" members={boardMembers} />
-          <TeamSection title="Legal, Risks & Compliance" members={legalTeam} />
-          <TeamSection title="Heads of Departments" members={headsOfDepartments} />
-          <TeamSection title="Business Consultant & Stakeholder Management" members={consultants} />
-          <div className="text-center mt-8">
+
+          {/* Team Photo */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 rounded-2xl overflow-hidden shadow-elevated"
+          >
+            <img src={teamPhoto} alt="World Changers Team" className="w-full h-64 md:h-96 object-cover" />
+          </motion.div>
+
+          <h3 className="font-heading text-2xl font-bold text-foreground mb-8 text-center">Board Members</h3>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {boardMembers.map((m, i) => (
+              <motion.div key={m.role + i} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+                className="bg-card rounded-2xl overflow-hidden shadow-card group text-center">
+                <div className="aspect-[3/4] overflow-hidden">
+                  <img src={m.image} alt={m.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-heading text-lg font-semibold text-foreground">{m.name}</h3>
+                  <p className="text-sm text-primary mt-1">{m.role}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
             <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
               <Link to="/team">View Full Team <ArrowRight className="w-4 h-4 ml-2" /></Link>
             </Button>

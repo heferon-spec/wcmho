@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import aboutBg from "@/assets/about-bg.jpg";
+import teamPhoto from "@/assets/team-photo.jpg";
 import prof1 from "@/assets/professional-1.jpg";
 import prof2 from "@/assets/professional-2.jpg";
 import prof3 from "@/assets/professional-3.jpg";
@@ -77,7 +78,7 @@ const Team = () => (
     <section className="px-4 -mt-10 relative z-10">
       <div className="container mx-auto">
         <div className="rounded-2xl overflow-hidden shadow-elevated">
-          <img src={aboutBg} alt="World Changers Team" className="w-full h-64 md:h-96 object-cover" />
+          <img src={teamPhoto} alt="World Changers Team" className="w-full h-64 md:h-96 object-cover" />
         </div>
       </div>
     </section>
