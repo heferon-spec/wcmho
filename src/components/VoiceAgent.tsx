@@ -48,7 +48,7 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
         onClick={isActive ? stopConversation : startConversation}
         disabled={isConnecting}
         className={`relative flex items-center gap-2 group ${className}`}
-        title={isActive ? "End AI call" : "Talk to our AI Agent"}
+        title={isActive ? "End call" : "Call now"}
       >
         <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
           isActive ? "bg-destructive/10 animate-pulse" : "bg-accent/10"
@@ -61,7 +61,7 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
         </div>
         <div>
           <span className="text-xs text-muted-foreground block">
-            {isActive ? "End Call" : "Talk to AI Agent"}
+            {isActive ? "End Call" : "Call Now"}
           </span>
           <span className="font-semibold text-sm text-foreground">
             {isActive ? (conversation.isSpeaking ? "Agent speaking..." : "Listening...") : "Call Now"}
@@ -117,7 +117,7 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
               className="bg-hero-gradient text-primary-foreground hover:opacity-90 w-full"
             >
               <Phone className="w-5 h-5 mr-2" />
-              {isConnecting ? "Connecting..." : "Talk to Our AI Agent"}
+              {isConnecting ? "Connecting..." : "Call Now"}
             </Button>
           </motion.div>
         )}

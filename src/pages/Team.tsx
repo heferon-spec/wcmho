@@ -6,6 +6,7 @@ import teamPhoto from "@/assets/team-photo.jpg";
 import prof1 from "@/assets/professional-1.jpg";
 import prof2 from "@/assets/professional-2.jpg";
 import prof3 from "@/assets/professional-3.jpg";
+import nigelJeche from "@/assets/nigel-jeche.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -13,7 +14,7 @@ const fadeUp = {
 };
 
 const boardMembers = [
-  { name: "TBA", role: "CEO (Founder)", image: prof1 },
+  { name: "Nigel Jeche", role: "CEO (Founder)", image: nigelJeche },
   { name: "TBA", role: "Chairperson", image: prof2 },
   { name: "TBA", role: "Vice Chairperson", image: prof3 },
   { name: "TBA", role: "Board Member", image: prof1 },

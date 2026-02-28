@@ -108,7 +108,7 @@ const MentalHealth = () => {
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <Mic className="w-8 h-8 text-primary" />
             </div>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Speak With Our AI Receptionist</h2>
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Call Now</h2>
             <p className="text-muted-foreground mb-6">Have questions about our programs or need to schedule a session? Our AI voice agent is available to assist you instantly.</p>
             <VoiceAgent variant="button" />
           </div>

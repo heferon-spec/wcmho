@@ -65,7 +65,7 @@ const Footer = () => (
           <ul className="space-y-3 text-sm opacity-70">
             <li className="flex items-center gap-2">
               <Phone className="w-4 h-4 shrink-0 text-accent" />
-              <a href="tel:+27754524052" className="hover:opacity-100 hover:text-accent transition-all">+27 75 452 4052</a>
+              <span className="hover:opacity-100 hover:text-accent transition-all cursor-pointer" onClick={() => document.querySelector<HTMLButtonElement>('[title="Call now"]')?.click()}>Call Now (AI Agent)</span>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4 shrink-0 text-accent" />
