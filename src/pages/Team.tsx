@@ -78,7 +78,7 @@ const Team = () => (
     <section className="px-4 -mt-10 relative z-10">
       <div className="container mx-auto">
         <div className="rounded-2xl overflow-hidden shadow-elevated">
-          <img src={teamPhoto} alt="World Changers Team" className="w-full h-64 md:h-96 object-cover" />
+          <img src={teamPhoto} alt="World Changers Team" className="w-full object-cover" />
         </div>
       </div>
     </section>

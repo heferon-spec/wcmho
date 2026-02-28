@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X } from "lucide-react";
+import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X, Mic } from "lucide-react";
 import { format } from "date-fns";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
+import VoiceAgent from "@/components/VoiceAgent";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
@@ -27,7 +28,8 @@ const programs = [
   { icon: Stethoscope, title: "Psychiatric Evaluation", desc: "Comprehensive diagnostic assessments to identify conditions and create personalized treatment plans." },
   { icon: BookOpen, title: "Psychoeducation Workshops", desc: "Community-based educational programs to build awareness and reduce mental health stigma." },
   { icon: HandHeart, title: "Grief & Loss Counseling", desc: "Compassionate support helping individuals navigate bereavement and life transitions." },
-  { icon: Presentation, title: "Conferencing & Mental Health Seminars", desc: "Professional seminars and conferencing for workspaces and educational institutions to promote mental wellbeing in organizational settings." },
+  { icon: Presentation, title: "Conferencing", desc: "Professional conferencing for workspaces and educational institutions to foster collaboration and promote organizational wellbeing." },
+  { icon: BookOpen, title: "Mental Health Seminars", desc: "Structured seminars for workspaces and educational institutions to promote mental wellbeing, resilience, and awareness in organizational settings." },
 ];
 
 const professionals = [
@@ -95,6 +97,20 @@ const MentalHealth = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI Voice Agent */}
+      <section className="section-padding bg-card">
+        <div className="container mx-auto">
+          <div className="max-w-xl mx-auto text-center">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Mic className="w-8 h-8 text-primary" />
+            </div>
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Speak With Our AI Receptionist</h2>
+            <p className="text-muted-foreground mb-6">Have questions about our programs or need to schedule a session? Our AI voice agent is available to assist you instantly.</p>
+            <VoiceAgent variant="button" />
           </div>
         </div>
       </section>
