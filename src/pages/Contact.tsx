@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import PageHero from "@/components/PageHero";
+import VoiceAgent from "@/components/VoiceAgent";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const contactInfo = [
@@ -49,6 +50,13 @@ const Contact = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* AI Voice Agent */}
+              <div className="mt-6 p-5 rounded-xl bg-muted border border-border">
+                <h4 className="font-heading text-lg font-semibold text-foreground mb-2">Talk to Our AI Agent</h4>
+                <p className="text-sm text-muted-foreground mb-4">Get instant answers about our services, booking, and more.</p>
+                <VoiceAgent variant="button" />
               </div>
             </div>
 

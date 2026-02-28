@@ -54,6 +54,8 @@ const Footer = () => (
             <li>Volunteer Programs</li>
             <li>Fundraising Campaigns</li>
             <li>Trauma Recovery</li>
+            <li>Skills Development</li>
+            <li>Humanitarian Aid</li>
           </ul>
         </div>
 

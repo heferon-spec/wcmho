@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Phone, Building, Star, Eye, Target, Lightbulb, Globe, BookOpen, Play } from "lucide-react";
+import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Building, Star, Eye, Target, Lightbulb, Globe, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
+import VoiceAgent from "@/components/VoiceAgent";
 import volunteerHero from "@/assets/volunteer-hero.jpg";
 import aboutBg from "@/assets/about-bg.jpg";
 import teamPhoto from "@/assets/team-photo.jpg";
@@ -159,15 +160,7 @@ const Index = () => {
                 <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
                   <Link to="/about">Explore More <ArrowRight className="w-4 h-4 ml-2" /></Link>
                 </Button>
-                <a href="tel:+27754524052" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Phone className="w-4 h-4 text-accent" />
-                  </div>
-                  <div>
-                    <span className="text-xs text-muted-foreground block">Call Any Time</span>
-                    <span className="font-semibold">+27 75 452 4052</span>
-                  </div>
-                </a>
+                <VoiceAgent variant="icon" />
               </div>
             </motion.div>
           </div>
@@ -182,16 +175,16 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-elevated aspect-video bg-foreground/5"
+            className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-elevated aspect-video"
           >
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-              <div className="w-20 h-20 rounded-full bg-accent flex items-center justify-center mb-6 shadow-elevated cursor-pointer hover:scale-110 transition-transform">
-                <Play className="w-8 h-8 text-accent-foreground ml-1" />
-              </div>
-              <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-2">Founder's Message & Community Impact</h3>
-              <p className="text-muted-foreground text-sm max-w-lg">Upload your introductory video here — we recommend a mix of community impact shots and a personal message from the founder.</p>
-            </div>
-            <img src={teamPhoto} alt="Team" className="w-full h-full object-cover opacity-30" />
+            <iframe
+              src="https://www.youtube.com/embed/UQM-mYx3qcY"
+              title="World Changers - Our Impact"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+              style={{ border: 0 }}
+            />
           </motion.div>
         </div>
       </section>
@@ -299,7 +292,7 @@ const Index = () => {
             viewport={{ once: true }}
             className="mb-12 rounded-2xl overflow-hidden shadow-elevated"
           >
-            <img src={teamPhoto} alt="World Changers Team" className="w-full h-64 md:h-96 object-cover" />
+            <img src={teamPhoto} alt="World Changers Team" className="w-full object-cover" />
           </motion.div>
 
           <h3 className="font-heading text-2xl font-bold text-foreground mb-8 text-center">Board Members</h3>
