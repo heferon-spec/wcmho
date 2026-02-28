@@ -10,6 +10,7 @@ import teamPhoto from "@/assets/team-photo.jpg";
 import prof1 from "@/assets/professional-1.jpg";
 import prof2 from "@/assets/professional-2.jpg";
 import prof3 from "@/assets/professional-3.jpg";
+import nigelJeche from "@/assets/nigel-jeche.png";
 
 const stats = [
   { icon: Building, value: "537+", label: "Local WCMHC Branches" },
@@ -41,7 +42,7 @@ const values = [
 ];
 
 const boardMembers = [
-  { name: "TBA", role: "CEO (Founder)", image: prof1 },
+  { name: "Nigel Jeche", role: "CEO (Founder)", image: nigelJeche },
   { name: "TBA", role: "Chairperson", image: prof2 },
   { name: "TBA", role: "Vice Chairperson", image: prof3 },
   { name: "TBA", role: "Board Member", image: prof1 },
@@ -164,28 +165,6 @@ const Index = () => {
               </div>
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* Introductory Video Section */}
-      <section className="section-padding bg-muted">
-        <div className="container mx-auto">
-          <SectionHeading label="Watch Our Story" title="Our Impact in Action" description="A look into our community work and a message from our founder." />
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-elevated aspect-video"
-          >
-            <iframe
-              src="https://www.youtube.com/embed/UQM-mYx3qcY"
-              title="World Changers - Our Impact"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full"
-              style={{ border: 0 }}
-            />
-          </motion.div>
         </div>
       </section>
 
@@ -325,6 +304,28 @@ const Index = () => {
           <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
             <Link to="/portfolio">View All Projects <ArrowRight className="w-4 h-4 ml-2" /></Link>
           </Button>
+        </div>
+      </section>
+
+      {/* Introductory Video Section */}
+      <section className="section-padding bg-muted">
+        <div className="container mx-auto">
+          <SectionHeading label="Watch Our Story" title="Our Impact in Action" description="A look into our community work and a message from our founder." />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-elevated aspect-video"
+          >
+            <iframe
+              src="https://www.youtube.com/embed/UQM-mYx3qcY"
+              title="World Changers - Our Impact"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+              style={{ border: 0 }}
+            />
+          </motion.div>
         </div>
       </section>
 
