@@ -1,8 +1,9 @@
 import { useState, useCallback } from "react";
 import { useConversation } from "@elevenlabs/react";
-import { Mic, MicOff, Phone } from "lucide-react";
+import { MicOff, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import receptionistAvatar from "@/assets/receptionist-avatar.jpg";
 
 const AGENT_ID = "agent_3201kjfzeyyafnk97gvv3v75nfz5";
 
@@ -10,6 +11,37 @@ interface VoiceAgentProps {
   variant?: "button" | "inline" | "icon";
   className?: string;
 }
+
+const SpeakingWaves = ({ isSpeaking }: { isSpeaking: boolean }) => (
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+    {[0, 1, 2].map((i) => (
+      <motion.div
+        key={i}
+        className="absolute rounded-full border-2 border-primary/40"
+        initial={{ width: 80, height: 80, opacity: 0 }}
+        animate={
+          isSpeaking
+            ? {
+                width: [80, 110 + i * 20],
+                height: [80, 110 + i * 20],
+                opacity: [0.6, 0],
+              }
+            : {
+                width: [80, 100 + i * 14],
+                height: [80, 100 + i * 14],
+                opacity: [0.3, 0],
+              }
+        }
+        transition={{
+          duration: isSpeaking ? 1.2 : 2,
+          repeat: Infinity,
+          delay: i * 0.3,
+          ease: "easeOut",
+        }}
+      />
+    ))}
+  </div>
+);
 
 const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => {
   const [isConnecting, setIsConnecting] = useState(false);
@@ -46,16 +78,20 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
       <button
         onClick={isActive ? stopConversation : startConversation}
         disabled={isConnecting}
-        className={`relative flex items-center gap-2 group ${className}`}
+        className={`relative flex items-center gap-3 group ${className}`}
         title={isActive ? "End call" : "Call now"}
       >
-        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-          isActive ? "bg-destructive/10 animate-pulse" : "bg-accent/10"
-        }`}>
-          {isActive ? (
-            <MicOff className="w-4 h-4 text-destructive" />
-          ) : (
-            <Phone className="w-4 h-4 text-accent" />
+        <div className="relative flex items-center justify-center" style={{ width: 56, height: 56 }}>
+          {isActive && <SpeakingWaves isSpeaking={conversation.isSpeaking} />}
+          <img
+            src={receptionistAvatar}
+            alt="AI Receptionist"
+            className={`w-12 h-12 rounded-full object-cover border-2 relative z-10 transition-all ${
+              isActive ? "border-primary shadow-lg" : "border-border group-hover:border-primary/50"
+            }`}
+          />
+          {isActive && (
+            <span className="absolute top-0 right-0 w-3 h-3 bg-accent rounded-full border-2 border-card z-20" />
           )}
         </div>
         <div>
@@ -63,7 +99,11 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
             {isActive ? "End Call" : "Call Now"}
           </span>
           <span className="font-semibold text-sm text-foreground">
-            {isActive ? (conversation.isSpeaking ? "Agent speaking..." : "Listening...") : "Call Now (The Reception)"}
+            {isActive
+              ? conversation.isSpeaking
+                ? "Agent speaking..."
+                : "Listening..."
+              : "Call Now (The Reception)"}
           </span>
         </div>
       </button>
@@ -81,11 +121,14 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
             exit={{ opacity: 0, scale: 0.95 }}
             className="flex flex-col items-center gap-4 p-6 rounded-2xl bg-card border border-border shadow-card"
           >
-            <div className="relative">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center animate-pulse">
-                <Mic className="w-8 h-8 text-primary" />
-              </div>
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-card" />
+            <div className="relative flex items-center justify-center" style={{ width: 120, height: 120 }}>
+              <SpeakingWaves isSpeaking={conversation.isSpeaking} />
+              <img
+                src={receptionistAvatar}
+                alt="AI Receptionist"
+                className="w-20 h-20 rounded-full object-cover border-3 border-primary shadow-lg relative z-10"
+              />
+              <span className="absolute top-4 right-4 w-4 h-4 bg-accent rounded-full border-2 border-card z-20" />
             </div>
             <div className="text-center">
               <p className="font-heading font-semibold text-foreground">
@@ -108,16 +151,30 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
+            className="flex flex-col items-center gap-4"
           >
-            <Button
+            <button
               onClick={startConversation}
               disabled={isConnecting}
-              size="lg"
-              className="bg-hero-gradient text-primary-foreground hover:opacity-90 w-full"
+              className="group flex flex-col items-center gap-3 cursor-pointer disabled:opacity-50"
             >
-              <Phone className="w-5 h-5 mr-2" />
-              {isConnecting ? "Connecting..." : "Call Now (The Reception)"}
-            </Button>
+              <div className="relative flex items-center justify-center" style={{ width: 100, height: 100 }}>
+                <motion.div
+                  className="absolute rounded-full border-2 border-primary/20"
+                  animate={{ width: [80, 96], height: [80, 96], opacity: [0.4, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                />
+                <img
+                  src={receptionistAvatar}
+                  alt="AI Receptionist"
+                  className="w-20 h-20 rounded-full object-cover border-2 border-border group-hover:border-primary transition-all shadow-md relative z-10"
+                />
+              </div>
+              <div className="flex items-center gap-2 bg-hero-gradient text-primary-foreground px-6 py-2.5 rounded-full font-medium text-sm group-hover:opacity-90 transition-opacity">
+                <Phone className="w-4 h-4" />
+                {isConnecting ? "Connecting..." : "Call Now (The Reception)"}
+              </div>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
