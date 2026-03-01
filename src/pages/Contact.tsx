@@ -9,7 +9,7 @@ import VoiceAgent from "@/components/VoiceAgent";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const contactInfo = [
-  { icon: Phone, label: "Phone", value: "Call Now (AI Agent)", href: undefined, isAgent: true },
+  { icon: Phone, label: "Phone", value: "Call Now (The Reception)", href: undefined, isAgent: true },
   { icon: Mail, label: "Email", value: "info@worldchangersmh.org", href: "mailto:info@worldchangersmh.org" },
   { icon: MapPin, label: "Address", value: "114 George Street, Kenilworth, Johannesburg, 2190", href: "https://maps.google.com/?q=114+George+Street,+Kenilworth,+Johannesburg,+2190" },
   { icon: Clock, label: "Hours", value: "Mon – Fri: 8AM – 6PM", href: undefined },
@@ -54,7 +54,7 @@ const Contact = () => {
 
               {/* AI Voice Agent */}
               <div className="mt-6 p-5 rounded-xl bg-muted border border-border">
-                <h4 className="font-heading text-lg font-semibold text-foreground mb-2">Call Now</h4>
+                <h4 className="font-heading text-lg font-semibold text-foreground mb-2">Call Now (The Reception)</h4>
                 <p className="text-sm text-muted-foreground mb-4">Get instant answers about our services, booking, and more.</p>
                 <VoiceAgent variant="button" />
               </div>

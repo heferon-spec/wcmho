@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Target, Eye, Heart, Award, ArrowRight, Phone, Users, Globe, Brain, HandHeart, Shield, Megaphone } from "lucide-react";
+import { Target, Eye, Heart, Award, ArrowRight, Users, Globe, Brain, HandHeart, Shield, Megaphone } from "lucide-react";
+import VoiceAgent from "@/components/VoiceAgent";
 import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
@@ -57,15 +58,7 @@ const About = () => (
               <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
                 <Link to="/contact">Get In Touch <ArrowRight className="w-4 h-4 ml-2" /></Link>
               </Button>
-              <a href="tel:+27754524052" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                  <Phone className="w-4 h-4 text-accent" />
-                </div>
-                <div>
-                  <span className="text-xs text-muted-foreground block">Call Any Time</span>
-                  <span className="font-semibold">+27 75 452 4052</span>
-                </div>
-              </a>
+              <VoiceAgent variant="icon" />
             </div>
           </motion.div>
         </div>

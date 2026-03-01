@@ -46,8 +46,44 @@ const Campaigns = () => (
   <div>
     <PageHero title="Donor Dashboard" subtitle="Support our mental health initiatives and make a real difference" bgImage={campaignBg} />
 
+    {/* Donate Online */}
+    <section className="relative -mt-16 z-10 px-4 mb-12">
+      <div className="container mx-auto">
+        <div className="grid md:grid-cols-2 gap-6">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="bg-card rounded-xl p-8 shadow-elevated border border-border text-center">
+            <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+              <DollarSign className="w-7 h-7 text-accent" />
+            </div>
+            <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Donate Online</h3>
+            <p className="text-sm text-muted-foreground mb-6">Make a secure online donation via Paystack to support our mental health programs.</p>
+            <Button asChild size="lg" className="bg-hero-gradient text-primary-foreground hover:opacity-90 w-full">
+              <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">
+                Donate Now <ArrowRight className="w-4 h-4 ml-2" />
+              </a>
+            </Button>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+            className="bg-card rounded-xl p-8 shadow-elevated border border-border text-center">
+            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Target className="w-7 h-7 text-primary" />
+            </div>
+            <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Offline Donation</h3>
+            <p className="text-sm text-muted-foreground mb-4">Prefer bank transfer? Use the details below.</p>
+            <div className="text-left text-sm space-y-2">
+              <p><span className="font-semibold">Bank:</span> Standard Bank</p>
+              <p><span className="font-semibold">Acc:</span> 10169316864</p>
+              <p><span className="font-semibold">Branch:</span> 051001</p>
+              <p><span className="font-semibold">SWIFT:</span> SBZA ZA JJ</p>
+              <p className="text-xs text-muted-foreground mt-2">PBO: 930084594 · Tax deductible</p>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+
     {/* User Dashboard Stats */}
-    <section className="relative -mt-16 z-10 px-4">
+    <section className="px-4">
       <div className="container mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {dashboardStats.map((s, i) => (
@@ -91,7 +127,7 @@ const Campaigns = () => (
                 <div className="flex justify-between items-center">
                   <span className="text-xs text-muted-foreground">{c.donations} Donations</span>
                   <Button asChild size="sm" className="bg-hero-gradient text-primary-foreground hover:opacity-90">
-                    <Link to="/contact">Donate Now</Link>
+                    <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">Donate Now</a>
                   </Button>
                 </div>
               </div>
