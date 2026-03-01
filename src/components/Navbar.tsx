@@ -80,7 +80,7 @@ const Navbar = () => {
             <User className="w-5 h-5" />
           </Link>
           <Button asChild className="hidden md:inline-flex bg-hero-gradient hover:opacity-90 text-primary-foreground ml-2">
-            <Link to="/contact">Donate Now</Link>
+            <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">Donate Now</a>
           </Button>
           <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden p-2 text-foreground">
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

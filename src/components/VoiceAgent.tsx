@@ -4,8 +4,7 @@ import { Mic, MicOff, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Replace with your ElevenLabs Agent ID once provided
-const AGENT_ID = "REPLACE_WITH_AGENT_ID";
+const AGENT_ID = "agent_3201kjfzeyyafnk97gvv3v75nfz5";
 
 interface VoiceAgentProps {
   variant?: "button" | "inline" | "icon";
@@ -64,7 +63,7 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
             {isActive ? "End Call" : "Call Now"}
           </span>
           <span className="font-semibold text-sm text-foreground">
-            {isActive ? (conversation.isSpeaking ? "Agent speaking..." : "Listening...") : "Call Now"}
+            {isActive ? (conversation.isSpeaking ? "Agent speaking..." : "Listening...") : "Call Now (The Reception)"}
           </span>
         </div>
       </button>
@@ -117,7 +116,7 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
               className="bg-hero-gradient text-primary-foreground hover:opacity-90 w-full"
             >
               <Phone className="w-5 h-5 mr-2" />
-              {isConnecting ? "Connecting..." : "Call Now"}
+              {isConnecting ? "Connecting..." : "Call Now (The Reception)"}
             </Button>
           </motion.div>
         )}

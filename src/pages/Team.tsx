@@ -7,6 +7,11 @@ import prof1 from "@/assets/professional-1.jpg";
 import prof2 from "@/assets/professional-2.jpg";
 import prof3 from "@/assets/professional-3.jpg";
 import nigelJeche from "@/assets/nigel-jeche.png";
+import tebohoNthoana from "@/assets/teboho-nthoana.jpg";
+import kojoHudson from "@/assets/kojo-hudson.jpg";
+import lungeloNtobongwana from "@/assets/lungelo-ntobongwana.jpg";
+import thulisileButhelezi from "@/assets/thulisile-buthelezi.jpg";
+import thabangMokaka from "@/assets/thabang-mokaka.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -15,11 +20,11 @@ const fadeUp = {
 
 const boardMembers = [
   { name: "Nigel Jeche", role: "CEO (Founder)", image: nigelJeche },
-  { name: "TBA", role: "Chairperson", image: prof2 },
-  { name: "TBA", role: "Vice Chairperson", image: prof3 },
-  { name: "TBA", role: "Board Member", image: prof1 },
-  { name: "TBA", role: "Secretary", image: prof2 },
-  { name: "TBA", role: "Administrator", image: prof3 },
+  { name: "Teboho Nthoana", role: "Chairperson", image: tebohoNthoana },
+  { name: "Kojo Hudson", role: "Vice Chairperson", image: kojoHudson },
+  { name: "Lungelo Ntobongwana", role: "Board Member", image: lungeloNtobongwana },
+  { name: "Thulisile P. Buthelezi", role: "Secretary", image: thulisileButhelezi },
+  { name: "Thabang K. Mokaka", role: "Administrator", image: thabangMokaka },
 ];
 
 const legalTeam = [
@@ -59,7 +64,7 @@ const TeamSection = ({ title: sectionTitle, members }: { title: string; members:
         <motion.div key={m.role + i} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
           className="bg-card rounded-2xl overflow-hidden shadow-card group text-center">
           <div className="aspect-[3/4] overflow-hidden">
-            <img src={m.image} alt={m.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img src={m.image} alt={m.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
           </div>
           <div className="p-5">
             <h3 className="font-heading text-lg font-semibold text-foreground">{m.name}</h3>
