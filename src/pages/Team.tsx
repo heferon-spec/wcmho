@@ -12,6 +12,16 @@ import kojoHudson from "@/assets/kojo-hudson.jpg";
 import lungeloNtobongwana from "@/assets/lungelo-ntobongwana.jpg";
 import thulisileButhelezi from "@/assets/thulisile-buthelezi.jpg";
 import thabangMokaka from "@/assets/thabang-mokaka.jpg";
+import celiweRahlagane from "@/assets/celiwe-rahlagane.jpg";
+import florenceMaleka from "@/assets/florence-maleka.jpg";
+import vukaKhumalo from "@/assets/vuka-khumalo.png";
+import boitumeloSedupane from "@/assets/boitumelo-sedupane.jpg";
+import qhakazileMathebula from "@/assets/qhakazile-mathebula.jpg";
+import luvuyoMncanca from "@/assets/luvuyo-mncanca.jpg";
+import beaulahRose from "@/assets/beaulah-rose.jpg";
+import patriciaMoloiwa from "@/assets/patricia-moloiwa.png";
+import letlotloMoleko from "@/assets/letlotlo-moleko.jpg";
+import kumariSukhdeo from "@/assets/kumari-sukhdeo.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -28,26 +38,26 @@ const boardMembers = [
 ];
 
 const legalTeam = [
-  { name: "TBA", role: "Legal Team 1", image: prof1 },
-  { name: "TBA", role: "Legal Team 2", image: prof2 },
-  { name: "TBA", role: "Internal Auditor", image: prof3 },
+  { name: "Adv. Celiwe Nkosi-Rahlagane", role: "Governance and Legal Practitioner", image: celiweRahlagane },
+  { name: "Adv. Florence Maleka", role: "Compliance Manager", image: florenceMaleka },
+  { name: "Vuka Khumalo", role: "Internal Auditor", image: vukaKhumalo },
 ];
 
 const headsOfDepartments = [
-  { name: "TBA", role: "HR Executive", image: prof1 },
-  { name: "TBA", role: "HR Assistant", image: prof2 },
-  { name: "TBA", role: "Humanitarian Executive", image: prof3 },
-  { name: "TBA", role: "Mental Health Executive", image: prof1 },
-  { name: "TBA", role: "CFO", image: prof2 },
-  { name: "TBA", role: "CMO", image: prof3 },
-  { name: "TBA", role: "Digital Marketing Officer", image: prof1 },
-  { name: "TBA", role: "Marketing Director", image: prof2 },
+  { name: "Boitumelo Sedupane", role: "HR Executive", image: boitumeloSedupane },
+  { name: "Qhakazile Mathebula", role: "HR Assistant", image: qhakazileMathebula },
+  { name: "Luvuyo Mncanca", role: "Humanitarian Executive", image: luvuyoMncanca },
+  { name: "Beaulah Rose", role: "Mental Health Executive", image: beaulahRose },
+  { name: "Dr Talifhani Khubana", role: "CFO", image: prof1 },
+  { name: "Patricia Moloiwa", role: "Chief Marketing Officer (CMO)", image: patriciaMoloiwa },
+  { name: "Letlotlo K. Moleko", role: "Digital Marketing Officer", image: letlotloMoleko },
+  { name: "Sibusiso Ndlovu", role: "Marketing Director", image: prof2 },
 ];
 
 const consultants = [
-  { name: "TBA", role: "Business Consultant", image: prof1 },
-  { name: "TBA", role: "Stakeholder Manager", image: prof2 },
-  { name: "TBA", role: "Stakeholder Manager", image: prof3 },
+  { name: "Prof. Kumari Sukhdeo", role: "Exec Business Consultant", image: kumariSukhdeo },
+  { name: "Selu Msweli", role: "Stakeholder Manager", image: prof1 },
+  { name: "Nicola M. Vlantis", role: "Stakeholder Manager", image: prof2 },
 ];
 
 interface TeamMember {
