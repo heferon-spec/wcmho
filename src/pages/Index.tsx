@@ -4,6 +4,7 @@ import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Building,
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import VoiceAgent from "@/components/VoiceAgent";
+import CountUp from "@/components/CountUp";
 import volunteerHero from "@/assets/volunteer-hero.jpg";
 import aboutBg from "@/assets/about-bg.jpg";
 import teamPhoto from "@/assets/team-photo.jpg";
@@ -117,8 +118,8 @@ const Index = () => {
                   <div className="w-12 h-12 rounded-full bg-accent-foreground/20 flex items-center justify-center mx-auto mb-2">
                     <stat.icon className="w-6 h-6 text-accent-foreground" />
                   </div>
-                  <p className="font-heading text-2xl md:text-3xl font-bold text-accent-foreground">{stat.value}</p>
-                  <p className="text-xs md:text-sm text-accent-foreground/80 mt-1">{stat.label}</p>
+                   <CountUp value={stat.value} className="font-heading text-2xl md:text-3xl font-bold text-accent-foreground" />
+                   <p className="text-xs md:text-sm text-accent-foreground/80 mt-1">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -227,7 +228,7 @@ const Index = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             {impactStats.map((stat, i) => (
               <motion.div key={stat.label} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-                <p className="font-heading text-3xl md:text-5xl font-bold text-accent">{stat.value}</p>
+                <CountUp value={stat.value} className="font-heading text-3xl md:text-5xl font-bold text-accent" />
                 <p className="text-sm md:text-base text-primary-foreground/80 mt-2">{stat.label}</p>
               </motion.div>
             ))}

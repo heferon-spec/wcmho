@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Target, Eye, Heart, Award, ArrowRight, Users, Globe, Brain, HandHeart, Shield, Megaphone } from "lucide-react";
+import CountUp from "@/components/CountUp";
 import VoiceAgent from "@/components/VoiceAgent";
 import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
@@ -122,7 +123,7 @@ const About = () => (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {impactStats.map((stat, i) => (
             <motion.div key={stat.label} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-              <p className="font-heading text-3xl md:text-5xl font-bold text-accent">{stat.value}</p>
+              <CountUp value={stat.value} className="font-heading text-3xl md:text-5xl font-bold text-accent" />
               <p className="text-sm md:text-base text-primary-foreground/80 mt-2">{stat.label}</p>
             </motion.div>
           ))}
