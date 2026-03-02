@@ -27,6 +27,16 @@ import gallery17 from "@/assets/gallery-17.jpg";
 import gallery18 from "@/assets/gallery-18.jpg";
 import gallery19 from "@/assets/gallery-19.jpg";
 import gallery20 from "@/assets/gallery-20.jpg";
+import gallery21 from "@/assets/gallery-21.jpg";
+import gallery22 from "@/assets/gallery-22.jpg";
+import gallery23 from "@/assets/gallery-23.jpg";
+import gallery24 from "@/assets/gallery-24.jpg";
+import gallery25 from "@/assets/gallery-25.jpg";
+import gallery26 from "@/assets/gallery-26.jpg";
+import gallery27 from "@/assets/gallery-27.jpg";
+import gallery28 from "@/assets/gallery-28.jpg";
+import gallery29 from "@/assets/gallery-29.jpg";
+import gallery30 from "@/assets/gallery-30.jpg";
 
 const baseImages = [
   { src: gallery1, alt: "Men's Day Summit audience" },
@@ -49,16 +59,16 @@ const baseImages = [
   { src: gallery18, alt: "Community gathering" },
   { src: gallery19, alt: "Discussion session" },
   { src: gallery20, alt: "Crowd participation" },
-  { src: heroBg, alt: "Mindfulness session" },
-  { src: prof1, alt: "Team member" },
-  { src: philanthropyBg, alt: "Community outreach" },
-  { src: prof2, alt: "Clinical session" },
-  { src: aboutBg, alt: "Group therapy" },
-  { src: prof3, alt: "Counseling" },
-  { src: heroBg, alt: "Wellness workshop" },
-  { src: philanthropyBg, alt: "Outreach program" },
-  { src: prof1, alt: "Professional support" },
-  { src: aboutBg, alt: "Support group" },
+  { src: gallery21, alt: "Golf Day team photo" },
+  { src: gallery22, alt: "Mental Health Awareness Golf Day" },
+  { src: gallery23, alt: "Golf Day ladies team" },
+  { src: gallery24, alt: "Golfers on the course" },
+  { src: gallery25, alt: "Golf Day at Lavo Wines" },
+  { src: gallery26, alt: "Golf Day backdrop" },
+  { src: gallery27, alt: "Golfers with umbrellas" },
+  { src: gallery28, alt: "Community food distribution" },
+  { src: gallery29, alt: "Humanitarian aid drive" },
+  { src: gallery30, alt: "Community outreach event" },
 ];
 
 // Generate 40 images by cycling through base images
