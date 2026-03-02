@@ -17,6 +17,16 @@ import gallery7 from "@/assets/gallery-7.png";
 import gallery8 from "@/assets/gallery-8.jpg";
 import gallery9 from "@/assets/gallery-9.jpg";
 import gallery10 from "@/assets/gallery-10.jpg";
+import gallery11 from "@/assets/gallery-11.jpg";
+import gallery12 from "@/assets/gallery-12.jpg";
+import gallery13 from "@/assets/gallery-13.jpg";
+import gallery14 from "@/assets/gallery-14.jpg";
+import gallery15 from "@/assets/gallery-15.jpg";
+import gallery16 from "@/assets/gallery-16.jpg";
+import gallery17 from "@/assets/gallery-17.jpg";
+import gallery18 from "@/assets/gallery-18.jpg";
+import gallery19 from "@/assets/gallery-19.jpg";
+import gallery20 from "@/assets/gallery-20.jpg";
 
 const baseImages = [
   { src: gallery1, alt: "Men's Day Summit audience" },
@@ -29,6 +39,16 @@ const baseImages = [
   { src: gallery8, alt: "Community event audience" },
   { src: gallery9, alt: "Event attendees" },
   { src: gallery10, alt: "Youth at community event" },
+  { src: gallery11, alt: "Guest speaker presentation" },
+  { src: gallery12, alt: "Audience engagement" },
+  { src: gallery13, alt: "Speaker addressing crowd" },
+  { src: gallery14, alt: "Event attendees seated" },
+  { src: gallery15, alt: "Community members at venue" },
+  { src: gallery16, alt: "Youth audience" },
+  { src: gallery17, alt: "Attendees at summit" },
+  { src: gallery18, alt: "Community gathering" },
+  { src: gallery19, alt: "Discussion session" },
+  { src: gallery20, alt: "Crowd participation" },
   { src: heroBg, alt: "Mindfulness session" },
   { src: prof1, alt: "Team member" },
   { src: philanthropyBg, alt: "Community outreach" },
