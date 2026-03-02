@@ -3,9 +3,9 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import aboutBg from "@/assets/about-bg.jpg";
 import teamPhoto from "@/assets/team-photo.jpg";
-import prof1 from "@/assets/professional-1.jpg";
-import prof2 from "@/assets/professional-2.jpg";
-import prof3 from "@/assets/professional-3.jpg";
+import sibusisoNdlovu from "@/assets/sibusiso-ndlovu.png";
+import seluMsweli from "@/assets/selu-msweli.jpg";
+import nicolaVlantis from "@/assets/nicola-vlantis.png";
 import nigelJeche from "@/assets/nigel-jeche.png";
 import tebohoNthoana from "@/assets/teboho-nthoana.jpg";
 import kojoHudson from "@/assets/kojo-hudson.jpg";
@@ -48,22 +48,22 @@ const headsOfDepartments = [
   { name: "Qhakazile Mathebula", role: "HR Assistant", image: qhakazileMathebula },
   { name: "Luvuyo Mncanca", role: "Humanitarian Executive", image: luvuyoMncanca },
   { name: "Beaulah Rose", role: "Mental Health Executive", image: beaulahRose },
-  { name: "Dr Talifhani Khubana", role: "CFO", image: prof1 },
+  { name: "Dr Talifhani Khubana", role: "CFO", image: null },
   { name: "Patricia Moloiwa", role: "Chief Marketing Officer (CMO)", image: patriciaMoloiwa },
   { name: "Letlotlo K. Moleko", role: "Digital Marketing Officer", image: letlotloMoleko },
-  { name: "Sibusiso Ndlovu", role: "Marketing Director", image: prof2 },
+  { name: "Sibusiso Ndlovu", role: "Marketing Director", image: sibusisoNdlovu },
 ];
 
 const consultants = [
   { name: "Prof. Kumari Sukhdeo", role: "Exec Business Consultant", image: kumariSukhdeo },
-  { name: "Selu Msweli", role: "Stakeholder Manager", image: prof1 },
-  { name: "Nicola M. Vlantis", role: "Stakeholder Manager", image: prof2 },
+  { name: "Selu Msweli", role: "Stakeholder Manager", image: seluMsweli },
+  { name: "Nicola M. Vlantis", role: "Stakeholder Manager", image: nicolaVlantis },
 ];
 
 interface TeamMember {
   name: string;
   role: string;
-  image: string;
+  image: string | null;
 }
 
 const TeamSection = ({ title: sectionTitle, members }: { title: string; members: TeamMember[] }) => (
@@ -73,8 +73,14 @@ const TeamSection = ({ title: sectionTitle, members }: { title: string; members:
       {members.map((m, i) => (
         <motion.div key={m.role + i} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
           className="bg-card rounded-2xl overflow-hidden shadow-card group text-center">
-          <div className="aspect-[3/4] overflow-hidden">
-            <img src={m.image} alt={m.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+          <div className="aspect-[3/4] overflow-hidden bg-muted flex items-center justify-center">
+            {m.image ? (
+              <img src={m.image} alt={m.name} className="w-full h-full object-cover object-[center_15%] group-hover:scale-105 transition-transform duration-500" />
+            ) : (
+              <svg className="w-24 h-24 text-muted-foreground/40" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+              </svg>
+            )}
           </div>
           <div className="p-5">
             <h3 className="font-heading text-lg font-semibold text-foreground">{m.name}</h3>
