@@ -7,8 +7,28 @@ import aboutBg from "@/assets/about-bg.jpg";
 import prof1 from "@/assets/professional-1.jpg";
 import prof2 from "@/assets/professional-2.jpg";
 import prof3 from "@/assets/professional-3.jpg";
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery2 from "@/assets/gallery-2.jpg";
+import gallery3 from "@/assets/gallery-3.jpg";
+import gallery4 from "@/assets/gallery-4.jpg";
+import gallery5 from "@/assets/gallery-5.jpg";
+import gallery6 from "@/assets/gallery-6.jpg";
+import gallery7 from "@/assets/gallery-7.png";
+import gallery8 from "@/assets/gallery-8.jpg";
+import gallery9 from "@/assets/gallery-9.jpg";
+import gallery10 from "@/assets/gallery-10.jpg";
 
 const baseImages = [
+  { src: gallery1, alt: "Men's Day Summit audience" },
+  { src: gallery2, alt: "Volunteer registration" },
+  { src: gallery3, alt: "EmpowaMen Speaker badge" },
+  { src: gallery4, alt: "Depression and Mental Health panel" },
+  { src: gallery5, alt: "Metro FM speaker session" },
+  { src: gallery6, alt: "World Changers speaker" },
+  { src: gallery7, alt: "Panel discussion on stage" },
+  { src: gallery8, alt: "Community event audience" },
+  { src: gallery9, alt: "Event attendees" },
+  { src: gallery10, alt: "Youth at community event" },
   { src: heroBg, alt: "Mindfulness session" },
   { src: prof1, alt: "Team member" },
   { src: philanthropyBg, alt: "Community outreach" },
