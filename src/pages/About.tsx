@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import aboutBg from "@/assets/about-bg.jpg";
-import heroBg from "@/assets/hero-bg.jpg";
+import teamPhoto from "@/assets/team-photo.jpg";
 
 const values = [
   { icon: Heart, title: "Compassion", desc: "Every person deserves kindness, empathy, and understanding in their journey toward mental wellness." },
@@ -38,7 +38,7 @@ const About = () => (
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
             className="relative">
-            <img src={heroBg} alt="Our team in action" className="rounded-2xl shadow-elevated w-full object-cover aspect-[4/3]" />
+            <img src={teamPhoto} alt="Our team in action" className="rounded-2xl shadow-elevated w-full object-cover aspect-[4/3]" />
             <div className="absolute -bottom-6 -right-6 bg-accent rounded-xl p-4 shadow-elevated hidden md:block">
               <p className="font-heading text-xl font-bold text-accent-foreground">Since 2017</p>
               <p className="text-xs text-accent-foreground/80">Serving the Vulnerable</p>

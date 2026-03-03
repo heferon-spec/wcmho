@@ -12,7 +12,6 @@ import Philanthropy from "./pages/Philanthropy";
 import Campaigns from "./pages/Campaigns";
 import Contact from "./pages/Contact";
 import Team from "./pages/Team";
-import Volunteers from "./pages/Volunteers";
 import BecomeVolunteer from "./pages/BecomeVolunteer";
 import Portfolio from "./pages/Portfolio";
 import Gallery from "./pages/Gallery";
@@ -42,7 +41,6 @@ const App = () => (
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/team" element={<Team />} />
-            <Route path="/volunteers" element={<Volunteers />} />
             <Route path="/become-volunteer" element={<BecomeVolunteer />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/events" element={<Events />} />

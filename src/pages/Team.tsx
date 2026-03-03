@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import aboutBg from "@/assets/about-bg.jpg";
@@ -66,13 +68,14 @@ interface TeamMember {
   image: string | null;
 }
 
-const TeamSection = ({ title: sectionTitle, members }: { title: string; members: TeamMember[] }) => (
+const TeamSection = ({ title: sectionTitle, members, onClickMember }: { title: string; members: TeamMember[]; onClickMember: (m: TeamMember) => void }) => (
   <div className="mb-16">
     <h3 className="font-heading text-2xl font-bold text-foreground mb-8 text-center">{sectionTitle}</h3>
     <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {members.map((m, i) => (
         <motion.div key={m.role + i} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-          className="bg-card rounded-2xl overflow-hidden shadow-card group text-center">
+          className="bg-card rounded-2xl overflow-hidden shadow-card group text-center cursor-pointer"
+          onClick={() => m.image && onClickMember(m)}>
           <div className="aspect-[3/4] overflow-hidden bg-muted flex items-center justify-center">
             {m.image ? (
               <img src={m.image} alt={m.name} className="w-full h-full object-cover object-[center_15%] group-hover:scale-105 transition-transform duration-500" />
@@ -92,29 +95,54 @@ const TeamSection = ({ title: sectionTitle, members }: { title: string; members:
   </div>
 );
 
-const Team = () => (
-  <div>
-    <PageHero title="Our Team" subtitle="The dedicated people behind our mission" bgImage={aboutBg} />
+const Team = () => {
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
-    {/* Full Landscape Team Photo */}
-    <section className="px-4 -mt-10 relative z-10">
-      <div className="container mx-auto">
-        <div className="rounded-2xl overflow-hidden shadow-elevated">
-          <img src={teamPhoto} alt="World Changers Team" className="w-full object-cover" />
+  return (
+    <div>
+      <PageHero title="Our Team" subtitle="The dedicated people behind our mission" bgImage={aboutBg} />
+
+      <section className="px-4 -mt-10 relative z-10">
+        <div className="container mx-auto">
+          <div className="rounded-2xl overflow-hidden shadow-elevated">
+            <img src={teamPhoto} alt="World Changers Team" className="w-full object-cover" />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section className="section-padding">
-      <div className="container mx-auto">
-        <SectionHeading label="Leadership" title="Meet Our Team" description="Passionate professionals committed to making a difference." />
-        <TeamSection title="Board Members" members={boardMembers} />
-        <TeamSection title="Legal, Risks & Compliance" members={legalTeam} />
-        <TeamSection title="Heads of Departments" members={headsOfDepartments} />
-        <TeamSection title="Business Consultant & Stakeholder Management" members={consultants} />
-      </div>
-    </section>
-  </div>
-);
+      <section className="section-padding">
+        <div className="container mx-auto">
+          <SectionHeading label="Leadership" title="Meet Our Team" description="Passionate professionals committed to making a difference." />
+          <TeamSection title="Board Members" members={boardMembers} onClickMember={setSelectedMember} />
+          <TeamSection title="Legal, Risks & Compliance" members={legalTeam} onClickMember={setSelectedMember} />
+          <TeamSection title="Heads of Departments" members={headsOfDepartments} onClickMember={setSelectedMember} />
+          <TeamSection title="Business Consultant & Stakeholder Management" members={consultants} onClickMember={setSelectedMember} />
+        </div>
+      </section>
+
+      {/* Lightbox for team member */}
+      <AnimatePresence>
+        {selectedMember && selectedMember.image && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setSelectedMember(null)}>
+            <button onClick={() => setSelectedMember(null)} className="absolute top-4 right-4 text-white/80 hover:text-white z-10"><X className="w-8 h-8" /></button>
+            <div className="text-center" onClick={(e) => e.stopPropagation()}>
+              <motion.img
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                src={selectedMember.image}
+                alt={selectedMember.name}
+                className="max-w-full max-h-[70vh] object-contain rounded-lg mx-auto"
+              />
+              <p className="text-white font-heading text-xl font-bold mt-4">{selectedMember.name}</p>
+              <p className="text-white/70 text-sm">{selectedMember.role}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 export default Team;

@@ -1,12 +1,9 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
-import heroBg from "@/assets/hero-bg.jpg";
-import aboutBg from "@/assets/about-bg.jpg";
-import prof1 from "@/assets/professional-1.jpg";
-import prof2 from "@/assets/professional-2.jpg";
-import prof3 from "@/assets/professional-3.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -38,7 +35,7 @@ import gallery28 from "@/assets/gallery-28.jpg";
 import gallery29 from "@/assets/gallery-29.jpg";
 import gallery30 from "@/assets/gallery-30.jpg";
 
-const baseImages = [
+const images = [
   { src: gallery1, alt: "Men's Day Summit audience" },
   { src: gallery2, alt: "Volunteer registration" },
   { src: gallery3, alt: "EmpowaMen Speaker badge" },
@@ -71,39 +68,67 @@ const baseImages = [
   { src: gallery30, alt: "Community outreach event" },
 ];
 
-// Generate 40 images by cycling through base images
-const images = Array.from({ length: 40 }, (_, i) => ({
-  ...baseImages[i % baseImages.length],
-  alt: `${baseImages[i % baseImages.length].alt} ${Math.floor(i / baseImages.length) + 1}`,
-}));
+const Gallery = () => {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-const Gallery = () => (
-  <div>
-    <PageHero title="Gallery" subtitle="Moments that capture our impact" bgImage={philanthropyBg} />
-    <section className="section-padding">
-      <div className="container mx-auto">
-        <SectionHeading label="Visual Impact" title="Our Work in Pictures" />
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {images.map((img, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: (i % 8) * 0.04, duration: 0.4 }}
-              className="rounded-xl overflow-hidden shadow-soft border border-border aspect-square"
-            >
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </motion.div>
-          ))}
+  const openLightbox = (i: number) => setLightboxIndex(i);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prev = () => setLightboxIndex((prev) => (prev !== null ? (prev - 1 + images.length) % images.length : null));
+  const next = () => setLightboxIndex((prev) => (prev !== null ? (prev + 1) % images.length : null));
+
+  return (
+    <div>
+      <PageHero title="Gallery" subtitle="Moments that capture our impact" bgImage={philanthropyBg} />
+      <section className="section-padding">
+        <div className="container mx-auto">
+          <SectionHeading label="Visual Impact" title="Our Work in Pictures" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {images.map((img, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (i % 8) * 0.04, duration: 0.4 }}
+                className="rounded-xl overflow-hidden shadow-soft border border-border aspect-square cursor-pointer group"
+                onClick={() => openLightbox(i)}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
-);
+      </section>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+            onClick={closeLightbox}>
+            <button onClick={closeLightbox} className="absolute top-4 right-4 text-white/80 hover:text-white z-10"><X className="w-8 h-8" /></button>
+            <button onClick={(e) => { e.stopPropagation(); prev(); }} className="absolute left-4 text-white/80 hover:text-white z-10"><ChevronLeft className="w-10 h-10" /></button>
+            <button onClick={(e) => { e.stopPropagation(); next(); }} className="absolute right-4 text-white/80 hover:text-white z-10"><ChevronRight className="w-10 h-10" /></button>
+            <motion.img
+              key={lightboxIndex}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              src={images[lightboxIndex].src}
+              alt={images[lightboxIndex].alt}
+              className="max-w-full max-h-[85vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <p className="absolute bottom-6 text-white/70 text-sm">{images[lightboxIndex].alt} • {lightboxIndex + 1}/{images.length}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 export default Gallery;
