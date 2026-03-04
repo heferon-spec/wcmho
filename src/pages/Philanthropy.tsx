@@ -1,11 +1,20 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, Users, HandHeart, ArrowRight, Shield, Sparkles, Globe, Phone, Building, Star, Play, Home, Utensils, Baby, GraduationCap } from "lucide-react";
+import { Heart, Users, HandHeart, ArrowRight, Shield, Globe, Phone, Building, Star, Play, Home, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
-import aboutBg from "@/assets/about-bg.jpg";
+import philanthropyHeroNew from "@/assets/philanthropy-hero-new.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
+import portfolioEdu1 from "@/assets/portfolio-edu-1.jpg";
+import portfolioEdu2 from "@/assets/portfolio-edu-2.jpg";
+import portfolioEdu3 from "@/assets/portfolio-edu-3.jpg";
+import portfolioCom1 from "@/assets/portfolio-community-1.jpg";
+import portfolioCom2 from "@/assets/portfolio-community-2.jpg";
+import portfolioCom3 from "@/assets/portfolio-community-3.jpg";
+import portfolioWell1 from "@/assets/portfolio-wellness-1.jpg";
+import portfolioWell2 from "@/assets/portfolio-wellness-2.jpg";
+import portfolioWell3 from "@/assets/portfolio-wellness-3.jpg";
 
 const stats = [
   { icon: Building, value: "537+", label: "Local WCMHC Branches" },
@@ -28,12 +37,15 @@ const features = [
 ];
 
 const portfolioProjects = [
-  { title: "Community Food Drive Initiative", cats: ["Humanitarian", "Food Security"], desc: "Distributing food parcels to over 5,000 families across underserved communities in Gauteng and KwaZulu-Natal." },
-  { title: "Blanket & Clothing Drive", cats: ["Charity", "Winter Relief"], desc: "Annual winter campaign providing warm blankets, clothing, and essentials to homeless individuals and vulnerable families." },
-  { title: "Clean Water Access Project", cats: ["Humanitarian", "Infrastructure"], desc: "Installing water purification systems and boreholes in rural communities lacking access to clean drinking water." },
-  { title: "School Supplies for Rural Schools", cats: ["Education", "Youth"], desc: "Equipping rural schools with stationery, uniforms, and educational materials to support children's learning." },
-  { title: "Orphanage Support Program", cats: ["Charity", "Children"], desc: "Partnering with orphanages to provide essential supplies, educational support, and recreational activities for children." },
-  { title: "Emergency Disaster Response", cats: ["Humanitarian", "Disaster Relief"], desc: "Deploying rapid response teams with emergency supplies, shelter, and support during floods, fires, and crises." },
+  { title: "Mental Health Education in Schools", cats: ["Education", "Mental Health"], desc: "Delivering mental health awareness workshops and peer counselling programs to learners and educators across South Africa.", image: portfolioEdu1 },
+  { title: "Workplace Wellness Seminars", cats: ["Education", "Wellness"], desc: "Corporate mental health training programs empowering employees to manage stress, recognise burnout, and support colleagues.", image: portfolioEdu2 },
+  { title: "Youth Mental Health Literacy", cats: ["Education", "Youth"], desc: "Interactive education sessions in community halls and educational spaces equipping young people with mental health knowledge.", image: portfolioEdu3 },
+  { title: "Community Food Drive Initiative", cats: ["Community", "Food Security"], desc: "Distributing food parcels to over 5,000 families across underserved communities in Gauteng and KwaZulu-Natal.", image: portfolioCom1 },
+  { title: "Winter Relief Campaign", cats: ["Community", "Charity"], desc: "Annual campaign providing warm blankets, clothing, and essentials to homeless individuals and vulnerable families.", image: portfolioCom2 },
+  { title: "Rural Community Outreach", cats: ["Community", "Humanitarian"], desc: "Deploying volunteers to rural communities with food parcels, hygiene kits, and children's educational materials.", image: portfolioCom3 },
+  { title: "Mental Health Awareness Golf Day", cats: ["Wellness", "Fundraising"], desc: "Annual fundraising golf day raising over R500,000 for youth mental health therapy and counselling services.", image: portfolioWell1 },
+  { title: "Mindfulness & Wellbeing Programs", cats: ["Wellness", "Self-Care"], desc: "Community-based mindfulness workshops, meditation sessions, and holistic wellbeing programs for all ages.", image: portfolioWell2 },
+  { title: "Annual Awards & Recognition Gala", cats: ["Wellness", "Community"], desc: "Celebrating outstanding volunteers, donors, and community heroes at our annual recognition ceremony.", image: portfolioWell3 },
 ];
 
 const youtubeVideos = [
@@ -70,7 +82,7 @@ const Philanthropy = () => (
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-base px-8">
               <Link to="/become-volunteer">Become a Volunteer <ArrowRight className="w-4 h-4 ml-2" /></Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground text-base px-8">
+            <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground bg-primary-foreground/10 hover:bg-primary-foreground/20 text-base px-8">
               <Link to="/contact">Donate Now</Link>
             </Button>
           </motion.div>
@@ -93,12 +105,12 @@ const Philanthropy = () => (
       </div>
     </section>
 
-    {/* Get Inspired */}
+    {/* Get Inspired — replaced aboutBg with philanthropyHeroNew */}
     <section className="section-padding">
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="relative">
-            <img src={aboutBg} alt="Humanitarian aid distribution" className="rounded-2xl shadow-elevated w-full object-cover aspect-[4/3]" />
+            <img src={philanthropyHeroNew} alt="Community food distribution outreach" className="rounded-2xl shadow-elevated w-full object-cover aspect-[4/3]" />
             <div className="absolute -bottom-6 -right-6 bg-accent rounded-xl p-4 shadow-elevated hidden md:block">
               <p className="font-heading text-xl font-bold text-accent-foreground">90%</p>
               <p className="text-xs text-accent-foreground/80">Aid Delivered</p>
@@ -173,6 +185,11 @@ const Philanthropy = () => (
               </div>
               <h3 className="font-heading text-lg font-semibold text-foreground mb-2">{f.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              {f.title === "Become A Volunteer" && (
+                <Button asChild size="sm" className="mt-4 bg-hero-gradient text-primary-foreground hover:opacity-90">
+                  <Link to="/become-volunteer">Join Now <ArrowRight className="w-3 h-3 ml-1" /></Link>
+                </Button>
+              )}
             </motion.div>
           ))}
         </div>
@@ -190,7 +207,7 @@ const Philanthropy = () => (
       </div>
     </section>
 
-    {/* Portfolio */}
+    {/* Portfolio with real images */}
     <section className="section-padding bg-muted">
       <div className="container mx-auto">
         <SectionHeading label="Our Projects" title="Charity & Humanitarian Portfolio" description="See the impact of our humanitarian programs and charity initiatives." />
@@ -198,8 +215,8 @@ const Philanthropy = () => (
           {portfolioProjects.map((project, i) => (
             <motion.div key={project.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
               className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group">
-              <div className="aspect-video bg-primary/5 flex items-center justify-center">
-                <Globe className="w-16 h-16 text-primary/20" />
+              <div className="aspect-video overflow-hidden">
+                <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="p-5">
                 <div className="flex gap-2 mb-2 flex-wrap">
