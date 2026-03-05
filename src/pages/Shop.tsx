@@ -5,11 +5,22 @@ import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
+import shopTshirt1 from "@/assets/shop-tshirt-1.jpg";
+import shopTshirt2 from "@/assets/shop-tshirt-2.jpg";
+import shopTshirt3 from "@/assets/shop-tshirt-3.jpg";
+import shopTshirt4 from "@/assets/shop-tshirt-4.jpg";
+import shopTshirt5 from "@/assets/shop-tshirt-5.jpg";
+import shopTshirt6 from "@/assets/shop-tshirt-6.jpg";
+import shopTshirt7 from "@/assets/shop-tshirt-7.jpg";
+import shopTshirt8 from "@/assets/shop-tshirt-8.jpg";
+import shopTshirt9 from "@/assets/shop-tshirt-9.jpg";
+import shopTshirt10 from "@/assets/shop-tshirt-10.jpg";
 
 interface CartItem {
   name: string;
   price: number;
   qty: number;
+  image: string;
 }
 
 interface Product {
@@ -22,135 +33,119 @@ interface Product {
   reviewCount: number;
   badge?: string;
   category: string;
+  image: string;
 }
 
 const products: Product[] = [
   {
-    name: "Mindful Journal",
+    name: "Be Kind To Your Mind Tee (Cream)",
+    price: 450,
+    originalPrice: 549,
+    desc: "Premium oversized tee with 'Be Kind To Your Mind' smiley print on front and 'Mental Health Matters' on the back. 100% organic cotton, unisex fit.",
+    features: ["Organic cotton", "Unisex oversized fit", "Front & back print"],
+    rating: 4.9, reviewCount: 142, badge: "Best Seller", category: "Apparel",
+    image: shopTshirt1,
+  },
+  {
+    name: "Be Kind To Your Mind Tee (White)",
+    price: 450,
+    desc: "Classic white version with the signature smiley 'Be Kind To Your Mind' design. Soft, breathable fabric perfect for everyday mental health advocacy.",
+    features: ["100% cotton", "Machine washable", "Awareness design"],
+    rating: 4.8, reviewCount: 98, category: "Apparel",
+    image: shopTshirt2,
+  },
+  {
+    name: "Be Kind To Your Mind Tee (Grey)",
+    price: 399,
+    desc: "Casual grey heather tee with the iconic 'Be Kind To Your Mind' chest print. Knotted styling adds a trendy touch. Soft and comfortable for daily wear.",
+    features: ["Heather grey", "Relaxed fit", "Chest print"],
+    rating: 4.7, reviewCount: 215, badge: "Popular", category: "Apparel",
+    image: shopTshirt3,
+  },
+  {
+    name: "Be Kind To Your Mind Tee (Pink)",
+    price: 450,
+    desc: "Soft pink edition featuring the smiley 'Be Kind To Your Mind' front print and bold 'Mental Health Matters' back design. Spread awareness in style.",
+    features: ["Pastel pink", "Unisex fit", "Double-sided print"],
+    rating: 4.9, reviewCount: 67, badge: "New", category: "Apparel",
+    image: shopTshirt4,
+  },
+  {
+    name: "Mental Health Matters Tee (Cream/Green)",
+    price: 499,
+    originalPrice: 599,
+    desc: "Vintage-inspired cream tee with elegant green 'Mental Health Matters' typography and smiley face. 'Transforming Stigma Into Understanding' tagline on back.",
+    features: ["Premium weight", "Vintage wash", "Green typography"],
+    rating: 4.8, reviewCount: 89, category: "Apparel",
+    image: shopTshirt5,
+  },
+  {
+    name: "Mental Health Matters Tee (Rainbow)",
+    price: 399,
+    desc: "Light blue tee with vibrant rainbow-coloured 'Mental Health Matters' lettering. Celebrates diversity and mental health awareness in a fun, colourful way.",
+    features: ["Light blue fabric", "Rainbow print", "Crew neck"],
+    rating: 4.7, reviewCount: 134, category: "Apparel",
+    image: shopTshirt6,
+  },
+  {
+    name: "Mental Health Matters Butterfly Tee",
+    price: 449,
+    desc: "Athletic heather grey tee featuring a striking silhouette with butterflies symbolising transformation and mental health awareness. Artistic and meaningful.",
+    features: ["Heather grey", "Artistic design", "Butterfly motif"],
+    rating: 4.9, reviewCount: 56, badge: "Artistic", category: "Apparel",
+    image: shopTshirt7,
+  },
+  {
+    name: "Mental Health Matters Tee (Royal Blue)",
     price: 399,
     originalPrice: 499,
+    desc: "Bold royal blue tee with large 'MENTAL HEALTH MATTERS.' statement print. Simple, powerful, and impossible to ignore. Make a statement wherever you go.",
+    features: ["Royal blue", "Bold print", "Statement piece"],
+    rating: 4.6, reviewCount: 203, category: "Apparel",
+    image: shopTshirt8,
+  },
+  {
+    name: "WCMHC Humanitarian Tee (White)",
+    price: 549,
+    desc: "Official World Changers Mental Health Care Org white tee with 'Humanitarian' text and WCMHC logo. Professional fit for events, outreach, and daily wear.",
+    features: ["Official merch", "Premium cotton", "Logo embroidered"],
+    rating: 4.8, reviewCount: 78, badge: "Official", category: "Apparel",
+    image: shopTshirt9,
+  },
+  {
+    name: "WCMHC Mental Health Matters Tee (Cream)",
+    price: 549,
+    originalPrice: 649,
+    desc: "Official WCMHC cream tee with 'Mental Health Matters' back print in navy. Clean, professional design representing the World Changers mission.",
+    features: ["Official merch", "Navy print", "Cream fabric"],
+    rating: 4.9, reviewCount: 167, badge: "Top Rated", category: "Apparel",
+    image: shopTshirt10,
+  },
+  {
+    name: "Mindful Journal",
+    price: 399, originalPrice: 499,
     desc: "A beautifully crafted guided journal with 365 daily prompts for reflection, gratitude, and emotional check-ins. Includes mood tracking pages, breathing exercise guides, and affirmation cards.",
     features: ["365 guided prompts", "Mood tracker", "Premium vegan leather cover"],
-    rating: 4.9,
-    reviewCount: 142,
-    badge: "Best Seller",
-    category: "Self-Care",
+    rating: 4.9, reviewCount: 142, category: "Self-Care",
+    image: "",
   },
   {
     name: "Calm Candle Set",
     price: 549,
-    desc: "Hand-poured soy candles infused with lavender, sage, and chamomile essential oils. Designed to create a calming atmosphere for meditation and relaxation. Set of 3 candles, 45-hour burn time each.",
+    desc: "Hand-poured soy candles infused with lavender, sage, and chamomile essential oils. Set of 3 candles, 45-hour burn time each.",
     features: ["100% soy wax", "Essential oils", "45hr burn time each"],
-    rating: 4.8,
-    reviewCount: 98,
-    category: "Relaxation",
-  },
-  {
-    name: "Hope Bracelet",
-    price: 275,
-    desc: "Handcrafted beaded bracelet symbolising hope and mental health awareness. Each bracelet is made by survivors and proceeds directly fund youth therapy sessions.",
-    features: ["Handcrafted", "Adjustable size", "Awareness symbol"],
-    rating: 4.7,
-    reviewCount: 215,
-    badge: "Popular",
-    category: "Accessories",
-  },
-  {
-    name: "WCMHC T-Shirt",
-    price: 450,
-    desc: "Premium 100% organic cotton tee featuring our 'Break the Stigma' mission statement. Available in unisex sizes. Comfortable, breathable, and perfect for spreading awareness.",
-    features: ["Organic cotton", "Unisex fit", "Machine washable"],
-    rating: 4.6,
-    reviewCount: 67,
-    category: "Apparel",
-  },
-  {
-    name: "Wellness Tea Box",
-    price: 329,
-    desc: "A curated collection of 6 organic herbal teas — chamomile, rooibos, peppermint, lemon balm, passionflower, and ashwagandha — each chosen to promote calm, focus, and better sleep.",
-    features: ["6 herbal blends", "Caffeine-free", "30 tea bags"],
-    rating: 4.8,
-    reviewCount: 89,
-    category: "Nutrition",
-  },
-  {
-    name: "Art Therapy Kit",
-    price: 639,
-    originalPrice: 749,
-    desc: "Complete creative expression set including watercolours, coloured pencils, sketchpad, clay, and a guided art therapy workbook. Clinically inspired activities for stress relief and emotional processing.",
-    features: ["Guided workbook", "Premium supplies", "Carry case"],
-    rating: 4.9,
-    reviewCount: 56,
-    badge: "New",
-    category: "Therapy",
-  },
-  {
-    name: "Breathing Exercise Cards",
-    price: 199,
-    desc: "A deck of 52 beautifully illustrated cards, each featuring a different breathing or grounding technique. Perfect for anxiety management, panic attacks, and daily mindfulness practice.",
-    features: ["52 techniques", "Illustrated guides", "Portable deck"],
-    rating: 4.7,
-    reviewCount: 134,
-    category: "Self-Care",
-  },
-  {
-    name: "Weighted Comfort Blanket",
-    price: 1299,
-    originalPrice: 1499,
-    desc: "Therapeutic weighted blanket (7kg) with glass bead filling and ultra-soft minky cover. Clinically shown to reduce anxiety, improve sleep quality, and provide deep pressure stimulation.",
-    features: ["7kg weight", "Removable cover", "Glass bead filling"],
-    rating: 4.9,
-    reviewCount: 203,
-    badge: "Top Rated",
-    category: "Sleep & Relaxation",
-  },
-  {
-    name: "Affirmation Card Set",
-    price: 249,
-    desc: "100 positive affirmation cards covering self-worth, resilience, gratitude, and healing. Designed with clinical psychologists. Perfect for daily practice or group therapy sessions.",
-    features: ["100 cards", "Clinician-designed", "Display stand"],
-    rating: 4.6,
-    reviewCount: 78,
-    category: "Self-Care",
-  },
-  {
-    name: "Meditation Cushion",
-    price: 599,
-    desc: "Ergonomically designed buckwheat hull meditation cushion with removable organic cotton cover. Supports proper posture for extended meditation and mindfulness sessions.",
-    features: ["Buckwheat hull fill", "Organic cotton", "Adjustable height"],
-    rating: 4.8,
-    reviewCount: 45,
-    category: "Meditation",
-  },
-  {
-    name: "Stress Relief Essential Oil Set",
-    price: 449,
-    originalPrice: 549,
-    desc: "Set of 6 therapeutic-grade essential oils — lavender, bergamot, ylang ylang, frankincense, vetiver, and sweet orange. Includes a bamboo diffuser and usage guide for stress management.",
-    features: ["6 essential oils", "Bamboo diffuser", "Usage guide"],
-    rating: 4.7,
-    reviewCount: 112,
-    badge: "Value Pack",
-    category: "Aromatherapy",
-  },
-  {
-    name: "Mental Health First Aid Book",
-    price: 349,
-    desc: "Comprehensive guide to recognising and responding to mental health crises. Covers depression, anxiety, PTSD, substance use, and suicidal ideation. Written by SA clinical psychologists.",
-    features: ["SA-focused", "Evidence-based", "Resource directory"],
-    rating: 4.9,
-    reviewCount: 167,
-    category: "Education",
+    rating: 4.8, reviewCount: 98, category: "Relaxation",
+    image: "",
   },
 ];
 
 const reviews = [
-  { name: "Thandiwe M.", product: "Mindful Journal", rating: 5, text: "This journal has completely transformed my mornings. The prompts are thoughtful and really help me start the day with intention.", date: "2 weeks ago" },
-  { name: "Johan V.", product: "Weighted Comfort Blanket", rating: 5, text: "I've struggled with insomnia for years. This blanket is a game-changer — I fall asleep faster and wake up feeling rested.", date: "1 month ago" },
-  { name: "Sipho N.", product: "Art Therapy Kit", rating: 5, text: "Bought this for my daughter who's been going through a tough time. The guided workbook is incredible. Highly recommend.", date: "3 weeks ago" },
-  { name: "Lerato K.", product: "Calm Candle Set", rating: 4, text: "Beautiful candles with a lovely scent. Perfect for unwinding after a long day. The lavender one is my favourite.", date: "1 month ago" },
-  { name: "Anele D.", product: "Hope Bracelet", rating: 5, text: "Love knowing my purchase goes to a good cause. I wear it every day as a reminder that hope is always present.", date: "2 months ago" },
-  { name: "Fatima R.", product: "Breathing Exercise Cards", rating: 5, text: "These cards have been lifesaving during panic attacks. Easy to carry in my bag and the illustrations are calming.", date: "3 weeks ago" },
+  { name: "Thandiwe M.", product: "Be Kind To Your Mind Tee", rating: 5, text: "Love the quality and the message! I wear it everywhere and always get compliments. The organic cotton is so soft.", date: "2 weeks ago" },
+  { name: "Johan V.", product: "WCMHC Humanitarian Tee", rating: 5, text: "Perfect fit and the logo looks amazing. Proud to support this cause. Ordered two more for my team.", date: "1 month ago" },
+  { name: "Sipho N.", product: "Mental Health Matters Butterfly Tee", rating: 5, text: "The butterfly design is stunning. My daughter loved it. Such a meaningful piece of clothing.", date: "3 weeks ago" },
+  { name: "Lerato K.", product: "Be Kind To Your Mind Tee (Pink)", rating: 4, text: "Beautiful colour and great message. The double-sided print is a nice touch. Runs slightly large.", date: "1 month ago" },
+  { name: "Anele D.", product: "Mental Health Matters Tee (Rainbow)", rating: 5, text: "The rainbow colours are vibrant and eye-catching. Love that proceeds go to mental health programs.", date: "2 months ago" },
+  { name: "Fatima R.", product: "Mindful Journal", rating: 5, text: "This journal has completely transformed my mornings. The prompts are thoughtful and really help me start the day with intention.", date: "3 weeks ago" },
 ];
 
 const fadeUp = {
@@ -178,7 +173,7 @@ const Shop = () => {
     setCart((prev) => {
       const existing = prev.find((item) => item.name === product.name);
       if (existing) return prev.map((item) => item.name === product.name ? { ...item, qty: item.qty + 1 } : item);
-      return [...prev, { name: product.name, price: product.price, qty: 1 }];
+      return [...prev, { name: product.name, price: product.price, qty: 1, image: product.image }];
     });
     setCartOpen(true);
   };
@@ -228,7 +223,6 @@ const Shop = () => {
         <div className="container mx-auto">
           <SectionHeading label="Mental Health & Wellness" title="Shop & Support" description="100% of proceeds go directly to our mental health care initiatives." />
 
-          {/* Category Filter */}
           <div className="flex flex-wrap gap-2 mb-8 justify-center">
             {categories.map((cat) => (
               <button key={cat} onClick={() => setFilter(cat)}
@@ -242,8 +236,12 @@ const Shop = () => {
             {filtered.map((p, i) => (
               <motion.div key={p.name} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group hover:shadow-card transition-shadow">
-                <div className="aspect-square bg-muted flex items-center justify-center relative">
-                  <ShoppingBag className="w-16 h-16 text-muted-foreground/20" />
+                <div className="aspect-square bg-muted flex items-center justify-center relative overflow-hidden">
+                  {p.image ? (
+                    <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  ) : (
+                    <ShoppingBag className="w-16 h-16 text-muted-foreground/20" />
+                  )}
                   {p.badge && (
                     <span className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs font-bold px-2.5 py-1 rounded-lg">{p.badge}</span>
                   )}
@@ -329,8 +327,14 @@ const Shop = () => {
                 ) : (
                   cart.map((item) => (
                     <div key={item.name} className="flex items-center gap-4 bg-muted rounded-lg p-3">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
-                        <ShoppingBag className="w-5 h-5 text-primary" />
+                      <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+                        {item.image ? (
+                          <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full bg-primary/10 flex items-center justify-center">
+                            <ShoppingBag className="w-5 h-5 text-primary" />
+                          </div>
+                        )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-foreground truncate">{item.name}</p>

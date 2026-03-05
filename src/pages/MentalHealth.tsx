@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X, Mic, Play } from "lucide-react";
+import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X, Mic, Play, Phone } from "lucide-react";
 import { format } from "date-fns";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
@@ -190,70 +190,39 @@ const MentalHealth = () => {
         </div>
       </section>
 
-      {/* AI Voice Agent */}
+      {/* Call Now + Book Session - Side by Side */}
       <section className="section-padding bg-card">
         <div className="container mx-auto">
-          <div className="max-w-xl mx-auto text-center">
-            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Mic className="w-8 h-8 text-primary" />
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Call Now */}
+            <div className="text-center bg-muted rounded-2xl p-8 border border-border">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Phone className="w-8 h-8 text-primary" />
+              </div>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Call Now</h2>
+              <p className="text-muted-foreground mb-6">Speak to our receptionist instantly for questions, scheduling, or support.</p>
+              <VoiceAgent variant="button" />
             </div>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Call Now (The Reception)</h2>
-            <p className="text-muted-foreground mb-6">Have questions about our programs or need to schedule a session? Our receptionist is available to assist you instantly.</p>
-            <VoiceAgent variant="button" />
-          </div>
-        </div>
-      </section>
 
-      {/* Professionals - NOW BEFORE BOOKING */}
-      <section className="section-padding">
-        <div className="container mx-auto">
-          <SectionHeading label="Our Professionals" title="Meet the Experts Who Care" description="Review our providers below and choose your preferred professional when booking." />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {professionals.map((p, i) => (
-              <motion.div key={p.name} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-                className="bg-card rounded-2xl overflow-hidden shadow-card border border-border group">
-                <div className="flex items-start gap-4 p-5">
-                  <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-heading text-base font-semibold text-foreground">{p.name}</h3>
-                    <p className="text-primary text-sm font-medium mt-0.5">{p.role}</p>
-                    <p className="text-muted-foreground text-xs mt-0.5">{p.specialty}</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      <span className="font-medium text-foreground">Available:</span> {p.days.join(", ")}
-                    </p>
-                  </div>
-                </div>
-                <div className="px-5 pb-5">
-                  <p className={cn("text-sm text-muted-foreground leading-relaxed", expandedBio !== p.name && "line-clamp-3")}>
-                    {p.bio}
-                  </p>
-                  <button
-                    onClick={() => setExpandedBio(expandedBio === p.name ? null : p.name)}
-                    className="text-xs text-primary font-medium mt-2 hover:underline"
-                  >
-                    {expandedBio === p.name ? "Show Less" : "Read Full Bio"}
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Booking Calendar - NOW AFTER PROFESSIONALS */}
-      <section className="section-padding bg-muted">
-        <div className="container mx-auto">
-          <SectionHeading label="Book a Session" title="World Changers Org Booking Calendar" description="Schedule a 60-minute counseling session with your preferred provider." />
-
-          {!bookingOpen ? (
-            <div className="text-center">
+            {/* Book Session */}
+            <div className="text-center bg-muted rounded-2xl p-8 border border-border">
+              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+                <CalendarDays className="w-8 h-8 text-accent" />
+              </div>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Book a Session</h2>
+              <p className="text-muted-foreground mb-6">Schedule a 60-minute counseling session with your preferred provider below.</p>
               <Button onClick={() => setBookingOpen(true)} size="lg" className="bg-hero-gradient text-primary-foreground hover:opacity-90">
-                <CalendarDays className="w-5 h-5 mr-2" /> Book a Session
+                <CalendarDays className="w-5 h-5 mr-2" /> Open Booking Calendar
               </Button>
             </div>
-          ) : (
+          </div>
+        </div>
+      </section>
+
+      {/* Booking Calendar Modal */}
+      {bookingOpen && (
+        <section className="section-padding bg-muted">
+          <div className="container mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               className="max-w-2xl mx-auto bg-card rounded-2xl p-8 shadow-card border border-border relative">
               <button onClick={() => { setBookingOpen(false); setBookingSubmitted(false); }} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
@@ -296,14 +265,10 @@ const MentalHealth = () => {
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Preferred Provider</label>
                     <Select value={selectedProvider} onValueChange={(val) => { setSelectedProvider(val); setDate(undefined); setTime(""); }}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a provider" />
-                      </SelectTrigger>
+                      <SelectTrigger><SelectValue placeholder="Select a provider" /></SelectTrigger>
                       <SelectContent>
                         {professionals.map((p) => (
-                          <SelectItem key={p.name} value={p.name}>
-                            {p.name} — {p.specialty}
-                          </SelectItem>
+                          <SelectItem key={p.name} value={p.name}>{p.name} — {p.specialty}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -312,9 +277,7 @@ const MentalHealth = () => {
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Session Type</label>
                     <Select value={sessionType} onValueChange={setSessionType} required>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select session type" />
-                      </SelectTrigger>
+                      <SelectTrigger><SelectValue placeholder="Select session type" /></SelectTrigger>
                       <SelectContent>
                         {sessionTypes.map((t) => (
                           <SelectItem key={t} value={t}>{t}</SelectItem>
@@ -338,16 +301,13 @@ const MentalHealth = () => {
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0" align="start">
                             <Calendar
-                              mode="single"
-                              selected={date}
-                              onSelect={setDate}
+                              mode="single" selected={date} onSelect={setDate}
                               disabled={(d) => {
                                 if (d < new Date()) return true;
                                 const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][d.getDay()];
                                 return !availableDays.includes(dayName);
                               }}
-                              initialFocus
-                              className={cn("p-3 pointer-events-auto")}
+                              initialFocus className={cn("p-3 pointer-events-auto")}
                             />
                           </PopoverContent>
                         </Popover>
@@ -382,12 +342,48 @@ const MentalHealth = () => {
                 </form>
               )}
             </motion.div>
-          )}
+          </div>
+        </section>
+      )}
+
+      {/* Professionals */}
+      <section className="section-padding">
+        <div className="container mx-auto">
+          <SectionHeading label="Our Professionals" title="Meet the Experts Who Care" description="Review our providers below and choose your preferred professional when booking." />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {professionals.map((p, i) => (
+              <motion.div key={p.name} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+                className="bg-card rounded-2xl overflow-hidden shadow-card border border-border group">
+                <div className="flex items-start gap-4 p-5">
+                  <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-heading text-base font-semibold text-foreground">{p.name}</h3>
+                    <p className="text-primary text-sm font-medium mt-0.5">{p.role}</p>
+                    <p className="text-muted-foreground text-xs mt-0.5">{p.specialty}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      <span className="font-medium text-foreground">Available:</span> {p.days.join(", ")}
+                    </p>
+                  </div>
+                </div>
+                <div className="px-5 pb-5">
+                  <p className={cn("text-sm text-muted-foreground leading-relaxed", expandedBio !== p.name && "line-clamp-3")}>
+                    {p.bio}
+                  </p>
+                  <button onClick={() => setExpandedBio(expandedBio === p.name ? null : p.name)}
+                    className="text-xs text-primary font-medium mt-2 hover:underline">
+                    {expandedBio === p.name ? "Show Less" : "Read Full Bio"}
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* YouTube Videos */}
-      <section className="section-padding">
+      <section className="section-padding bg-muted">
         <div className="container mx-auto">
           <SectionHeading label="Watch & Learn" title="Mental Health Videos" description="Educational videos on mental health awareness and wellbeing." />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -395,13 +391,9 @@ const MentalHealth = () => {
               <motion.div key={video.id} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="rounded-xl overflow-hidden shadow-soft border border-border bg-card">
                 <div className="aspect-video">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.id}`}
-                    title={video.title}
+                  <iframe src={`https://www.youtube.com/embed/${video.id}`} title={video.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  />
+                    allowFullScreen className="w-full h-full" />
                 </div>
                 <div className="p-3">
                   <p className="text-sm font-medium text-foreground flex items-center gap-2"><Play className="w-3.5 h-3.5 text-primary" /> {video.title}</p>

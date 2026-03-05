@@ -1,73 +1,90 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import aboutBg from "@/assets/about-bg.jpg";
+import portfolioEdu1 from "@/assets/portfolio-edu-1.jpg";
+import portfolioEdu2 from "@/assets/portfolio-edu-2.jpg";
+import portfolioEdu3 from "@/assets/portfolio-edu-3.jpg";
+import portfolioCom1 from "@/assets/portfolio-community-1.jpg";
+import portfolioCom2 from "@/assets/portfolio-community-2.jpg";
+import portfolioCom3 from "@/assets/portfolio-community-3.jpg";
+import portfolioWell1 from "@/assets/portfolio-wellness-1.jpg";
+import portfolioWell2 from "@/assets/portfolio-wellness-2.jpg";
+import portfolioWell3 from "@/assets/portfolio-wellness-3.jpg";
 
-const projects = [
-  { title: "Help the Mental Health System", cats: ["Mental Health", "Medical Health"] },
-  { title: "Clean Mind Initiatives", cats: ["Wellness", "Community"] },
-  { title: "Healthy Living for All", cats: ["Counseling", "Support"] },
-  { title: "Youth Mental Wellness Program", cats: ["Education", "Mental Health"] },
-  { title: "Community Counseling Centers", cats: ["Community", "Medical Health"] },
-  { title: "Better Lives Through Therapy", cats: ["Wellness", "Support"] },
-  { title: "Veterans Trauma Recovery", cats: ["Mental Health", "Trauma"] },
-  { title: "Rural Mental Health Clinics", cats: ["Community", "Medical Health"] },
-  { title: "School-Based Counseling", cats: ["Education", "Youth"] },
+const portfolioProjects = [
+  { title: "Mental Health Education in Schools", cats: ["Education", "Mental Health"], desc: "Delivering mental health awareness workshops and peer counselling programs to learners and educators across South Africa.", image: portfolioEdu1 },
+  { title: "Workplace Wellness Seminars", cats: ["Education", "Wellness"], desc: "Corporate mental health training programs empowering employees to manage stress, recognise burnout, and support colleagues.", image: portfolioEdu2 },
+  { title: "Youth Mental Health Literacy", cats: ["Education", "Youth"], desc: "Interactive education sessions in community halls and educational spaces equipping young people with mental health knowledge.", image: portfolioEdu3 },
+  { title: "Community Food Drive Initiative", cats: ["Community", "Food Security"], desc: "Distributing food parcels to over 5,000 families across underserved communities in Gauteng and KwaZulu-Natal.", image: portfolioCom1 },
+  { title: "Winter Relief Campaign", cats: ["Community", "Charity"], desc: "Annual campaign providing warm blankets, clothing, and essentials to homeless individuals and vulnerable families.", image: portfolioCom2 },
+  { title: "Rural Community Outreach", cats: ["Community", "Humanitarian"], desc: "Deploying volunteers to rural communities with food parcels, hygiene kits, and children's educational materials.", image: portfolioCom3 },
+  { title: "Mental Health Awareness Golf Day", cats: ["Wellness", "Fundraising"], desc: "Annual fundraising golf day raising over R500,000 for youth mental health therapy and counselling services.", image: portfolioWell1 },
+  { title: "Mindfulness & Wellbeing Programs", cats: ["Wellness", "Self-Care"], desc: "Community-based mindfulness workshops, meditation sessions, and holistic wellbeing programs for all ages.", image: portfolioWell2 },
+  { title: "Annual Awards & Recognition Gala", cats: ["Wellness", "Community"], desc: "Celebrating outstanding volunteers, donors, and community heroes at our annual recognition ceremony.", image: portfolioWell3 },
 ];
 
-const filters = ["All", "Mental Health", "Community", "Education", "Wellness"];
+const filters = ["All", "Education", "Community", "Wellness"];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
 };
 
-const Portfolio = () => (
-  <div>
-    <PageHero title="Our Portfolio" subtitle="Successful projects and case studies from our global mission" bgImage={aboutBg} />
+const Portfolio = () => {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const filtered = activeFilter === "All" ? portfolioProjects : portfolioProjects.filter((p) => p.cats.some((c) => c === activeFilter));
 
-    <section className="section-padding">
-      <div className="container mx-auto">
-        <SectionHeading label="Case Studies" title="Successful Projects" description="See the impact of our programs across the globe." />
+  return (
+    <div>
+      <PageHero title="Our Portfolio" subtitle="Successful projects and case studies from our global mission" bgImage={aboutBg} />
 
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
-          {filters.map((f) => (
-            <button key={f} className="px-5 py-2 rounded-full text-sm font-medium border border-border hover:bg-primary hover:text-primary-foreground transition-colors">
-              {f}
-            </button>
-          ))}
-        </div>
+      <section className="section-padding">
+        <div className="container mx-auto">
+          <SectionHeading label="Case Studies" title="Successful Projects" description="See the impact of our programs across the globe." />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, i) => (
-            <motion.div key={project.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-              className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group">
-              <div className="aspect-[4/5] bg-primary/5 flex items-center justify-center">
-                <Globe className="w-16 h-16 text-primary/20" />
-              </div>
-              <div className="p-5">
-                <div className="flex gap-2 mb-2">
-                  {project.cats.map(c => (
-                    <span key={c} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{c}</span>
-                  ))}
+          <div className="flex flex-wrap justify-center gap-3 mb-10">
+            {filters.map((f) => (
+              <button key={f} onClick={() => setActiveFilter(f)}
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${activeFilter === f ? "bg-primary text-primary-foreground" : "border border-border hover:bg-primary hover:text-primary-foreground"}`}>
+                {f}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((project, i) => (
+              <motion.div key={project.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+                className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group">
+                <div className="aspect-video overflow-hidden">
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                <h3 className="font-heading text-lg font-semibold text-foreground">{project.title}</h3>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                <div className="p-5">
+                  <div className="flex gap-2 mb-2 flex-wrap">
+                    {project.cats.map((c) => (
+                      <span key={c} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{c}</span>
+                    ))}
+                  </div>
+                  <h3 className="font-heading text-lg font-semibold text-foreground mb-2">{project.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{project.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
-        <div className="text-center mt-10">
-          <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
-            <Link to="/contact">Start A Project <ArrowRight className="w-4 h-4 ml-2" /></Link>
-          </Button>
+          <div className="text-center mt-10">
+            <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
+              <Link to="/contact">Start A Project <ArrowRight className="w-4 h-4 ml-2" /></Link>
+            </Button>
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
-);
+      </section>
+    </div>
+  );
+};
 
 export default Portfolio;
