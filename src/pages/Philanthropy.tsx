@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
 import philanthropyHeroNew from "@/assets/philanthropy-hero-new.jpg";
-import heroBg from "@/assets/hero-bg.jpg";
 import portfolioEdu1 from "@/assets/portfolio-edu-1.jpg";
 import portfolioEdu2 from "@/assets/portfolio-edu-2.jpg";
 import portfolioEdu3 from "@/assets/portfolio-edu-3.jpg";
@@ -79,11 +78,11 @@ const Philanthropy = () => (
             Lend A Helping Hand To Those Who Need It
           </motion.h1>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="flex flex-wrap gap-4">
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-base px-8">
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-base px-8 font-bold shadow-lg">
               <Link to="/become-volunteer">Become a Volunteer <ArrowRight className="w-4 h-4 ml-2" /></Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground bg-primary-foreground/10 hover:bg-primary-foreground/20 text-base px-8">
-              <Link to="/contact">Donate Now</Link>
+            <Button asChild size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 text-base px-8 font-bold shadow-lg">
+              <Link to="/contact">Donate Now <Heart className="w-4 h-4 ml-2" /></Link>
             </Button>
           </motion.div>
         </div>
@@ -105,7 +104,7 @@ const Philanthropy = () => (
       </div>
     </section>
 
-    {/* Get Inspired — replaced aboutBg with philanthropyHeroNew */}
+    {/* Get Inspired */}
     <section className="section-padding">
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -207,7 +206,7 @@ const Philanthropy = () => (
       </div>
     </section>
 
-    {/* Portfolio with real images */}
+    {/* Portfolio */}
     <section className="section-padding bg-muted">
       <div className="container mx-auto">
         <SectionHeading label="Our Projects" title="Charity & Humanitarian Portfolio" description="See the impact of our humanitarian programs and charity initiatives." />
@@ -242,13 +241,8 @@ const Philanthropy = () => (
             <motion.div key={video.id} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
               className="rounded-xl overflow-hidden shadow-soft border border-border bg-card">
               <div className="aspect-video">
-                <iframe
-                  src={`https://www.youtube.com/embed/${video.id}`}
-                  title={video.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
+                <iframe src={`https://www.youtube.com/embed/${video.id}`} title={video.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" />
               </div>
               <div className="p-3">
                 <p className="text-sm font-medium text-foreground flex items-center gap-2"><Play className="w-3.5 h-3.5 text-primary" /> {video.title}</p>
@@ -268,11 +262,11 @@ const Philanthropy = () => (
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-5">Together, We Can Change the World</h2>
           <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto mb-8">Join our mission to provide humanitarian aid and charity to communities in need.</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-base px-8">
-              <Link to="/contact">Donate Now</Link>
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-base px-8 font-bold shadow-lg">
+              <Link to="/contact">Donate Now <Heart className="w-4 h-4 ml-2" /></Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 text-base px-8">
-              <Link to="/become-volunteer">Become a Volunteer</Link>
+            <Button asChild size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 text-base px-8 font-bold shadow-lg">
+              <Link to="/become-volunteer">Become a Volunteer <ArrowRight className="w-4 h-4 ml-2" /></Link>
             </Button>
           </div>
         </motion.div>
