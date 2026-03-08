@@ -263,8 +263,8 @@ const Login = () => {
                   ) : (
                     bookings.map((booking) => (
                       <motion.div key={booking.id} variants={fadeUp}
-                        className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                        <div className={`w-1.5 h-14 rounded-full ${booking.session_mode === "Virtual" ? "bg-primary" : "bg-accent"}`} />
+                        className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
+                        <div className={`w-1.5 h-14 rounded-full flex-shrink-0 ${booking.session_mode === "Virtual" ? "bg-primary" : "bg-accent"}`} />
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-foreground text-sm">{booking.session_type}</p>
                           <p className="text-xs text-muted-foreground">with {booking.provider_name}</p>
@@ -278,9 +278,18 @@ const Login = () => {
                             <span className="text-xs text-muted-foreground">{booking.session_time}</span>
                           </div>
                         </div>
-                        <Badge variant={booking.session_mode === "Virtual" ? "secondary" : "outline"} className="text-xs flex-shrink-0">
-                          {booking.session_mode}
-                        </Badge>
+                        <div className="flex gap-1 flex-shrink-0">
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary"
+                            onClick={() => { setRescheduleBooking(booking); setRescheduleDate(parseISO(booking.session_date)); setRescheduleTime(booking.session_time); }}
+                            title="Reschedule">
+                            <RefreshCw className="w-4 h-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                            onClick={() => setCancelBooking(booking)}
+                            title="Cancel">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
                       </motion.div>
                     ))
                   )}
