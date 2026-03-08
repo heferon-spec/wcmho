@@ -90,7 +90,45 @@ const Login = () => {
     fetchBookings();
   }, [user]);
 
-  const handleEmailAuth = async (e: React.FormEvent) => {
+  const handleCancelBooking = async () => {
+    if (!cancelBooking) return;
+    setActionLoading(true);
+    try {
+      const { error } = await supabase.from("bookings").delete().eq("id", cancelBooking.id);
+      if (error) throw error;
+      setBookings((prev) => prev.filter((b) => b.id !== cancelBooking.id));
+      toast.success("Session cancelled successfully");
+      setCancelBooking(null);
+    } catch (err: any) {
+      toast.error(err.message || "Failed to cancel session");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleRescheduleBooking = async () => {
+    if (!rescheduleBooking || !rescheduleDate || !rescheduleTime) return;
+    setActionLoading(true);
+    try {
+      const newDate = format(rescheduleDate, "yyyy-MM-dd");
+      const { error } = await supabase.from("bookings").update({
+        session_date: newDate,
+        session_time: rescheduleTime,
+      }).eq("id", rescheduleBooking.id);
+      if (error) throw error;
+      setBookings((prev) => prev.map((b) => b.id === rescheduleBooking.id ? { ...b, session_date: newDate, session_time: rescheduleTime } : b));
+      toast.success("Session rescheduled successfully");
+      setRescheduleBooking(null);
+      setRescheduleDate(undefined);
+      setRescheduleTime("");
+    } catch (err: any) {
+      toast.error(err.message || "Failed to reschedule session");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+
     e.preventDefault();
     if (isSignUp && password !== confirmPassword) {
       toast.error("Passwords do not match");
