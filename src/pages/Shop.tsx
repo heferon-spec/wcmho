@@ -68,6 +68,32 @@ const Shop = () => {
     fetchProducts();
   }, [activeCategory]);
 
+  useEffect(() => {
+    async function fetchReviewStats() {
+      try {
+        const { data, error } = await supabase
+          .from("product_reviews")
+          .select("product_handle, rating");
+        if (error) throw error;
+        const stats: Record<string, { avg: number; count: number }> = {};
+        if (data) {
+          for (const r of data) {
+            if (!stats[r.product_handle]) stats[r.product_handle] = { avg: 0, count: 0 };
+            stats[r.product_handle].count++;
+            stats[r.product_handle].avg += r.rating;
+          }
+          for (const key in stats) {
+            stats[key].avg = stats[key].avg / stats[key].count;
+          }
+        }
+        setReviewStats(stats);
+      } catch (error) {
+        console.error("Failed to fetch review stats:", error);
+      }
+    }
+    fetchReviewStats();
+  }, []);
+
   const getSelectedVariant = (product: ShopifyProduct) => {
     const selectedId = selectedVariants[product.node.id];
     if (selectedId) {
