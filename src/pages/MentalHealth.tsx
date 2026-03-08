@@ -411,46 +411,36 @@ const MentalHealth = () => {
         </section>
       )}
 
-      {/* Professionals - Compact Table */}
+      {/* Professionals */}
       <section className="section-padding">
         <div className="container mx-auto">
           <SectionHeading label="Our Professionals" title="Meet the Experts Who Care" description="Review our providers below and choose your preferred professional when booking." />
-          <div className="max-w-5xl mx-auto bg-card rounded-2xl border border-border shadow-card overflow-hidden">
-            <div className="hidden md:grid grid-cols-[2fr_1.2fr_1.2fr_1.5fr] gap-4 px-6 py-3 bg-muted text-xs font-semibold uppercase tracking-wider text-muted-foreground border-b border-border">
-              <span>Provider</span>
-              <span>Role</span>
-              <span>Specialty</span>
-              <span>Availability</span>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {professionals.map((p, i) => (
-              <motion.div key={p.name} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-                <div
-                  className={cn(
-                    "grid md:grid-cols-[2fr_1.2fr_1.2fr_1.5fr] gap-3 md:gap-4 px-6 py-4 items-center cursor-pointer hover:bg-muted/50 transition-colors",
-                    i !== professionals.length - 1 && "border-b border-border"
-                  )}
-                  onClick={() => setExpandedBio(expandedBio === p.name ? null : p.name)}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
-                      <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-                    </div>
-                    <span className="font-heading text-sm font-semibold text-foreground">{p.name}</span>
+              <motion.div key={p.name} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+                className="bg-card rounded-2xl overflow-hidden shadow-card border border-border group">
+                <div className="flex items-start gap-4 p-5">
+                  <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
                   </div>
-                  <span className="text-sm text-primary font-medium">{p.role}</span>
-                  <span className="text-sm text-muted-foreground">{p.specialty}</span>
-                  <span className="text-xs text-muted-foreground">{p.days.join(", ")}</span>
+                  <div className="min-w-0">
+                    <h3 className="font-heading text-base font-semibold text-foreground">{p.name}</h3>
+                    <p className="text-primary text-sm font-medium mt-0.5">{p.role}</p>
+                    <p className="text-muted-foreground text-xs mt-0.5">{p.specialty}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      <span className="font-medium text-foreground">Available:</span> {p.days.join(", ")}
+                    </p>
+                  </div>
                 </div>
-                {expandedBio === p.name && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="px-6 pb-4 border-b border-border bg-muted/30"
-                  >
-                    <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">{p.bio}</p>
-                  </motion.div>
-                )}
+                <div className="px-5 pb-5">
+                  <p className={cn("text-sm text-muted-foreground leading-relaxed", expandedBio !== p.name && "line-clamp-3")}>
+                    {p.bio}
+                  </p>
+                  <button onClick={() => setExpandedBio(expandedBio === p.name ? null : p.name)}
+                    className="text-xs text-primary font-medium mt-2 hover:underline">
+                    {expandedBio === p.name ? "Show Less" : "Read Full Bio"}
+                  </button>
+                </div>
               </motion.div>
             ))}
           </div>
