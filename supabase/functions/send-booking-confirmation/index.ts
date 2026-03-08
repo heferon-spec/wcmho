@@ -27,7 +27,7 @@ Deno.serve(async (req) => {
       <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb;">
         <div style="background: linear-gradient(135deg, #1a6b4a, #2d9d6f); padding: 32px; text-align: center;">
           <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Booking Confirmed ✓</h1>
-          <p style="color: #d1fae5; margin: 8px 0 0; font-size: 14px;">Western Cape Mental Health Centre</p>
+          <p style="color: #d1fae5; margin: 8px 0 0; font-size: 14px;">World Changers Mental Health Care Org</p>
         </div>
         <div style="padding: 32px;">
           <p style="color: #374151; font-size: 16px; margin: 0 0 24px;">Hi <strong>${full_name}</strong>,</p>
