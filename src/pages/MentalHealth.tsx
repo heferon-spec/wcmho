@@ -294,8 +294,11 @@ const MentalHealth = () => {
                 </div>
               ) : (
                 <form onSubmit={handleBookingSubmit} className="space-y-5">
-                  <h3 className="font-heading text-xl font-bold text-foreground mb-2">Schedule Your Session</h3>
-                  <p className="text-sm text-muted-foreground mb-4">All sessions are 60 minutes. Select your preferred provider to see their availability.</p>
+                  <h3 className="font-heading text-xl font-bold text-foreground mb-2">Schedule Your Virtual Session</h3>
+                  <p className="text-sm text-muted-foreground mb-2">All sessions are 60 minutes and conducted virtually. Select your preferred provider to see their availability.</p>
+                  <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
+                    <Video className="w-3.5 h-3.5" /> Session Mode: Virtual
+                  </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
