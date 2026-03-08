@@ -241,14 +241,19 @@ const Login = () => {
 
               {/* Wellness & Suggestions Row */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Wellness Progress */}
+                {/* Wellness — Mood Tracker */}
                 <motion.div variants={fadeUp} className="bg-card rounded-2xl p-6 shadow-card border border-border">
-                  <h2 className="font-heading text-xl font-bold text-foreground flex items-center gap-2 mb-5">
-                    <Star className="w-5 h-5 text-accent" /> Your Wellness Journey
-                  </h2>
+                  <div className="flex items-center justify-between mb-5">
+                    <h2 className="font-heading text-xl font-bold text-foreground flex items-center gap-2">
+                      <Star className="w-5 h-5 text-accent" /> Your Wellness Journey
+                    </h2>
+                    <Button asChild variant="outline" size="sm">
+                      <Link to="/mood-tracker">Open Tracker <ChevronRight className="w-4 h-4 ml-1" /></Link>
+                    </Button>
+                  </div>
                   <div className="space-y-5">
                     {wellnessTips.map((tip, i) => (
-                      <div key={i} className="space-y-2">
+                      <Link to={tip.path} key={i} className="space-y-2 block hover:opacity-80 transition-opacity">
                         <div className="flex items-center gap-3">
                           <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
                             <tip.icon className="w-4 h-4 text-accent" />
@@ -257,10 +262,9 @@ const Login = () => {
                             <p className="font-medium text-sm text-foreground">{tip.title}</p>
                             <p className="text-xs text-muted-foreground">{tip.desc}</p>
                           </div>
-                          <span className="text-xs font-semibold text-primary">{tip.progress}%</span>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
                         </div>
-                        <Progress value={tip.progress} className="h-1.5" />
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </motion.div>
