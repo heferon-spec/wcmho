@@ -1,15 +1,44 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { User, Mail, Lock, ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
+import {
+  User, Mail, Lock, ArrowRight, Eye, EyeOff, Loader2,
+  Calendar, Heart, ShoppingBag, BookOpen, Clock, Star,
+  Phone, Gift, TrendingUp, LogOut, ChevronRight
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import PageHero from "@/components/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/hooks/useAuth";
+import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import aboutBg from "@/assets/about-bg.jpg";
+
+const upcomingSessions = [
+  { title: "Individual Counseling", therapist: "Dr. Florence Maleka", date: "Mar 12, 2026", time: "10:00 AM", type: "Virtual", color: "bg-primary" },
+  { title: "Group Therapy — Stress Management", therapist: "Kumari Sukhdeo", date: "Mar 15, 2026", time: "2:00 PM", type: "In-Person", color: "bg-accent" },
+  { title: "Couples Counseling", therapist: "Celiwe Rahlagane", date: "Mar 20, 2026", time: "11:30 AM", type: "Virtual", color: "bg-primary" },
+];
+
+const wellnessTips = [
+  { icon: Heart, title: "Daily Mindfulness", desc: "Try 5 minutes of deep breathing today", progress: 70 },
+  { icon: BookOpen, title: "Journal Prompt", desc: "Write about 3 things you're grateful for", progress: 40 },
+  { icon: TrendingUp, title: "Mood Tracker", desc: "Log your mood to see patterns over time", progress: 85 },
+];
+
+const quickActions = [
+  { icon: Calendar, label: "Book Session", desc: "Schedule therapy", path: "/mental-health" },
+  { icon: Phone, label: "Call Now", desc: "Speak to someone", path: "/mental-health" },
+  { icon: ShoppingBag, label: "My Orders", desc: "View your cart", path: "/shop" },
+  { icon: Gift, label: "Donate", desc: "Support our cause", path: "/philanthropy" },
+];
+
+const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } };
+const fadeUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
 
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -21,6 +50,7 @@ const Login = () => {
   const [fullName, setFullName] = useState("");
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const cartItems = useCartStore((s) => s.items);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,31 +100,158 @@ const Login = () => {
     }
   };
 
+  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || "there";
+  const greeting = new Date().getHours() < 12 ? "Good Morning" : new Date().getHours() < 17 ? "Good Afternoon" : "Good Evening";
+
   if (user) {
     return (
       <div>
-        <PageHero title="My Account" subtitle="Manage your profile and settings" bgImage={aboutBg} />
+        <PageHero title={`${greeting}, ${displayName}!`} subtitle="Your personal wellness dashboard" bgImage={aboutBg} />
+
         <section className="section-padding">
-          <div className="container mx-auto">
-            <div className="max-w-md mx-auto">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                className="bg-card rounded-2xl p-8 shadow-card text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  {user.user_metadata?.avatar_url ? (
-                    <img src={user.user_metadata.avatar_url} alt="" className="w-16 h-16 rounded-full object-cover" />
-                  ) : (
-                    <User className="w-8 h-8 text-primary" />
-                  )}
+          <div className="container mx-auto max-w-6xl">
+            <motion.div variants={stagger} initial="hidden" animate="visible" className="space-y-8">
+
+              {/* Profile Card + Quick Actions Row */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Profile Card */}
+                <motion.div variants={fadeUp} className="bg-card rounded-2xl p-6 shadow-card border border-border">
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 ring-2 ring-primary/20">
+                      {user.user_metadata?.avatar_url ? (
+                        <img src={user.user_metadata.avatar_url} alt="" className="w-16 h-16 rounded-full object-cover" />
+                      ) : (
+                        <User className="w-8 h-8 text-primary" />
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="font-heading text-lg font-bold text-foreground truncate">{displayName}</h3>
+                      <p className="text-sm text-muted-foreground truncate">{user.email}</p>
+                      <Badge variant="secondary" className="mt-1 text-xs">Member</Badge>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" className="flex-1" onClick={() => navigate("/shop")}>
+                      <ShoppingBag className="w-4 h-4 mr-1" /> Cart ({cartItems.length})
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={signOut}>
+                      <LogOut className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </motion.div>
+
+                {/* Quick Actions */}
+                <motion.div variants={fadeUp} className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {quickActions.map((action) => (
+                    <Link key={action.label} to={action.path}
+                      className="bg-card rounded-xl p-4 shadow-card border border-border hover:border-primary/30 hover:shadow-elevated transition-all group text-center">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
+                        <action.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <p className="font-heading font-bold text-sm text-foreground">{action.label}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{action.desc}</p>
+                    </Link>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Upcoming Sessions */}
+              <motion.div variants={fadeUp} className="bg-card rounded-2xl p-6 shadow-card border border-border">
+                <div className="flex items-center justify-between mb-5">
+                  <div>
+                    <h2 className="font-heading text-xl font-bold text-foreground flex items-center gap-2">
+                      <Calendar className="w-5 h-5 text-primary" /> Upcoming Sessions
+                    </h2>
+                    <p className="text-sm text-muted-foreground mt-0.5">Your scheduled therapy & wellness appointments</p>
+                  </div>
+                  <Button asChild variant="outline" size="sm">
+                    <Link to="/mental-health">Book New <ChevronRight className="w-4 h-4 ml-1" /></Link>
+                  </Button>
                 </div>
-                <h3 className="font-heading text-2xl font-bold text-foreground mb-1">
-                  {user.user_metadata?.full_name || user.user_metadata?.name || "Welcome!"}
-                </h3>
-                <p className="text-muted-foreground mb-6">{user.email}</p>
-                <Button onClick={signOut} variant="outline" className="w-full">
-                  Sign Out
-                </Button>
+                <div className="space-y-3">
+                  {upcomingSessions.map((session, i) => (
+                    <motion.div key={i} variants={fadeUp}
+                      className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
+                      <div className={`w-1.5 h-14 rounded-full ${session.color}`} />
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-foreground text-sm">{session.title}</p>
+                        <p className="text-xs text-muted-foreground">with {session.therapist}</p>
+                      </div>
+                      <div className="text-right flex-shrink-0">
+                        <p className="text-sm font-medium text-foreground">{session.date}</p>
+                        <div className="flex items-center gap-1 justify-end">
+                          <Clock className="w-3 h-3 text-muted-foreground" />
+                          <span className="text-xs text-muted-foreground">{session.time}</span>
+                        </div>
+                      </div>
+                      <Badge variant={session.type === "Virtual" ? "secondary" : "outline"} className="text-xs flex-shrink-0">
+                        {session.type}
+                      </Badge>
+                    </motion.div>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground mt-4 text-center">
+                  Sessions are managed through our <Link to="/mental-health" className="text-primary hover:underline">Mental Health portal</Link>
+                </p>
               </motion.div>
-            </div>
+
+              {/* Wellness & Suggestions Row */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Wellness Progress */}
+                <motion.div variants={fadeUp} className="bg-card rounded-2xl p-6 shadow-card border border-border">
+                  <h2 className="font-heading text-xl font-bold text-foreground flex items-center gap-2 mb-5">
+                    <Star className="w-5 h-5 text-accent" /> Your Wellness Journey
+                  </h2>
+                  <div className="space-y-5">
+                    {wellnessTips.map((tip, i) => (
+                      <div key={i} className="space-y-2">
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                            <tip.icon className="w-4 h-4 text-accent" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium text-sm text-foreground">{tip.title}</p>
+                            <p className="text-xs text-muted-foreground">{tip.desc}</p>
+                          </div>
+                          <span className="text-xs font-semibold text-primary">{tip.progress}%</span>
+                        </div>
+                        <Progress value={tip.progress} className="h-1.5" />
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Explore & Suggestions */}
+                <motion.div variants={fadeUp} className="bg-card rounded-2xl p-6 shadow-card border border-border">
+                  <h2 className="font-heading text-xl font-bold text-foreground flex items-center gap-2 mb-5">
+                    <BookOpen className="w-5 h-5 text-primary" /> Recommended For You
+                  </h2>
+                  <div className="space-y-3">
+                    <Link to="/news" className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors group">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"><BookOpen className="w-5 h-5 text-primary" /></div>
+                      <div className="flex-1"><p className="font-medium text-sm text-foreground">Latest Articles</p><p className="text-xs text-muted-foreground">New insights on mental wellness</p></div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </Link>
+                    <Link to="/events" className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors group">
+                      <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center"><Calendar className="w-5 h-5 text-accent" /></div>
+                      <div className="flex-1"><p className="font-medium text-sm text-foreground">Upcoming Events</p><p className="text-xs text-muted-foreground">Workshops, seminars & community</p></div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </Link>
+                    <Link to="/shop" className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors group">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"><ShoppingBag className="w-5 h-5 text-primary" /></div>
+                      <div className="flex-1"><p className="font-medium text-sm text-foreground">Merch Store</p><p className="text-xs text-muted-foreground">Support the cause with branded gear</p></div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </Link>
+                    <Link to="/become-volunteer" className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors group">
+                      <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center"><Heart className="w-5 h-5 text-accent" /></div>
+                      <div className="flex-1"><p className="font-medium text-sm text-foreground">Volunteer</p><p className="text-xs text-muted-foreground">Make an impact in your community</p></div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </Link>
+                  </div>
+                </motion.div>
+              </div>
+
+            </motion.div>
           </div>
         </section>
       </div>
