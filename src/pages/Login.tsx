@@ -5,9 +5,24 @@ import {
   User, Mail, Lock, ArrowRight, Eye, EyeOff, Loader2,
   Calendar, Heart, ShoppingBag, BookOpen, Clock, Star,
   Phone, Gift, TrendingUp, LogOut, ChevronRight, CalendarX,
-  Settings, Smile
+  Settings, Smile, X, RefreshCw, Trash2, AlertTriangle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import PageHero from "@/components/PageHero";
+import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
+import { useAuth } from "@/hooks/useAuth";
+import { useCartStore } from "@/stores/cartStore";
+import { toast } from "sonner";
+import { format, parseISO, addDays, isAfter } from "date-fns";
+import aboutBg from "@/assets/about-bg.jpg";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Calendar as CalendarPicker } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import PageHero from "@/components/PageHero";
