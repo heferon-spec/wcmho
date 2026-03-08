@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      bookings: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          phone: string
+          provider_name: string
+          reason: string | null
+          session_date: string
+          session_mode: string
+          session_time: string
+          session_type: string
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          phone: string
+          provider_name: string
+          reason?: string | null
+          session_date: string
+          session_mode?: string
+          session_time: string
+          session_type: string
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string
+          provider_name?: string
+          reason?: string | null
+          session_date?: string
+          session_mode?: string
+          session_time?: string
+          session_type?: string
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       product_reviews: {
         Row: {
           comment: string
