@@ -128,7 +128,7 @@ const Login = () => {
     }
   };
 
-
+  const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSignUp && password !== confirmPassword) {
       toast.error("Passwords do not match");
