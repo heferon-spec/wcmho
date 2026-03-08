@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ShoppingCart, User } from "lucide-react";
+import { Menu, X, ChevronDown, ShoppingCart, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 
@@ -31,6 +32,7 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 bg-card/90 backdrop-blur-md border-b border-border">
@@ -75,8 +77,12 @@ const Navbar = () => {
           <Link to="/shop" className="p-2 text-foreground hover:text-primary transition-colors relative" title="Shop">
             <ShoppingCart className="w-5 h-5" />
           </Link>
-          <Link to="/login" className="p-2 text-foreground hover:text-primary transition-colors" title="Log In">
-            <User className="w-5 h-5" />
+          <Link to="/login" className="p-2 text-foreground hover:text-primary transition-colors" title={user ? "My Account" : "Log In"}>
+            {user?.user_metadata?.avatar_url ? (
+              <img src={user.user_metadata.avatar_url} alt="" className="w-6 h-6 rounded-full object-cover" />
+            ) : (
+              <User className={`w-5 h-5 ${user ? 'text-primary' : ''}`} />
+            )}
           </Link>
           <Button asChild className="hidden md:inline-flex bg-hero-gradient hover:opacity-90 text-primary-foreground ml-2">
             <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">Donate Now</a>
