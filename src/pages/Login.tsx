@@ -56,6 +56,25 @@ const Login = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const cartItems = useCartStore((s) => s.items);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [bookingsLoading, setBookingsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    const fetchBookings = async () => {
+      setBookingsLoading(true);
+      const { data } = await supabase
+        .from("bookings")
+        .select("id, session_type, provider_name, session_date, session_time, session_mode, status")
+        .eq("user_id", user.id)
+        .gte("session_date", new Date().toISOString().split("T")[0])
+        .order("session_date", { ascending: true })
+        .limit(5);
+      setBookings((data as Booking[]) || []);
+      setBookingsLoading(false);
+    };
+    fetchBookings();
+  }, [user]);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
