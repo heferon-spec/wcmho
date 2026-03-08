@@ -83,9 +83,10 @@ Deno.serve(async (req) => {
     const data = await res.json();
 
     if (!res.ok) {
-      console.error('Resend error:', data);
-      return new Response(JSON.stringify({ error: 'Failed to send email', details: data }), {
-        status: 500,
+      console.warn('Resend error (non-blocking):', data);
+      // Return 200 with warning so it doesn't break the booking flow
+      return new Response(JSON.stringify({ success: false, warning: 'Email not sent - domain not verified yet', details: data }), {
+        status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
