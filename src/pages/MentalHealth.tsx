@@ -281,17 +281,17 @@ const MentalHealth = () => {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium text-foreground mb-1.5 block">Full Name</label>
-                      <Input placeholder="Your name" required />
+                      <Input placeholder="Your name" required value={bookingName} onChange={(e) => setBookingName(e.target.value)} />
                     </div>
                     <div>
                       <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
-                      <Input type="email" placeholder="your@email.com" required />
+                      <Input type="email" placeholder="your@email.com" required value={bookingEmail} onChange={(e) => setBookingEmail(e.target.value)} />
                     </div>
                   </div>
 
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Phone Number</label>
-                    <Input type="tel" placeholder="+27 XX XXX XXXX" required />
+                    <Input type="tel" placeholder="+27 XX XXX XXXX" required value={bookingPhone} onChange={(e) => setBookingPhone(e.target.value)} />
                   </div>
 
                   <div>
