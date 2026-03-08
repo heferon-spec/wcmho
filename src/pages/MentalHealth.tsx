@@ -364,12 +364,12 @@ const MentalHealth = () => {
 
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Brief Reason for Visit</label>
-                    <Textarea placeholder="Please briefly describe the reason for your visit..." rows={3} required />
+                    <Textarea placeholder="Please briefly describe the reason for your visit..." rows={3} value={bookingReason} onChange={(e) => setBookingReason(e.target.value)} />
                   </div>
 
                   <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90"
-                    disabled={!date || !time || !sessionType || !selectedProvider}>
-                    Confirm Booking
+                    disabled={!date || !time || !sessionType || !selectedProvider || submitting}>
+                    {submitting ? "Booking..." : "Confirm Booking"}
                   </Button>
                 </form>
               )}
