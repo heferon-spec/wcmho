@@ -193,26 +193,42 @@ const Login = () => {
                   </Button>
                 </div>
                 <div className="space-y-3">
-                  {upcomingSessions.map((session, i) => (
-                    <motion.div key={i} variants={fadeUp}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                      <div className={`w-1.5 h-14 rounded-full ${session.color}`} />
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-foreground text-sm">{session.title}</p>
-                        <p className="text-xs text-muted-foreground">with {session.therapist}</p>
-                      </div>
-                      <div className="text-right flex-shrink-0">
-                        <p className="text-sm font-medium text-foreground">{session.date}</p>
-                        <div className="flex items-center gap-1 justify-end">
-                          <Clock className="w-3 h-3 text-muted-foreground" />
-                          <span className="text-xs text-muted-foreground">{session.time}</span>
+                  {bookingsLoading ? (
+                    <div className="flex items-center justify-center py-8">
+                      <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+                    </div>
+                  ) : bookings.length === 0 ? (
+                    <div className="text-center py-8">
+                      <CalendarX className="w-10 h-10 text-muted-foreground mx-auto mb-3" />
+                      <p className="text-muted-foreground text-sm">No upcoming sessions</p>
+                      <Button asChild variant="outline" size="sm" className="mt-3">
+                        <Link to="/mental-health">Book Your First Session</Link>
+                      </Button>
+                    </div>
+                  ) : (
+                    bookings.map((booking) => (
+                      <motion.div key={booking.id} variants={fadeUp}
+                        className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
+                        <div className={`w-1.5 h-14 rounded-full ${booking.session_mode === "Virtual" ? "bg-primary" : "bg-accent"}`} />
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-foreground text-sm">{booking.session_type}</p>
+                          <p className="text-xs text-muted-foreground">with {booking.provider_name}</p>
                         </div>
-                      </div>
-                      <Badge variant={session.type === "Virtual" ? "secondary" : "outline"} className="text-xs flex-shrink-0">
-                        {session.type}
-                      </Badge>
-                    </motion.div>
-                  ))}
+                        <div className="text-right flex-shrink-0">
+                          <p className="text-sm font-medium text-foreground">
+                            {format(parseISO(booking.session_date), "MMM d, yyyy")}
+                          </p>
+                          <div className="flex items-center gap-1 justify-end">
+                            <Clock className="w-3 h-3 text-muted-foreground" />
+                            <span className="text-xs text-muted-foreground">{booking.session_time}</span>
+                          </div>
+                        </div>
+                        <Badge variant={booking.session_mode === "Virtual" ? "secondary" : "outline"} className="text-xs flex-shrink-0">
+                          {booking.session_mode}
+                        </Badge>
+                      </motion.div>
+                    ))
+                  )}
                 </div>
                 <p className="text-xs text-muted-foreground mt-4 text-center">
                   Sessions are managed through our <Link to="/mental-health" className="text-primary hover:underline">Mental Health portal</Link>
