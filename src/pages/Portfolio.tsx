@@ -24,7 +24,7 @@ const portfolioProjects = [
   { title: "Winter Relief Campaign", cats: ["Community", "Charity"], desc: "Annual campaign providing warm blankets, clothing, and essentials to homeless individuals and vulnerable families.", image: portfolioCom2 },
   { title: "Community Outreach", cats: ["Community", "Humanitarian"], desc: "Deploying volunteers to rural communities with food parcels, hygiene kits, and children's educational materials.", image: portfolioCom3 },
   { title: "Mental Health Awareness Golf Day", cats: ["Wellness", "Fundraising"], desc: "Using the power of sport to break the stigma around men's mental health. Our annual golf day creates a safe space for men to open up, be vulnerable, and have honest conversations about their emotional wellbeing — proving that strength lies in seeking help.", image: portfolioWell1 },
-  { title: "Mindfulness & Wellbeing Programs", cats: ["Wellness", "Self-Care"], desc: "Community-based mindfulness workshops, meditation sessions, and holistic wellbeing programs for all ages.", image: portfolioWell2 },
+  { title: "Mindfulness & Wellbeing Programs", cats: ["Wellness", "Self-Care"], desc: "Partner with us to host a Mental Health Golf Day for your organisation. A unique team-building experience that promotes open dialogue, mindfulness, and emotional wellness — bringing colleagues together on the green for a meaningful cause.", image: portfolioWell2 },
   { title: "Annual Awards & Recognition Gala", cats: ["Wellness", "Community"], desc: "Celebrating outstanding volunteers, donors, and community heroes at our annual recognition ceremony.", image: portfolioWell3 },
 ];
 
