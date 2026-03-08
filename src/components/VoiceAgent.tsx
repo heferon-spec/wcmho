@@ -3,6 +3,8 @@ import { useConversation } from "@elevenlabs/react";
 import { MicOff, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import receptionistAvatar from "@/assets/receptionist-avatar.jpg";
 
 const AGENT_ID = "agent_3201kjfzeyyafnk97gvv3v75nfz5";
@@ -50,6 +52,127 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
     onConnect: () => console.log("Connected to World Changers AI Agent"),
     onDisconnect: () => console.log("Disconnected from AI Agent"),
     onError: (error) => console.error("Voice Agent Error:", error),
+    clientTools: {
+      cal_get_2: async (params: { email?: string; phone?: string }) => {
+        try {
+          let query = supabase.from("bookings").select("*").eq("status", "upcoming");
+          if (params.email) query = query.eq("email", params.email);
+          if (params.phone) query = query.eq("phone", params.phone);
+          const { data, error } = await query.order("session_date", { ascending: true });
+          if (error) throw error;
+          if (!data || data.length === 0) return "No upcoming bookings found for this caller.";
+          return JSON.stringify(data.map(b => ({
+            id: b.id, name: b.full_name, provider: b.provider_name,
+            date: b.session_date, time: b.session_time, type: b.session_type, mode: b.session_mode,
+          })));
+        } catch (err: any) {
+          return `Error retrieving bookings: ${err.message}`;
+        }
+      },
+      cal_availability_2: async (params: { provider_name: string; date: string }) => {
+        try {
+          const { data: booked, error } = await supabase
+            .from("bookings")
+            .select("session_time")
+            .eq("provider_name", params.provider_name)
+            .eq("session_date", params.date)
+            .eq("status", "upcoming");
+          if (error) throw error;
+          const bookedTimes = (booked || []).map(b => b.session_time);
+          const allTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
+          const available = allTimes.filter(t => !bookedTimes.includes(t));
+          if (available.length === 0) return `No available slots for ${params.provider_name} on ${params.date}.`;
+          return `Available times for ${params.provider_name} on ${params.date}: ${available.join(", ")}`;
+        } catch (err: any) {
+          return `Error checking availability: ${err.message}`;
+        }
+      },
+      cal_book_2: async (params: {
+        full_name: string; email: string; phone: string;
+        provider_name: string; session_type: string;
+        session_date: string; session_time: string;
+        reason?: string; session_mode?: string;
+      }) => {
+        try {
+          const { error } = await supabase.from("bookings").insert({
+            full_name: params.full_name,
+            email: params.email,
+            phone: params.phone,
+            provider_name: params.provider_name,
+            session_type: params.session_type,
+            session_date: params.session_date,
+            session_time: params.session_time,
+            reason: params.reason || null,
+            session_mode: params.session_mode || "Virtual",
+            status: "upcoming",
+          });
+          if (error) throw error;
+          // Send confirmation email
+          supabase.functions.invoke("send-booking-confirmation", {
+            body: {
+              full_name: params.full_name,
+              email: "info@worldchangersmh.org",
+              provider_name: params.provider_name,
+              session_type: params.session_type,
+              session_date: params.session_date,
+              session_time: params.session_time,
+              session_mode: params.session_mode || "Virtual",
+            },
+          });
+          toast.success("Session booked via AI agent!");
+          return `Booking confirmed for ${params.full_name} with ${params.provider_name} on ${params.session_date} at ${params.session_time}.`;
+        } catch (err: any) {
+          return `Error booking session: ${err.message}`;
+        }
+      },
+      cal_cancel_2: async (params: { booking_id?: string; email?: string; session_date?: string }) => {
+        try {
+          if (params.booking_id) {
+            const { error } = await supabase.from("bookings").update({ status: "cancelled" }).eq("id", params.booking_id);
+            if (error) throw error;
+            toast.info("Booking cancelled via AI agent.");
+            return "Booking has been cancelled successfully.";
+          }
+          if (params.email && params.session_date) {
+            const { data, error: fetchErr } = await supabase.from("bookings")
+              .select("id").eq("email", params.email).eq("session_date", params.session_date).eq("status", "upcoming").limit(1);
+            if (fetchErr) throw fetchErr;
+            if (!data || data.length === 0) return "No matching upcoming booking found to cancel.";
+            const { error } = await supabase.from("bookings").update({ status: "cancelled" }).eq("id", data[0].id);
+            if (error) throw error;
+            toast.info("Booking cancelled via AI agent.");
+            return "Booking has been cancelled successfully.";
+          }
+          return "Please provide a booking ID or email + date to cancel.";
+        } catch (err: any) {
+          return `Error cancelling booking: ${err.message}`;
+        }
+      },
+      cal_reschedule_2: async (params: {
+        booking_id?: string; email?: string; original_date?: string;
+        new_date: string; new_time: string;
+      }) => {
+        try {
+          let bookingId = params.booking_id;
+          if (!bookingId && params.email && params.original_date) {
+            const { data, error: fetchErr } = await supabase.from("bookings")
+              .select("id").eq("email", params.email).eq("session_date", params.original_date).eq("status", "upcoming").limit(1);
+            if (fetchErr) throw fetchErr;
+            if (!data || data.length === 0) return "No matching upcoming booking found to reschedule.";
+            bookingId = data[0].id;
+          }
+          if (!bookingId) return "Please provide a booking ID or email + original date to reschedule.";
+          const { error } = await supabase.from("bookings")
+            .update({ session_date: params.new_date, session_time: params.new_time })
+            .eq("id", bookingId);
+          if (error) throw error;
+          toast.success("Booking rescheduled via AI agent!");
+          return `Booking rescheduled to ${params.new_date} at ${params.new_time}.`;
+        } catch (err: any) {
+          return `Error rescheduling booking: ${err.message}`;
+        }
+      },
+    },
   });
 
   const startConversation = useCallback(async () => {
