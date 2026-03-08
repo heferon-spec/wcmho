@@ -8,6 +8,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { CartDrawer } from "@/components/CartDrawer";
 import { useCartStore } from "@/stores/cartStore";
 import { storefrontApiRequest, STOREFRONT_PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
 
@@ -40,6 +41,7 @@ const Shop = () => {
   const [loading, setLoading] = useState(true);
   const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({});
   const [activeCategory, setActiveCategory] = useState("All");
+  const [reviewStats, setReviewStats] = useState<Record<string, { avg: number; count: number }>>({});
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const navigate = useNavigate();
@@ -65,6 +67,32 @@ const Shop = () => {
     }
     fetchProducts();
   }, [activeCategory]);
+
+  useEffect(() => {
+    async function fetchReviewStats() {
+      try {
+        const { data, error } = await supabase
+          .from("product_reviews")
+          .select("product_handle, rating");
+        if (error) throw error;
+        const stats: Record<string, { avg: number; count: number }> = {};
+        if (data) {
+          for (const r of data) {
+            if (!stats[r.product_handle]) stats[r.product_handle] = { avg: 0, count: 0 };
+            stats[r.product_handle].count++;
+            stats[r.product_handle].avg += r.rating;
+          }
+          for (const key in stats) {
+            stats[key].avg = stats[key].avg / stats[key].count;
+          }
+        }
+        setReviewStats(stats);
+      } catch (error) {
+        console.error("Failed to fetch review stats:", error);
+      }
+    }
+    fetchReviewStats();
+  }, []);
 
   const getSelectedVariant = (product: ShopifyProduct) => {
     const selectedId = selectedVariants[product.node.id];
@@ -157,6 +185,7 @@ const Shop = () => {
               {products.map((p, i) => {
                 const variant = getSelectedVariant(p);
                 const image = p.node.images.edges[0]?.node;
+                const stats = reviewStats[p.node.handle];
                 return (
                   <motion.div key={p.node.id} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                     className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group hover:shadow-card transition-shadow">
@@ -179,12 +208,18 @@ const Shop = () => {
                       </h3>
                       <p className="text-xs text-muted-foreground mt-1 mb-2 line-clamp-2">{p.node.description}</p>
 
-                      {/* Reviews placeholder */}
+                      {/* Reviews */}
                       <div className="flex items-center gap-1 mb-3">
                         {[1, 2, 3, 4, 5].map((star) => (
-                          <Star key={star} className="w-3.5 h-3.5 text-muted-foreground/30" />
+                          <Star key={star} className={`w-3.5 h-3.5 ${
+                            stats && star <= Math.round(stats.avg)
+                              ? "text-yellow-500 fill-yellow-500"
+                              : "text-muted-foreground/30"
+                          }`} />
                         ))}
-                        <span className="text-xs text-muted-foreground ml-1">No reviews yet</span>
+                        <span className="text-xs text-muted-foreground ml-1">
+                          {stats ? `${stats.avg.toFixed(1)} (${stats.count})` : "No reviews yet"}
+                        </span>
                       </div>
 
                       {/* Size selector */}
