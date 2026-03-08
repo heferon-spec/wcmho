@@ -181,7 +181,7 @@ const Login = () => {
 
   if (user) {
     return (
-      <div>
+      <>
         <PageHero title={`${greeting}, ${displayName}!`} subtitle="Your personal wellness dashboard" bgImage={aboutBg} />
 
         <section className="section-padding">
