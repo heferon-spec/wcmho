@@ -363,7 +363,89 @@ const Login = () => {
           </div>
         </section>
       </div>
+
+      {/* Cancel Confirmation Dialog */}
+      <Dialog open={!!cancelBooking} onOpenChange={() => setCancelBooking(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-destructive" /> Cancel Session
+            </DialogTitle>
+            <DialogDescription>
+              Are you sure you want to cancel your <strong>{cancelBooking?.session_type}</strong> session
+              with <strong>{cancelBooking?.provider_name}</strong> on{" "}
+              <strong>{cancelBooking ? format(parseISO(cancelBooking.session_date), "MMM d, yyyy") : ""}</strong> at{" "}
+              <strong>{cancelBooking?.session_time}</strong>? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setCancelBooking(null)} disabled={actionLoading}>
+              Keep Session
+            </Button>
+            <Button variant="destructive" onClick={handleCancelBooking} disabled={actionLoading}>
+              {actionLoading ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Trash2 className="w-4 h-4 mr-1" />}
+              Cancel Session
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Reschedule Dialog */}
+      <Dialog open={!!rescheduleBooking} onOpenChange={() => { setRescheduleBooking(null); setRescheduleDate(undefined); setRescheduleTime(""); }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <RefreshCw className="w-5 h-5 text-primary" /> Reschedule Session
+            </DialogTitle>
+            <DialogDescription>
+              Choose a new date and time for your <strong>{rescheduleBooking?.session_type}</strong> session
+              with <strong>{rescheduleBooking?.provider_name}</strong>.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">New Date</label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !rescheduleDate && "text-muted-foreground")}>
+                    <Calendar className="w-4 h-4 mr-2" />
+                    {rescheduleDate ? format(rescheduleDate, "MMM d, yyyy") : "Select date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarPicker mode="single" selected={rescheduleDate} onSelect={setRescheduleDate}
+                    disabled={(date) => date < addDays(new Date(), 1)}
+                    initialFocus className="pointer-events-auto" />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">New Time</label>
+              <Select value={rescheduleTime} onValueChange={setRescheduleTime}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select time" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableTimes.map((t) => (
+                    <SelectItem key={t} value={t}>{t}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => { setRescheduleBooking(null); setRescheduleDate(undefined); setRescheduleTime(""); }} disabled={actionLoading}>
+              Cancel
+            </Button>
+            <Button onClick={handleRescheduleBooking} disabled={actionLoading || !rescheduleDate || !rescheduleTime}>
+              {actionLoading ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <RefreshCw className="w-4 h-4 mr-1" />}
+              Confirm Reschedule
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     );
+  }
   }
 
   return (
