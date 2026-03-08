@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Loader2, ShoppingBag, Star } from "lucide-react";
+import { ArrowLeft, Loader2, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartDrawer } from "@/components/CartDrawer";
 import { useCartStore } from "@/stores/cartStore";
 import { storefrontApiRequest, STOREFRONT_PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { toast } from "sonner";
+import ProductReviews from "@/components/ProductReviews";
 
 const ProductDetail = () => {
   const { handle } = useParams();
@@ -135,21 +136,8 @@ const ProductDetail = () => {
           </div>
         </motion.div>
 
-        {/* Reviews Section */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-16">
-          <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Customer Reviews</h2>
-          <div className="flex items-center gap-2 mb-6">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Star key={star} className="w-5 h-5 text-muted-foreground/30" />
-            ))}
-            <span className="text-sm text-muted-foreground">No reviews yet</span>
-          </div>
-          <div className="bg-muted/30 border border-border rounded-xl p-8 text-center">
-            <Star className="w-10 h-10 text-muted-foreground/20 mx-auto mb-3" />
-            <p className="text-muted-foreground font-medium">Be the first to review this product</p>
-            <p className="text-sm text-muted-foreground mt-1">Share your experience with others</p>
-          </div>
-        </motion.div>
+        {/* Reviews */}
+        {handle && <ProductReviews productHandle={handle} />}
       </div>
     </div>
   );
