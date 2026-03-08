@@ -160,14 +160,43 @@ const MentalHealth = () => {
   const [selectedProvider, setSelectedProvider] = useState("");
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
   const [expandedBio, setExpandedBio] = useState<string | null>(null);
+  const [bookingName, setBookingName] = useState("");
+  const [bookingEmail, setBookingEmail] = useState("");
+  const [bookingPhone, setBookingPhone] = useState("");
+  const [bookingReason, setBookingReason] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const { user } = useAuth();
 
   const selectedProfessional = professionals.find((p) => p.name === selectedProvider);
   const availableDays = selectedProfessional?.days || [];
   const availableTimes = selectedProfessional?.times || [];
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setBookingSubmitted(true);
+    if (!date || !time || !sessionType || !selectedProvider) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("bookings").insert({
+        user_id: user?.id || null,
+        full_name: bookingName,
+        email: bookingEmail,
+        phone: bookingPhone,
+        provider_name: selectedProvider,
+        session_type: sessionType,
+        session_date: format(date, "yyyy-MM-dd"),
+        session_time: time,
+        reason: bookingReason || null,
+        status: "upcoming",
+        session_mode: "Virtual",
+      });
+      if (error) throw error;
+      setBookingSubmitted(true);
+      toast.success("Booking confirmed!");
+    } catch (err: any) {
+      toast.error(err.message || "Failed to book session");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
