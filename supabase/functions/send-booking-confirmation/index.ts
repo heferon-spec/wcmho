@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
           </p>
         </div>
         <div style="background: #f9fafb; padding: 20px 32px; text-align: center; border-top: 1px solid #e5e7eb;">
-          <p style="color: #9ca3af; font-size: 12px; margin: 0;">© Western Cape Mental Health Centre. All rights reserved.</p>
+          <p style="color: #9ca3af; font-size: 12px; margin: 0;">© World Changers Mental Health Care Org. All rights reserved.</p>
         </div>
       </div>
     `;
