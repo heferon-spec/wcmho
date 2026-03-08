@@ -241,25 +241,27 @@ const MentalHealth = () => {
       {/* Call Now + Book Session - Side by Side */}
       <section className="section-padding bg-card">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
             {/* Call Now */}
-            <div className="text-center bg-muted rounded-2xl p-8 border border-border">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+            <div className="flex flex-col items-center text-center bg-muted rounded-2xl p-8 border border-border">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                 <Phone className="w-8 h-8 text-primary" />
               </div>
               <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Call Now</h2>
-              <p className="text-muted-foreground mb-6">Speak to our receptionist instantly for questions, scheduling, or support.</p>
-              <VoiceAgent variant="button" />
+              <p className="text-muted-foreground flex-1">Speak to our receptionist instantly for questions, scheduling, or support.</p>
+              <div className="mt-6">
+                <VoiceAgent variant="button" />
+              </div>
             </div>
 
             {/* Book Session */}
-            <div className="text-center bg-muted rounded-2xl p-8 border border-border">
-              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+            <div className="flex flex-col items-center text-center bg-muted rounded-2xl p-8 border border-border">
+              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
                 <CalendarDays className="w-8 h-8 text-accent" />
               </div>
               <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Book a Virtual Session</h2>
-              <p className="text-muted-foreground mb-4">Schedule a 60-minute virtual counseling session with your preferred provider.</p>
-              <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+              <p className="text-muted-foreground flex-1">Schedule a 60-minute virtual counseling session with your preferred provider.</p>
+              <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mt-4 mb-4">
                 <Video className="w-3.5 h-3.5" /> All sessions are conducted virtually
               </div>
               <Button onClick={() => setBookingOpen(true)} size="lg" className="bg-hero-gradient text-primary-foreground hover:opacity-90">
