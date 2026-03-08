@@ -268,7 +268,7 @@ const MentalHealth = () => {
                   </div>
                   <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Booking Confirmed!</h3>
                   <p className="text-muted-foreground">We'll send a confirmation to your email. Your 60-minute {sessionType} session with {selectedProvider} is scheduled for {date && format(date, "PPP")} at {time}.</p>
-                  <Button onClick={() => { setBookingSubmitted(false); setDate(undefined); setTime(""); setSessionType(""); setSelectedProvider(""); }}
+                  <Button onClick={() => { setBookingSubmitted(false); setDate(undefined); setTime(""); setSessionType(""); setSelectedProvider(""); setBookingName(""); setBookingEmail(""); setBookingPhone(""); setBookingReason(""); }}
                     variant="outline" className="mt-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                     Book Another Session
                   </Button>
