@@ -17,9 +17,9 @@ import portfolioWell2 from "@/assets/portfolio-wellness-2.jpg";
 import portfolioWell3 from "@/assets/portfolio-wellness-3.jpg";
 
 const portfolioProjects = [
-  { title: "Mental Health Seminars in Tertiary or Universities", cats: ["Education", "Mental Health"], desc: "Delivering mental health awareness workshops and peer counselling programs to learners and educators across South Africa.", image: portfolioEdu1 },
-  { title: "Workplace Wellness Seminars", cats: ["Education", "Wellness"], desc: "Corporate mental health training programs empowering employees to manage stress, recognise burnout, and support colleagues.", image: portfolioEdu2 },
-  { title: "Youth Mental Health Literacy", cats: ["Education", "Youth"], desc: "Interactive education sessions in community halls and educational spaces equipping young people with mental health knowledge.", image: portfolioEdu3 },
+  { title: "Mental Health Seminars in Tertiary or Universities", cats: ["Education", "Mental Health"], desc: "Delivering comprehensive mental health awareness workshops and peer support programs tailored for university students and educators.", image: portfolioEdu1 },
+  { title: "Campus Wellness & Stress Management", cats: ["Education", "Wellness"], desc: "Specialized training programs empowering tertiary students and faculty to manage academic pressure, prevent burnout, and support their peers.", image: portfolioEdu2 },
+  { title: "Student Mental Health Literacy", cats: ["Education", "Youth"], desc: "Interactive educational sessions hosted on university campuses, equipping young adults with vital mental health knowledge and coping strategies.", image: portfolioEdu3 },
   { title: "Community Food Drive Initiative", cats: ["Community", "Food Security"], desc: "Distributing food parcels to over 5,000 families across underserved communities in Gauteng and KwaZulu-Natal.", image: portfolioCom1 },
   { title: "Winter Relief Campaign", cats: ["Community", "Charity"], desc: "Annual campaign providing warm blankets, clothing, and essentials to homeless individuals and vulnerable families.", image: portfolioCom2 },
   { title: "Rural Community Outreach", cats: ["Community", "Humanitarian"], desc: "Deploying volunteers to rural communities with food parcels, hygiene kits, and children's educational materials.", image: portfolioCom3 },
