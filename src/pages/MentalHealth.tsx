@@ -257,8 +257,11 @@ const MentalHealth = () => {
               <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
                 <CalendarDays className="w-8 h-8 text-accent" />
               </div>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Book a Session</h2>
-              <p className="text-muted-foreground mb-6">Schedule a 60-minute counseling session with your preferred provider below.</p>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Book a Virtual Session</h2>
+              <p className="text-muted-foreground mb-4">Schedule a 60-minute virtual counseling session with your preferred provider.</p>
+              <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+                <Video className="w-3.5 h-3.5" /> All sessions are conducted virtually
+              </div>
               <Button onClick={() => setBookingOpen(true)} size="lg" className="bg-hero-gradient text-primary-foreground hover:opacity-90">
                 <CalendarDays className="w-5 h-5 mr-2" /> Open Booking Calendar
               </Button>
