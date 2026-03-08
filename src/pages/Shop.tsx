@@ -8,6 +8,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { CartDrawer } from "@/components/CartDrawer";
 import { useCartStore } from "@/stores/cartStore";
 import { storefrontApiRequest, STOREFRONT_PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
 
