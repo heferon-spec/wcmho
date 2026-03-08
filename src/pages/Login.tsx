@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import {
   User, Mail, Lock, ArrowRight, Eye, EyeOff, Loader2,
   Calendar, Heart, ShoppingBag, BookOpen, Clock, Star,
-  Phone, Gift, TrendingUp, LogOut, ChevronRight, CalendarX
+  Phone, Gift, TrendingUp, LogOut, ChevronRight, CalendarX,
+  Settings, Smile
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import PageHero from "@/components/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
@@ -30,15 +30,15 @@ interface Booking {
 }
 
 const wellnessTips = [
-  { icon: Heart, title: "Daily Mindfulness", desc: "Try 5 minutes of deep breathing today", progress: 70 },
-  { icon: BookOpen, title: "Journal Prompt", desc: "Write about 3 things you're grateful for", progress: 40 },
-  { icon: TrendingUp, title: "Mood Tracker", desc: "Log your mood to see patterns over time", progress: 85 },
+  { icon: Smile, title: "Log Your Mood", desc: "Track how you feel each day", path: "/mood-tracker" },
+  { icon: BookOpen, title: "Journal Prompt", desc: "Write about 3 things you're grateful for", path: "/mood-tracker" },
+  { icon: TrendingUp, title: "View Trends", desc: "See your mood patterns over time", path: "/mood-tracker" },
 ];
 
 const quickActions = [
   { icon: Calendar, label: "Book Session", desc: "Schedule therapy", path: "/mental-health" },
-  { icon: Phone, label: "Call Now", desc: "Speak to someone", path: "/mental-health" },
-  { icon: ShoppingBag, label: "My Orders", desc: "View your cart", path: "/shop" },
+  { icon: Smile, label: "Mood Tracker", desc: "Log your mood", path: "/mood-tracker" },
+  { icon: ShoppingBag, label: "Shop", desc: "Browse merch", path: "/shop" },
   { icon: Gift, label: "Donate", desc: "Support our cause", path: "/philanthropy" },
 ];
 
@@ -155,8 +155,11 @@ const Login = () => {
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1" onClick={() => navigate("/shop")}>
-                      <ShoppingBag className="w-4 h-4 mr-1" /> Cart ({cartItems.length})
+                    <Button variant="outline" size="sm" className="flex-1" onClick={() => navigate("/profile-settings")}>
+                      <Settings className="w-4 h-4 mr-1" /> Settings
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => navigate("/shop")}>
+                      <ShoppingBag className="w-4 h-4" />
                     </Button>
                     <Button variant="outline" size="sm" onClick={signOut}>
                       <LogOut className="w-4 h-4" />
@@ -237,14 +240,19 @@ const Login = () => {
 
               {/* Wellness & Suggestions Row */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Wellness Progress */}
+                {/* Wellness — Mood Tracker */}
                 <motion.div variants={fadeUp} className="bg-card rounded-2xl p-6 shadow-card border border-border">
-                  <h2 className="font-heading text-xl font-bold text-foreground flex items-center gap-2 mb-5">
-                    <Star className="w-5 h-5 text-accent" /> Your Wellness Journey
-                  </h2>
+                  <div className="flex items-center justify-between mb-5">
+                    <h2 className="font-heading text-xl font-bold text-foreground flex items-center gap-2">
+                      <Star className="w-5 h-5 text-accent" /> Your Wellness Journey
+                    </h2>
+                    <Button asChild variant="outline" size="sm">
+                      <Link to="/mood-tracker">Open Tracker <ChevronRight className="w-4 h-4 ml-1" /></Link>
+                    </Button>
+                  </div>
                   <div className="space-y-5">
                     {wellnessTips.map((tip, i) => (
-                      <div key={i} className="space-y-2">
+                      <Link to={tip.path} key={i} className="space-y-2 block hover:opacity-80 transition-opacity">
                         <div className="flex items-center gap-3">
                           <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
                             <tip.icon className="w-4 h-4 text-accent" />
@@ -253,10 +261,9 @@ const Login = () => {
                             <p className="font-medium text-sm text-foreground">{tip.title}</p>
                             <p className="text-xs text-muted-foreground">{tip.desc}</p>
                           </div>
-                          <span className="text-xs font-semibold text-primary">{tip.progress}%</span>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
                         </div>
-                        <Progress value={tip.progress} className="h-1.5" />
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </motion.div>

@@ -62,6 +62,33 @@ export type Database = {
         }
         Relationships: []
       }
+      mood_entries: {
+        Row: {
+          created_at: string
+          entry_date: string
+          id: string
+          mood: number
+          note: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          entry_date?: string
+          id?: string
+          mood: number
+          note?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          entry_date?: string
+          id?: string
+          mood?: number
+          note?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       product_reviews: {
         Row: {
           comment: string
@@ -96,6 +123,10 @@ export type Database = {
           email: string | null
           full_name: string | null
           id: string
+          notification_bookings: boolean | null
+          notification_email: boolean | null
+          notification_sms: boolean | null
+          notification_wellness: boolean | null
           updated_at: string
         }
         Insert: {
@@ -104,6 +135,10 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id: string
+          notification_bookings?: boolean | null
+          notification_email?: boolean | null
+          notification_sms?: boolean | null
+          notification_wellness?: boolean | null
           updated_at?: string
         }
         Update: {
@@ -112,6 +147,10 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id?: string
+          notification_bookings?: boolean | null
+          notification_email?: boolean | null
+          notification_sms?: boolean | null
+          notification_wellness?: boolean | null
           updated_at?: string
         }
         Relationships: []
