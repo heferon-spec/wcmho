@@ -17,7 +17,7 @@ import portfolioWell2 from "@/assets/portfolio-wellness-2.jpg";
 import portfolioWell3 from "@/assets/portfolio-wellness-3.jpg";
 
 const portfolioProjects = [
-  { title: "Mental Health Education in Schools", cats: ["Education", "Mental Health"], desc: "Delivering mental health awareness workshops and peer counselling programs to learners and educators across South Africa.", image: portfolioEdu1 },
+  { title: "Mental Health Seminars in Tertiary or Universities", cats: ["Education", "Mental Health"], desc: "Delivering mental health awareness workshops and peer counselling programs to learners and educators across South Africa.", image: portfolioEdu1 },
   { title: "Workplace Wellness Seminars", cats: ["Education", "Wellness"], desc: "Corporate mental health training programs empowering employees to manage stress, recognise burnout, and support colleagues.", image: portfolioEdu2 },
   { title: "Youth Mental Health Literacy", cats: ["Education", "Youth"], desc: "Interactive education sessions in community halls and educational spaces equipping young people with mental health knowledge.", image: portfolioEdu3 },
   { title: "Community Food Drive Initiative", cats: ["Community", "Food Security"], desc: "Distributing food parcels to over 5,000 families across underserved communities in Gauteng and KwaZulu-Natal.", image: portfolioCom1 },
