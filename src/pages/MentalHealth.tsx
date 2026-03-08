@@ -430,6 +430,22 @@ const MentalHealth = () => {
         </div>
       </section>
 
+      {/* Google Calendar */}
+      <section className="section-padding bg-card">
+        <div className="container mx-auto">
+          <SectionHeading label="Our Schedule" title="Booking Calendar" description="View available slots and upcoming sessions on our live calendar." />
+          <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-border shadow-card">
+            <iframe
+              src="https://calendar.google.com/calendar/embed?src=info%40worldchangersmh.org&ctz=UTC"
+              className="w-full border-0"
+              style={{ height: 600 }}
+              title="World Changers Booking Calendar"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* YouTube Videos */}
       <section className="section-padding bg-muted">
         <div className="container mx-auto">

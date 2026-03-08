@@ -3,6 +3,8 @@ import { useConversation } from "@elevenlabs/react";
 import { MicOff, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import receptionistAvatar from "@/assets/receptionist-avatar.jpg";
 
 const AGENT_ID = "agent_3201kjfzeyyafnk97gvv3v75nfz5";
