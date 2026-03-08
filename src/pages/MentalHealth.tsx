@@ -198,7 +198,7 @@ const MentalHealth = () => {
       supabase.functions.invoke("send-booking-confirmation", {
         body: {
           full_name: bookingData.full_name,
-          email: bookingData.email,
+          email: "info@worldchangersmh.org",
           provider_name: bookingData.provider_name,
           session_type: bookingData.session_type,
           session_date: bookingData.session_date,
