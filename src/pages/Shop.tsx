@@ -27,6 +27,12 @@ const CATEGORIES = [
   { label: "Wristbands", query: "product_type:Wristbands OR title:Wristband" },
   { label: "Keychains", query: "product_type:Keychains OR title:Keychain" },
   { label: "Books", query: "product_type:Books OR title:Book" },
+  { label: "Caps", query: "product_type:Caps OR title:Cap OR title:Beanie" },
+  { label: "Tote Bags", query: "product_type:Tote Bags OR title:Tote" },
+  { label: "Puzzles", query: "product_type:Puzzles OR title:Puzzle" },
+  { label: "Candles", query: "product_type:Candles OR title:Candle" },
+  { label: "Phone Cases", query: "product_type:Phone Cases OR title:Phone Case" },
+  { label: "Posters", query: "product_type:Posters OR title:Wall Art OR title:Poster" },
 ];
 
 const Shop = () => {
