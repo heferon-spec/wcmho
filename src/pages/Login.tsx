@@ -156,8 +156,11 @@ const Login = () => {
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1" onClick={() => navigate("/shop")}>
-                      <ShoppingBag className="w-4 h-4 mr-1" /> Cart ({cartItems.length})
+                    <Button variant="outline" size="sm" className="flex-1" onClick={() => navigate("/profile-settings")}>
+                      <Settings className="w-4 h-4 mr-1" /> Settings
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => navigate("/shop")}>
+                      <ShoppingBag className="w-4 h-4" />
                     </Button>
                     <Button variant="outline" size="sm" onClick={signOut}>
                       <LogOut className="w-4 h-4" />
