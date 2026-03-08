@@ -19,8 +19,8 @@ import thulisileButhelezi from "@/assets/thulisile-buthelezi.jpg";
 import thabangMokaka from "@/assets/thabang-mokaka.jpg";
 
 const stats = [
-  { icon: Building, value: "537+", label: "Local WCMHC Branches" },
-  { icon: Users, value: "3,224+", label: "Total WCMHC Staff" },
+  { icon: Building, value: "537+", label: "Local WCMHCO Branches" },
+  { icon: Users, value: "3,224+", label: "Total WCMHCO Staff" },
   { icon: HandHeart, value: "6,882+", label: "Total Volunteers" },
 ];
 
