@@ -41,6 +41,7 @@ const Shop = () => {
   const [loading, setLoading] = useState(true);
   const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({});
   const [activeCategory, setActiveCategory] = useState("All");
+  const [reviewStats, setReviewStats] = useState<Record<string, { avg: number; count: number }>>({});
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const navigate = useNavigate();
