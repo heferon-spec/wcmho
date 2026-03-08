@@ -524,7 +524,7 @@ const Login = () => {
                 )}
 
                 <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90" disabled={loading}>
-                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>{isSignUp ? "Create Account" : "Sign In"} <ArrowRight className="w-4 h-4 ml-2" /></>}
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>{isSignUp ? "Create Account" : "Sign In"} <LogOut className="w-4 h-4 ml-2" /></>}
                 </Button>
 
                 <p className="text-center text-sm text-muted-foreground">
