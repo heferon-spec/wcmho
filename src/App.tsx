@@ -53,6 +53,8 @@ const AppContent = () => {
           <Route path="/product/:handle" element={<ProductDetail />} />
           <Route path="/news" element={<News />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile-settings" element={<ProfileSettings />} />
+          <Route path="/mood-tracker" element={<MoodTracker />} />
           <Route path="/policies" element={<Policies />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
