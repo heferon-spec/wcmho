@@ -16,8 +16,8 @@ import portfolioWell2 from "@/assets/portfolio-wellness-2.jpg";
 import portfolioWell3 from "@/assets/portfolio-wellness-3.jpg";
 
 const stats = [
-  { icon: Building, value: "537+", label: "Local WCMHC Branches" },
-  { icon: Users, value: "3,224+", label: "Total WCMHC Staff" },
+  { icon: Building, value: "537+", label: "Local WCMHCO Branches" },
+  { icon: Users, value: "3,224+", label: "Total WCMHCO Staff" },
   { icon: HandHeart, value: "6,882+", label: "Total Volunteers" },
 ];
 
