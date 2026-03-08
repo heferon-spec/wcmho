@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X, Mic, Play, Phone } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 import { format } from "date-fns";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
@@ -157,14 +160,43 @@ const MentalHealth = () => {
   const [selectedProvider, setSelectedProvider] = useState("");
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
   const [expandedBio, setExpandedBio] = useState<string | null>(null);
+  const [bookingName, setBookingName] = useState("");
+  const [bookingEmail, setBookingEmail] = useState("");
+  const [bookingPhone, setBookingPhone] = useState("");
+  const [bookingReason, setBookingReason] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const { user } = useAuth();
 
   const selectedProfessional = professionals.find((p) => p.name === selectedProvider);
   const availableDays = selectedProfessional?.days || [];
   const availableTimes = selectedProfessional?.times || [];
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setBookingSubmitted(true);
+    if (!date || !time || !sessionType || !selectedProvider) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("bookings").insert({
+        user_id: user?.id || null,
+        full_name: bookingName,
+        email: bookingEmail,
+        phone: bookingPhone,
+        provider_name: selectedProvider,
+        session_type: sessionType,
+        session_date: format(date, "yyyy-MM-dd"),
+        session_time: time,
+        reason: bookingReason || null,
+        status: "upcoming",
+        session_mode: "Virtual",
+      });
+      if (error) throw error;
+      setBookingSubmitted(true);
+      toast.success("Booking confirmed!");
+    } catch (err: any) {
+      toast.error(err.message || "Failed to book session");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -236,7 +268,7 @@ const MentalHealth = () => {
                   </div>
                   <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Booking Confirmed!</h3>
                   <p className="text-muted-foreground">We'll send a confirmation to your email. Your 60-minute {sessionType} session with {selectedProvider} is scheduled for {date && format(date, "PPP")} at {time}.</p>
-                  <Button onClick={() => { setBookingSubmitted(false); setDate(undefined); setTime(""); setSessionType(""); setSelectedProvider(""); }}
+                  <Button onClick={() => { setBookingSubmitted(false); setDate(undefined); setTime(""); setSessionType(""); setSelectedProvider(""); setBookingName(""); setBookingEmail(""); setBookingPhone(""); setBookingReason(""); }}
                     variant="outline" className="mt-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                     Book Another Session
                   </Button>
@@ -249,17 +281,17 @@ const MentalHealth = () => {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium text-foreground mb-1.5 block">Full Name</label>
-                      <Input placeholder="Your name" required />
+                      <Input placeholder="Your name" required value={bookingName} onChange={(e) => setBookingName(e.target.value)} />
                     </div>
                     <div>
                       <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
-                      <Input type="email" placeholder="your@email.com" required />
+                      <Input type="email" placeholder="your@email.com" required value={bookingEmail} onChange={(e) => setBookingEmail(e.target.value)} />
                     </div>
                   </div>
 
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Phone Number</label>
-                    <Input type="tel" placeholder="+27 XX XXX XXXX" required />
+                    <Input type="tel" placeholder="+27 XX XXX XXXX" required value={bookingPhone} onChange={(e) => setBookingPhone(e.target.value)} />
                   </div>
 
                   <div>
@@ -332,12 +364,12 @@ const MentalHealth = () => {
 
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Brief Reason for Visit</label>
-                    <Textarea placeholder="Please briefly describe the reason for your visit..." rows={3} required />
+                    <Textarea placeholder="Please briefly describe the reason for your visit..." rows={3} value={bookingReason} onChange={(e) => setBookingReason(e.target.value)} />
                   </div>
 
                   <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90"
-                    disabled={!date || !time || !sessionType || !selectedProvider}>
-                    Confirm Booking
+                    disabled={!date || !time || !sessionType || !selectedProvider || submitting}>
+                    {submitting ? "Booking..." : "Confirm Booking"}
                   </Button>
                 </form>
               )}
