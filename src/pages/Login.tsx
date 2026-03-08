@@ -31,9 +31,9 @@ interface Booking {
 }
 
 const wellnessTips = [
-  { icon: Heart, title: "Daily Mindfulness", desc: "Try 5 minutes of deep breathing today", progress: 70 },
-  { icon: BookOpen, title: "Journal Prompt", desc: "Write about 3 things you're grateful for", progress: 40 },
-  { icon: TrendingUp, title: "Mood Tracker", desc: "Log your mood to see patterns over time", progress: 85 },
+  { icon: Smile, title: "Log Your Mood", desc: "Track how you feel each day", path: "/mood-tracker" },
+  { icon: BookOpen, title: "Journal Prompt", desc: "Write about 3 things you're grateful for", path: "/mood-tracker" },
+  { icon: TrendingUp, title: "View Trends", desc: "See your mood patterns over time", path: "/mood-tracker" },
 ];
 
 const quickActions = [
