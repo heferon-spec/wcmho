@@ -22,6 +22,8 @@ import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import News from "./pages/News";
 import Login from "./pages/Login";
+import ProfileSettings from "./pages/ProfileSettings";
+import MoodTracker from "./pages/MoodTracker";
 import Events from "./pages/Events";
 import Policies from "./pages/Policies";
 import NotFound from "./pages/NotFound";
