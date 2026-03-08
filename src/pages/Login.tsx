@@ -38,8 +38,8 @@ const wellnessTips = [
 
 const quickActions = [
   { icon: Calendar, label: "Book Session", desc: "Schedule therapy", path: "/mental-health" },
-  { icon: Phone, label: "Call Now", desc: "Speak to someone", path: "/mental-health" },
-  { icon: ShoppingBag, label: "My Orders", desc: "View your cart", path: "/shop" },
+  { icon: Smile, label: "Mood Tracker", desc: "Log your mood", path: "/mood-tracker" },
+  { icon: ShoppingBag, label: "Shop", desc: "Browse merch", path: "/shop" },
   { icon: Gift, label: "Donate", desc: "Support our cause", path: "/philanthropy" },
 ];
 
