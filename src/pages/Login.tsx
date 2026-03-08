@@ -5,7 +5,7 @@ import {
   User, Mail, Lock, ArrowRight, Eye, EyeOff, Loader2,
   Calendar, Heart, ShoppingBag, BookOpen, Clock, Star,
   Phone, Gift, TrendingUp, LogOut, ChevronRight, CalendarX,
-  Settings, Smile
+  Settings, Smile, X, RefreshCw, Trash2, AlertTriangle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,8 +16,15 @@ import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/hooks/useAuth";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
-import { format, parseISO } from "date-fns";
+import { format, parseISO, addDays, isAfter } from "date-fns";
 import aboutBg from "@/assets/about-bg.jpg";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Calendar as CalendarPicker } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+
+
 
 interface Booking {
   id: string;
@@ -45,6 +52,8 @@ const quickActions = [
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } };
 const fadeUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
 
+const availableTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
+
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -58,6 +67,11 @@ const Login = () => {
   const cartItems = useCartStore((s) => s.items);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [bookingsLoading, setBookingsLoading] = useState(false);
+  const [cancelBooking, setCancelBooking] = useState<Booking | null>(null);
+  const [rescheduleBooking, setRescheduleBooking] = useState<Booking | null>(null);
+  const [rescheduleDate, setRescheduleDate] = useState<Date | undefined>();
+  const [rescheduleTime, setRescheduleTime] = useState("");
+  const [actionLoading, setActionLoading] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -75,6 +89,44 @@ const Login = () => {
     };
     fetchBookings();
   }, [user]);
+
+  const handleCancelBooking = async () => {
+    if (!cancelBooking) return;
+    setActionLoading(true);
+    try {
+      const { error } = await supabase.from("bookings").delete().eq("id", cancelBooking.id);
+      if (error) throw error;
+      setBookings((prev) => prev.filter((b) => b.id !== cancelBooking.id));
+      toast.success("Session cancelled successfully");
+      setCancelBooking(null);
+    } catch (err: any) {
+      toast.error(err.message || "Failed to cancel session");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleRescheduleBooking = async () => {
+    if (!rescheduleBooking || !rescheduleDate || !rescheduleTime) return;
+    setActionLoading(true);
+    try {
+      const newDate = format(rescheduleDate, "yyyy-MM-dd");
+      const { error } = await supabase.from("bookings").update({
+        session_date: newDate,
+        session_time: rescheduleTime,
+      }).eq("id", rescheduleBooking.id);
+      if (error) throw error;
+      setBookings((prev) => prev.map((b) => b.id === rescheduleBooking.id ? { ...b, session_date: newDate, session_time: rescheduleTime } : b));
+      toast.success("Session rescheduled successfully");
+      setRescheduleBooking(null);
+      setRescheduleDate(undefined);
+      setRescheduleTime("");
+    } catch (err: any) {
+      toast.error(err.message || "Failed to reschedule session");
+    } finally {
+      setActionLoading(false);
+    }
+  };
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -129,6 +181,7 @@ const Login = () => {
 
   if (user) {
     return (
+      <>
       <div>
         <PageHero title={`${greeting}, ${displayName}!`} subtitle="Your personal wellness dashboard" bgImage={aboutBg} />
 
@@ -211,8 +264,8 @@ const Login = () => {
                   ) : (
                     bookings.map((booking) => (
                       <motion.div key={booking.id} variants={fadeUp}
-                        className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                        <div className={`w-1.5 h-14 rounded-full ${booking.session_mode === "Virtual" ? "bg-primary" : "bg-accent"}`} />
+                        className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
+                        <div className={`w-1.5 h-14 rounded-full flex-shrink-0 ${booking.session_mode === "Virtual" ? "bg-primary" : "bg-accent"}`} />
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-foreground text-sm">{booking.session_type}</p>
                           <p className="text-xs text-muted-foreground">with {booking.provider_name}</p>
@@ -226,9 +279,18 @@ const Login = () => {
                             <span className="text-xs text-muted-foreground">{booking.session_time}</span>
                           </div>
                         </div>
-                        <Badge variant={booking.session_mode === "Virtual" ? "secondary" : "outline"} className="text-xs flex-shrink-0">
-                          {booking.session_mode}
-                        </Badge>
+                        <div className="flex gap-1 flex-shrink-0">
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary"
+                            onClick={() => { setRescheduleBooking(booking); setRescheduleDate(parseISO(booking.session_date)); setRescheduleTime(booking.session_time); }}
+                            title="Reschedule">
+                            <RefreshCw className="w-4 h-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                            onClick={() => setCancelBooking(booking)}
+                            title="Cancel">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
                       </motion.div>
                     ))
                   )}
@@ -302,6 +364,88 @@ const Login = () => {
           </div>
         </section>
       </div>
+
+      {/* Cancel Confirmation Dialog */}
+      <Dialog open={!!cancelBooking} onOpenChange={() => setCancelBooking(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-destructive" /> Cancel Session
+            </DialogTitle>
+            <DialogDescription>
+              Are you sure you want to cancel your <strong>{cancelBooking?.session_type}</strong> session
+              with <strong>{cancelBooking?.provider_name}</strong> on{" "}
+              <strong>{cancelBooking ? format(parseISO(cancelBooking.session_date), "MMM d, yyyy") : ""}</strong> at{" "}
+              <strong>{cancelBooking?.session_time}</strong>? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setCancelBooking(null)} disabled={actionLoading}>
+              Keep Session
+            </Button>
+            <Button variant="destructive" onClick={handleCancelBooking} disabled={actionLoading}>
+              {actionLoading ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Trash2 className="w-4 h-4 mr-1" />}
+              Cancel Session
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Reschedule Dialog */}
+      <Dialog open={!!rescheduleBooking} onOpenChange={() => { setRescheduleBooking(null); setRescheduleDate(undefined); setRescheduleTime(""); }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <RefreshCw className="w-5 h-5 text-primary" /> Reschedule Session
+            </DialogTitle>
+            <DialogDescription>
+              Choose a new date and time for your <strong>{rescheduleBooking?.session_type}</strong> session
+              with <strong>{rescheduleBooking?.provider_name}</strong>.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">New Date</label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !rescheduleDate && "text-muted-foreground")}>
+                    <Calendar className="w-4 h-4 mr-2" />
+                    {rescheduleDate ? format(rescheduleDate, "MMM d, yyyy") : "Select date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarPicker mode="single" selected={rescheduleDate} onSelect={setRescheduleDate}
+                    disabled={(date) => date < addDays(new Date(), 1)}
+                    initialFocus className="pointer-events-auto" />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">New Time</label>
+              <Select value={rescheduleTime} onValueChange={setRescheduleTime}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select time" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableTimes.map((t) => (
+                    <SelectItem key={t} value={t}>{t}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => { setRescheduleBooking(null); setRescheduleDate(undefined); setRescheduleTime(""); }} disabled={actionLoading}>
+              Cancel
+            </Button>
+            <Button onClick={handleRescheduleBooking} disabled={actionLoading || !rescheduleDate || !rescheduleTime}>
+              {actionLoading ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <RefreshCw className="w-4 h-4 mr-1" />}
+              Confirm Reschedule
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      </>
     );
   }
 
