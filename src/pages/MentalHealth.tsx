@@ -176,7 +176,7 @@ const MentalHealth = () => {
     if (!date || !time || !sessionType || !selectedProvider) return;
     setSubmitting(true);
     try {
-      const { error } = await supabase.from("bookings").insert({
+      const bookingData = {
         user_id: user?.id || null,
         full_name: bookingName,
         email: bookingEmail,
@@ -188,10 +188,26 @@ const MentalHealth = () => {
         reason: bookingReason || null,
         status: "upcoming",
         session_mode: "Virtual",
-      });
+      };
+      const { error } = await supabase.from("bookings").insert(bookingData);
       if (error) throw error;
       setBookingSubmitted(true);
       toast.success("Booking confirmed!");
+
+      // Send confirmation email (fire-and-forget)
+      supabase.functions.invoke("send-booking-confirmation", {
+        body: {
+          full_name: bookingData.full_name,
+          email: bookingData.email,
+          provider_name: bookingData.provider_name,
+          session_type: bookingData.session_type,
+          session_date: bookingData.session_date,
+          session_time: bookingData.session_time,
+          session_mode: bookingData.session_mode,
+        },
+      }).then(({ error: emailErr }) => {
+        if (emailErr) console.error("Email send failed:", emailErr);
+      });
     } catch (err: any) {
       toast.error(err.message || "Failed to book session");
     } finally {
