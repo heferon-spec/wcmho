@@ -27,7 +27,7 @@ const Shop = () => {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const data = await storefrontApiRequest(STOREFRONT_PRODUCTS_QUERY, { first: 20 });
+        const data = await storefrontApiRequest(STOREFRONT_PRODUCTS_QUERY, { first: 50 });
         if (data?.data?.products?.edges) {
           setProducts(data.data.products.edges);
         }
