@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import {
   User, Mail, Lock, ArrowRight, Eye, EyeOff, Loader2,
   Calendar, Heart, ShoppingBag, BookOpen, Clock, Star,
-  Phone, Gift, TrendingUp, LogOut, ChevronRight, CalendarX
+  Phone, Gift, TrendingUp, LogOut, ChevronRight, CalendarX,
+  Settings, Smile
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
