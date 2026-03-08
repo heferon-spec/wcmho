@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
         'Authorization': `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'WCMHC Bookings <onboarding@resend.dev>',
+        from: 'World Changers MHC Bookings <onboarding@resend.dev>',
         to: [email],
         subject: `Booking Confirmed — ${session_type} with ${provider_name}`,
         html: htmlBody,
