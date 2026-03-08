@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X, Mic, Play, Phone } from "lucide-react";
+import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X, Mic, Play, Phone, Video, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -257,8 +257,11 @@ const MentalHealth = () => {
               <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
                 <CalendarDays className="w-8 h-8 text-accent" />
               </div>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Book a Session</h2>
-              <p className="text-muted-foreground mb-6">Schedule a 60-minute counseling session with your preferred provider below.</p>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Book a Virtual Session</h2>
+              <p className="text-muted-foreground mb-4">Schedule a 60-minute virtual counseling session with your preferred provider.</p>
+              <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+                <Video className="w-3.5 h-3.5" /> All sessions are conducted virtually
+              </div>
               <Button onClick={() => setBookingOpen(true)} size="lg" className="bg-hero-gradient text-primary-foreground hover:opacity-90">
                 <CalendarDays className="w-5 h-5 mr-2" /> Open Booking Calendar
               </Button>
@@ -283,16 +286,30 @@ const MentalHealth = () => {
                     <CalendarDays className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Booking Confirmed!</h3>
-                  <p className="text-muted-foreground">We'll send a confirmation to your email. Your 60-minute {sessionType} session with {selectedProvider} is scheduled for {date && format(date, "PPP")} at {time}.</p>
-                  <Button onClick={() => { setBookingSubmitted(false); setDate(undefined); setTime(""); setSessionType(""); setSelectedProvider(""); setBookingName(""); setBookingEmail(""); setBookingPhone(""); setBookingReason(""); }}
-                    variant="outline" className="mt-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                    Book Another Session
-                  </Button>
+                  <p className="text-muted-foreground">Your 60-minute virtual {sessionType} session with {selectedProvider} is scheduled for {date && format(date, "PPP")} at {time}.</p>
+                  <p className="text-sm text-muted-foreground mt-2">A confirmation has been sent to info@worldchangersmh.org.</p>
+                  <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-center">
+                    <a
+                      href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`Virtual ${sessionType} — ${selectedProvider}`)}&dates=${date ? format(date, "yyyyMMdd") : ""}T${time.replace(":", "")}00/${date ? format(date, "yyyyMMdd") : ""}T${(() => { const [h, m] = time.split(":").map(Number); return `${String(h + 1).padStart(2, "0")}${String(m).padStart(2, "0")}`; })()}00&details=${encodeURIComponent(`Virtual session with ${selectedProvider}\nType: ${sessionType}\nMode: Virtual`)}&location=Virtual`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity"
+                    >
+                      <CalendarDays className="w-4 h-4" /> Add to Google Calendar <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                    <Button onClick={() => { setBookingSubmitted(false); setDate(undefined); setTime(""); setSessionType(""); setSelectedProvider(""); setBookingName(""); setBookingEmail(""); setBookingPhone(""); setBookingReason(""); }}
+                      variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                      Book Another Session
+                    </Button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleBookingSubmit} className="space-y-5">
-                  <h3 className="font-heading text-xl font-bold text-foreground mb-2">Schedule Your Session</h3>
-                  <p className="text-sm text-muted-foreground mb-4">All sessions are 60 minutes. Select your preferred provider to see their availability.</p>
+                  <h3 className="font-heading text-xl font-bold text-foreground mb-2">Schedule Your Virtual Session</h3>
+                  <p className="text-sm text-muted-foreground mb-2">All sessions are 60 minutes and conducted virtually. Select your preferred provider to see their availability.</p>
+                  <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
+                    <Video className="w-3.5 h-3.5" /> Session Mode: Virtual
+                  </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
