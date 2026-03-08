@@ -27,7 +27,7 @@ Deno.serve(async (req) => {
       <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb;">
         <div style="background: linear-gradient(135deg, #1a6b4a, #2d9d6f); padding: 32px; text-align: center;">
           <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Booking Confirmed ✓</h1>
-          <p style="color: #d1fae5; margin: 8px 0 0; font-size: 14px;">Western Cape Mental Health Centre</p>
+          <p style="color: #d1fae5; margin: 8px 0 0; font-size: 14px;">World Changers Mental Health Care Org</p>
         </div>
         <div style="padding: 32px;">
           <p style="color: #374151; font-size: 16px; margin: 0 0 24px;">Hi <strong>${full_name}</strong>,</p>
@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
           </p>
         </div>
         <div style="background: #f9fafb; padding: 20px 32px; text-align: center; border-top: 1px solid #e5e7eb;">
-          <p style="color: #9ca3af; font-size: 12px; margin: 0;">© Western Cape Mental Health Centre. All rights reserved.</p>
+          <p style="color: #9ca3af; font-size: 12px; margin: 0;">© World Changers Mental Health Care Org. All rights reserved.</p>
         </div>
       </div>
     `;
@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
         'Authorization': `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'WCMHC Bookings <onboarding@resend.dev>',
+        from: 'World Changers MHC Bookings <onboarding@resend.dev>',
         to: [email],
         subject: `Booking Confirmed — ${session_type} with ${provider_name}`,
         html: htmlBody,
