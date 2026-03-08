@@ -23,16 +23,8 @@ import { Calendar as CalendarPicker } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import PageHero from "@/components/PageHero";
-import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
-import { useAuth } from "@/hooks/useAuth";
-import { useCartStore } from "@/stores/cartStore";
-import { toast } from "sonner";
-import { format, parseISO } from "date-fns";
-import aboutBg from "@/assets/about-bg.jpg";
+
+
 
 interface Booking {
   id: string;
