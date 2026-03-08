@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   User, Mail, Lock, ArrowRight, Eye, EyeOff, Loader2,
   Calendar, Heart, ShoppingBag, BookOpen, Clock, Star,
-  Phone, Gift, TrendingUp, LogOut, ChevronRight
+  Phone, Gift, TrendingUp, LogOut, ChevronRight, CalendarX
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,13 +16,18 @@ import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/hooks/useAuth";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
+import { format, parseISO } from "date-fns";
 import aboutBg from "@/assets/about-bg.jpg";
 
-const upcomingSessions = [
-  { title: "Individual Counseling", therapist: "Dr. Florence Maleka", date: "Mar 12, 2026", time: "10:00 AM", type: "Virtual", color: "bg-primary" },
-  { title: "Group Therapy — Stress Management", therapist: "Kumari Sukhdeo", date: "Mar 15, 2026", time: "2:00 PM", type: "In-Person", color: "bg-accent" },
-  { title: "Couples Counseling", therapist: "Celiwe Rahlagane", date: "Mar 20, 2026", time: "11:30 AM", type: "Virtual", color: "bg-primary" },
-];
+interface Booking {
+  id: string;
+  session_type: string;
+  provider_name: string;
+  session_date: string;
+  session_time: string;
+  session_mode: string;
+  status: string;
+}
 
 const wellnessTips = [
   { icon: Heart, title: "Daily Mindfulness", desc: "Try 5 minutes of deep breathing today", progress: 70 },
