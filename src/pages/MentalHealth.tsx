@@ -286,11 +286,22 @@ const MentalHealth = () => {
                     <CalendarDays className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Booking Confirmed!</h3>
-                  <p className="text-muted-foreground">We'll send a confirmation to your email. Your 60-minute {sessionType} session with {selectedProvider} is scheduled for {date && format(date, "PPP")} at {time}.</p>
-                  <Button onClick={() => { setBookingSubmitted(false); setDate(undefined); setTime(""); setSessionType(""); setSelectedProvider(""); setBookingName(""); setBookingEmail(""); setBookingPhone(""); setBookingReason(""); }}
-                    variant="outline" className="mt-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                    Book Another Session
-                  </Button>
+                  <p className="text-muted-foreground">Your 60-minute virtual {sessionType} session with {selectedProvider} is scheduled for {date && format(date, "PPP")} at {time}.</p>
+                  <p className="text-sm text-muted-foreground mt-2">A confirmation has been sent to info@worldchangersmh.org.</p>
+                  <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-center">
+                    <a
+                      href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`Virtual ${sessionType} — ${selectedProvider}`)}&dates=${date ? format(date, "yyyyMMdd") : ""}T${time.replace(":", "")}00/${date ? format(date, "yyyyMMdd") : ""}T${(() => { const [h, m] = time.split(":").map(Number); return `${String(h + 1).padStart(2, "0")}${String(m).padStart(2, "0")}`; })()}00&details=${encodeURIComponent(`Virtual session with ${selectedProvider}\nType: ${sessionType}\nMode: Virtual`)}&location=Virtual`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity"
+                    >
+                      <CalendarDays className="w-4 h-4" /> Add to Google Calendar <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                    <Button onClick={() => { setBookingSubmitted(false); setDate(undefined); setTime(""); setSessionType(""); setSelectedProvider(""); setBookingName(""); setBookingEmail(""); setBookingPhone(""); setBookingReason(""); }}
+                      variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                      Book Another Session
+                    </Button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleBookingSubmit} className="space-y-5">
