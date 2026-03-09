@@ -38,6 +38,7 @@ const fetchDonations = async () => {
 
 const Campaigns = () => {
   const { user } = useAuth();
+  const { isAdmin } = useIsAdmin();
 
   const { data: campaigns = [], refetch: refetchCampaigns } = useQuery({
     queryKey: ["campaigns"],
