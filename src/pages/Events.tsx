@@ -101,7 +101,8 @@ const Events = () => {
                       <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {event.location}</span>
                       <span className="flex items-center gap-1"><Ticket className="w-3.5 h-3.5" /> {event.spots} spots</span>
                     </div>
-                    <Button size="sm" className="mt-4 bg-hero-gradient text-primary-foreground hover:opacity-90">
+                    <Button size="sm" className="mt-4 bg-hero-gradient text-primary-foreground hover:opacity-90"
+                      onClick={() => { setSelectedEvent(event); setDialogOpen(true); }}>
                       Get Tickets <ArrowRight className="w-3.5 h-3.5 ml-1" />
                     </Button>
                   </div>
