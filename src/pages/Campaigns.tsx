@@ -7,6 +7,7 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import CreateCampaignDialog from "@/components/CreateCampaignDialog";
 import { useAuth } from "@/hooks/useAuth";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import campaignBg from "@/assets/campaign-bg.jpg";
@@ -37,6 +38,7 @@ const fetchDonations = async () => {
 
 const Campaigns = () => {
   const { user } = useAuth();
+  const { isAdmin } = useIsAdmin();
 
   const { data: campaigns = [], refetch: refetchCampaigns } = useQuery({
     queryKey: ["campaigns"],
@@ -125,16 +127,9 @@ const Campaigns = () => {
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10">
             <SectionHeading label="Campaign Grid" title="Help & Donate Our Campaigns" description="Every contribution brings us closer to a world where mental health care is accessible to all." />
-            {user && (
+            {isAdmin && (
               <div className="mt-4 md:mt-0">
                 <CreateCampaignDialog onCreated={() => refetchCampaigns()} />
-              </div>
-            )}
-            {!user && (
-              <div className="mt-4 md:mt-0">
-                <Button asChild variant="outline">
-                  <Link to="/login">Log in to create a campaign</Link>
-                </Button>
               </div>
             )}
           </div>
