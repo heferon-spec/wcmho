@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, Send, Newspaper } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, Newspaper, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import PageHero from "@/components/PageHero";
 import VoiceAgent from "@/components/VoiceAgent";
 import aboutBg from "@/assets/about-bg.jpg";
@@ -17,8 +19,35 @@ const contactInfo = [
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ full_name: "", email: "", subject: "", message: "" });
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+
+  const updateField = (field: string, value: string) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { error } = await supabase.from("contact_messages").insert({
+        full_name: form.full_name.trim(),
+        email: form.email.trim(),
+        subject: form.subject.trim(),
+        message: form.message.trim(),
+      });
+      if (error) throw error;
+      setSubmitted(true);
+      toast.success("Message sent successfully!");
+      supabase.functions.invoke("send-contact-notification", { body: form }).catch(console.warn);
+    } catch (err: any) {
+      console.error(err);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -72,27 +101,27 @@ const Contact = () => {
                   <p className="text-muted-foreground">We'll get back to you within 24 hours.</p>
                 </div>
               ) : (
-                <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium text-foreground mb-1.5 block">Full Name</label>
-                      <Input placeholder="John Doe" required />
+                      <Input placeholder="John Doe" required value={form.full_name} onChange={(e) => updateField("full_name", e.target.value)} maxLength={100} />
                     </div>
                     <div>
                       <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
-                      <Input type="email" placeholder="john@example.com" required />
+                      <Input type="email" placeholder="john@example.com" required value={form.email} onChange={(e) => updateField("email", e.target.value)} maxLength={255} />
                     </div>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Subject</label>
-                    <Input placeholder="How can we help?" required />
+                    <Input placeholder="How can we help?" required value={form.subject} onChange={(e) => updateField("subject", e.target.value)} maxLength={200} />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Message</label>
-                    <Textarea placeholder="Tell us more..." rows={5} required />
+                    <Textarea placeholder="Tell us more..." rows={5} required value={form.message} onChange={(e) => updateField("message", e.target.value)} maxLength={2000} />
                   </div>
-                  <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90">
-                    Send Message <Send className="w-4 h-4 ml-2" />
+                  <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90" disabled={loading}>
+                    {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Sending...</> : <>Send Message <Send className="w-4 h-4 ml-2" /></>}
                   </Button>
                 </form>
               )}
