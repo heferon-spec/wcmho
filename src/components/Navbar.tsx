@@ -87,16 +87,60 @@ const Navbar = () => {
 
         {/* Right Icons */}
         <div className="flex items-center gap-2">
-          <Link to="/shop" className="p-2 text-foreground hover:text-primary transition-colors relative" title="Shop">
-            <ShoppingCart className="w-5 h-5" />
-          </Link>
-          <Link to="/login" className="p-2 text-foreground hover:text-primary transition-colors" title={user ? "My Account" : "Log In"}>
-            {user?.user_metadata?.avatar_url ? (
-              <img src={user.user_metadata.avatar_url} alt="" className="w-6 h-6 rounded-full object-cover" />
-            ) : (
-              <User className={`w-5 h-5 ${user ? 'text-primary' : ''}`} />
-            )}
-          </Link>
+          {/* Profile Dropdown */}
+          <div className="relative" ref={profileRef}>
+            <button
+              onClick={() => setProfileOpen(!profileOpen)}
+              className="p-2 text-foreground hover:text-primary transition-colors"
+              title={user ? "My Account" : "Log In"}
+            >
+              {user?.user_metadata?.avatar_url ? (
+                <img src={user.user_metadata.avatar_url} alt="" className="w-6 h-6 rounded-full object-cover" />
+              ) : (
+                <User className={`w-5 h-5 ${user ? 'text-primary' : ''}`} />
+              )}
+            </button>
+            <AnimatePresence>
+              {profileOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="absolute top-full right-0 mt-1 w-48 bg-card rounded-lg shadow-elevated border border-border py-2"
+                >
+                  {user ? (
+                    <>
+                      <Link
+                        to="/profile-settings"
+                        onClick={() => setProfileOpen(false)}
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors"
+                      >
+                        <Settings className="w-4 h-4" /> Settings
+                      </Link>
+                      <button
+                        onClick={async () => {
+                          setProfileOpen(false);
+                          await signOut();
+                          navigate('/login');
+                        }}
+                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-destructive transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" /> Logout
+                      </button>
+                    </>
+                  ) : (
+                    <Link
+                      to="/login"
+                      onClick={() => setProfileOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors"
+                    >
+                      <User className="w-4 h-4" /> Log In
+                    </Link>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <Button asChild className="hidden md:inline-flex bg-hero-gradient hover:opacity-90 text-primary-foreground ml-2">
             <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">Donate Now</a>
           </Button>
