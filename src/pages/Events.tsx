@@ -4,6 +4,7 @@ import { Calendar, Clock, MapPin, Ticket, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
+import TicketBookingDialog from "@/components/TicketBookingDialog";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const events = [
@@ -26,6 +27,8 @@ const fadeUp = {
 
 const Events = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const categories = ["All", ...Array.from(new Set(events.map(e => e.category)))];
   const filtered = selectedCategory === "All" ? events : events.filter(e => e.category === selectedCategory);
 
@@ -98,7 +101,8 @@ const Events = () => {
                       <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {event.location}</span>
                       <span className="flex items-center gap-1"><Ticket className="w-3.5 h-3.5" /> {event.spots} spots</span>
                     </div>
-                    <Button size="sm" className="mt-4 bg-hero-gradient text-primary-foreground hover:opacity-90">
+                    <Button size="sm" className="mt-4 bg-hero-gradient text-primary-foreground hover:opacity-90"
+                      onClick={() => { setSelectedEvent(event); setDialogOpen(true); }}>
                       Get Tickets <ArrowRight className="w-3.5 h-3.5 ml-1" />
                     </Button>
                   </div>
@@ -120,6 +124,8 @@ const Events = () => {
           </Button>
         </div>
       </section>
+
+      <TicketBookingDialog event={selectedEvent} open={dialogOpen} onOpenChange={setDialogOpen} />
     </div>
   );
 };
