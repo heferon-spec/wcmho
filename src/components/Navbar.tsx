@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, ChevronDown, User, LogOut, Settings } from "lucide-react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, ChevronDown, ShoppingCart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
