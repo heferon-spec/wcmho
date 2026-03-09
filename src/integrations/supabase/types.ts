@@ -176,6 +176,63 @@ export type Database = {
         }
         Relationships: []
       }
+      volunteer_applications: {
+        Row: {
+          address: string | null
+          area_of_interest: string
+          availability: string
+          city: string | null
+          created_at: string
+          date_of_birth: string | null
+          email: string
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          first_name: string
+          id: string
+          last_name: string
+          motivation: string
+          phone: string
+          previous_experience: string | null
+          special_skills: string | null
+        }
+        Insert: {
+          address?: string | null
+          area_of_interest: string
+          availability: string
+          city?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          email: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          first_name: string
+          id?: string
+          last_name: string
+          motivation: string
+          phone: string
+          previous_experience?: string | null
+          special_skills?: string | null
+        }
+        Update: {
+          address?: string | null
+          area_of_interest?: string
+          availability?: string
+          city?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          email?: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          first_name?: string
+          id?: string
+          last_name?: string
+          motivation?: string
+          phone?: string
+          previous_experience?: string | null
+          special_skills?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
