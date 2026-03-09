@@ -27,6 +27,8 @@ const fadeUp = {
 
 const Events = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const categories = ["All", ...Array.from(new Set(events.map(e => e.category)))];
   const filtered = selectedCategory === "All" ? events : events.filter(e => e.category === selectedCategory);
 
