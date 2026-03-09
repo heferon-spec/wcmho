@@ -4,6 +4,7 @@ import { Calendar, Clock, MapPin, Ticket, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
+import TicketBookingDialog from "@/components/TicketBookingDialog";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const events = [
