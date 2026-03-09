@@ -62,6 +62,89 @@ export type Database = {
         }
         Relationships: []
       }
+      campaign_donations: {
+        Row: {
+          amount: number
+          campaign_id: string
+          created_at: string
+          donor_email: string | null
+          donor_name: string | null
+          id: string
+          paystack_reference: string | null
+        }
+        Insert: {
+          amount: number
+          campaign_id: string
+          created_at?: string
+          donor_email?: string | null
+          donor_name?: string | null
+          id?: string
+          paystack_reference?: string | null
+        }
+        Update: {
+          amount?: number
+          campaign_id?: string
+          created_at?: string
+          donor_email?: string | null
+          donor_name?: string | null
+          id?: string
+          paystack_reference?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_donations_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      campaigns: {
+        Row: {
+          created_at: string
+          description: string
+          donation_count: number
+          goal_amount: number
+          id: string
+          image_url: string | null
+          paystack_link: string | null
+          raised_amount: number
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          donation_count?: number
+          goal_amount?: number
+          id?: string
+          image_url?: string | null
+          paystack_link?: string | null
+          raised_amount?: number
+          status?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          donation_count?: number
+          goal_amount?: number
+          id?: string
+          image_url?: string | null
+          paystack_link?: string | null
+          raised_amount?: number
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
