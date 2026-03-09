@@ -172,6 +172,42 @@ export type Database = {
         }
         Relationships: []
       }
+      event_tickets: {
+        Row: {
+          created_at: string
+          email: string
+          event_title: string
+          full_name: string
+          id: string
+          phone: string
+          status: string
+          ticket_count: number
+          total_price: number
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event_title: string
+          full_name: string
+          id?: string
+          phone: string
+          status?: string
+          ticket_count?: number
+          total_price?: number
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event_title?: string
+          full_name?: string
+          id?: string
+          phone?: string
+          status?: string
+          ticket_count?: number
+          total_price?: number
+        }
+        Relationships: []
+      }
       mood_entries: {
         Row: {
           created_at: string
