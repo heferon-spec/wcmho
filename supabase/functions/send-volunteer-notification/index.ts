@@ -50,10 +50,14 @@ Deno.serve(async (req) => {
           <p style="color:#374151;font-size:14px;line-height:1.6;background:#f9fafb;padding:12px 16px;border-radius:8px;margin:0 0 20px;">${motivation}</p>
           ${emergency_contact_name ? `
           <h3 style="font-size:14px;color:#1a6b4a;margin:0 0 8px;">Emergency Contact</h3>
-          <table style="width:100%;border-collapse:collapse;">
+          <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
             ${row('Name', emergency_contact_name)}
             ${row('Phone', emergency_contact_phone)}
           </table>` : ''}
+          <div style="text-align:center;margin:28px 0 8px;">
+            <a href="mailto:${email}?subject=${encodeURIComponent(`Re: Your Volunteer Application — World Changers MHC`)}&body=${encodeURIComponent(`Hi ${first_name},\n\nThank you for your volunteer application. We've reviewed your details and would like to discuss the next steps.\n\n`)}" style="display:inline-block;background:linear-gradient(135deg,#1a6b4a,#2d9d6f);color:#fff;text-decoration:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;">Reply to ${first_name}</a>
+          </div>
+          <p style="text-align:center;color:#9ca3af;font-size:12px;margin:8px 0 0;">Opens your email client to respond directly to ${email}</p>
         </div>
         <div style="background:#f9fafb;padding:16px 32px;text-align:center;border-top:1px solid #e5e7eb;">
           <p style="color:#9ca3af;font-size:12px;margin:0;">© World Changers Mental Health Care Org</p>
