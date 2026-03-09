@@ -115,8 +115,8 @@ const Events = () => {
           <Calendar className="w-12 h-12 text-accent mx-auto mb-4" />
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">Want to Host an Event?</h2>
           <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">Partner with us to organise mental health awareness events in your community.</p>
-          <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-            Contact Us <ArrowRight className="w-4 h-4 ml-2" />
+          <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+            <a href="/contact">Contact Us <ArrowRight className="w-4 h-4 ml-2" /></a>
           </Button>
         </div>
       </section>
