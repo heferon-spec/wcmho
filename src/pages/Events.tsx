@@ -124,6 +124,8 @@ const Events = () => {
           </Button>
         </div>
       </section>
+
+      <TicketBookingDialog event={selectedEvent} open={dialogOpen} onOpenChange={setDialogOpen} />
     </div>
   );
 };
