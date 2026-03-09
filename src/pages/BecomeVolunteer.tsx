@@ -63,6 +63,8 @@ const BecomeVolunteer = () => {
       if (error) throw error;
       setSubmitted(true);
       toast.success("Application submitted successfully!");
+      // Send email notification (non-blocking)
+      supabase.functions.invoke("send-volunteer-notification", { body: form }).catch(console.warn);
     } catch (err: any) {
       console.error(err);
       toast.error("Failed to submit application. Please try again.");
