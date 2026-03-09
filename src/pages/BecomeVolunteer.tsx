@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Heart, Users, Clock, Award, ArrowRight, CheckCircle } from "lucide-react";
+import { Heart, Users, Clock, Award, ArrowRight, CheckCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
@@ -17,6 +19,57 @@ const benefits = [
 
 const BecomeVolunteer = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    date_of_birth: "",
+    city: "",
+    address: "",
+    area_of_interest: "",
+    availability: "",
+    previous_experience: "",
+    motivation: "",
+    special_skills: "",
+    emergency_contact_name: "",
+    emergency_contact_phone: "",
+  });
+
+  const updateField = (field: string, value: string) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { error } = await supabase.from("volunteer_applications").insert({
+        first_name: form.first_name.trim(),
+        last_name: form.last_name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        date_of_birth: form.date_of_birth || null,
+        city: form.city.trim() || null,
+        address: form.address.trim() || null,
+        area_of_interest: form.area_of_interest,
+        availability: form.availability,
+        previous_experience: form.previous_experience.trim() || null,
+        motivation: form.motivation.trim(),
+        special_skills: form.special_skills.trim() || null,
+        emergency_contact_name: form.emergency_contact_name.trim() || null,
+        emergency_contact_phone: form.emergency_contact_phone.trim() || null,
+      });
+      if (error) throw error;
+      setSubmitted(true);
+      toast.success("Application submitted successfully!");
+    } catch (err: any) {
+      console.error(err);
+      toast.error("Failed to submit application. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -54,50 +107,50 @@ const BecomeVolunteer = () => {
               </div>
             ) : (
               <motion.form initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
+                onSubmit={handleSubmit}
                 className="bg-card rounded-2xl p-8 shadow-card space-y-6">
                 
                 <h4 className="font-heading text-lg font-semibold text-foreground border-b border-border pb-3">Personal Information</h4>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">First Name *</label>
-                    <Input placeholder="John" required />
+                    <Input placeholder="John" required value={form.first_name} onChange={(e) => updateField("first_name", e.target.value)} maxLength={100} />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Last Name *</label>
-                    <Input placeholder="Doe" required />
+                    <Input placeholder="Doe" required value={form.last_name} onChange={(e) => updateField("last_name", e.target.value)} maxLength={100} />
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Email Address *</label>
-                    <Input type="email" placeholder="john@example.com" required />
+                    <Input type="email" placeholder="john@example.com" required value={form.email} onChange={(e) => updateField("email", e.target.value)} maxLength={255} />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Phone Number *</label>
-                    <Input type="tel" placeholder="+27 75 452 4052" required />
+                    <Input type="tel" placeholder="+27 75 452 4052" required value={form.phone} onChange={(e) => updateField("phone", e.target.value)} maxLength={30} />
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Date of Birth</label>
-                    <Input type="date" />
+                    <Input type="date" value={form.date_of_birth} onChange={(e) => updateField("date_of_birth", e.target.value)} />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">City / Town</label>
-                    <Input placeholder="Johannesburg" />
+                    <Input placeholder="Johannesburg" value={form.city} onChange={(e) => updateField("city", e.target.value)} />
                   </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Address</label>
-                  <Input placeholder="114 George Street, Kenilworth, Johannesburg, 2190" />
+                  <Input placeholder="114 George Street, Kenilworth, Johannesburg, 2190" value={form.address} onChange={(e) => updateField("address", e.target.value)} />
                 </div>
 
                 <h4 className="font-heading text-lg font-semibold text-foreground border-b border-border pb-3 pt-4">Volunteer Details</h4>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Area of Interest *</label>
-                    <select className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" required>
+                    <select className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" required value={form.area_of_interest} onChange={(e) => updateField("area_of_interest", e.target.value)}>
                       <option value="">Select an area</option>
                       <option>Mental Health Outreach</option>
                       <option>Community Counseling</option>
@@ -109,7 +162,7 @@ const BecomeVolunteer = () => {
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Availability *</label>
-                    <select className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" required>
+                    <select className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" required value={form.availability} onChange={(e) => updateField("availability", e.target.value)}>
                       <option value="">Select availability</option>
                       <option>Weekdays (Morning)</option>
                       <option>Weekdays (Afternoon)</option>
@@ -121,26 +174,26 @@ const BecomeVolunteer = () => {
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Previous Volunteer Experience</label>
-                  <Textarea placeholder="Describe any relevant experience..." rows={3} />
+                  <Textarea placeholder="Describe any relevant experience..." rows={3} value={form.previous_experience} onChange={(e) => updateField("previous_experience", e.target.value)} />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Why do you want to volunteer with us? *</label>
-                  <Textarea placeholder="Tell us about your motivation and what you hope to contribute..." rows={4} required />
+                  <Textarea placeholder="Tell us about your motivation and what you hope to contribute..." rows={4} required value={form.motivation} onChange={(e) => updateField("motivation", e.target.value)} maxLength={2000} />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Special Skills or Qualifications</label>
-                  <Textarea placeholder="Languages spoken, certifications, etc." rows={3} />
+                  <Textarea placeholder="Languages spoken, certifications, etc." rows={3} value={form.special_skills} onChange={(e) => updateField("special_skills", e.target.value)} />
                 </div>
 
                 <h4 className="font-heading text-lg font-semibold text-foreground border-b border-border pb-3 pt-4">Emergency Contact</h4>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Emergency Contact Name</label>
-                    <Input placeholder="Full name" />
+                    <Input placeholder="Full name" value={form.emergency_contact_name} onChange={(e) => updateField("emergency_contact_name", e.target.value)} />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Emergency Contact Phone</label>
-                    <Input type="tel" placeholder="+27 ..." />
+                    <Input type="tel" placeholder="+27 ..." value={form.emergency_contact_phone} onChange={(e) => updateField("emergency_contact_phone", e.target.value)} />
                   </div>
                 </div>
 
@@ -149,8 +202,8 @@ const BecomeVolunteer = () => {
                   <label className="text-sm text-muted-foreground">I agree to the terms and conditions and understand that my information will be used for volunteer coordination purposes only.</label>
                 </div>
 
-                <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90">
-                  Submit Application <ArrowRight className="w-4 h-4 ml-2" />
+                <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90" disabled={loading}>
+                  {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Submitting...</> : <>Submit Application <ArrowRight className="w-4 h-4 ml-2" /></>}
                 </Button>
               </motion.form>
             )}
