@@ -101,27 +101,27 @@ const Contact = () => {
                   <p className="text-muted-foreground">We'll get back to you within 24 hours.</p>
                 </div>
               ) : (
-                <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium text-foreground mb-1.5 block">Full Name</label>
-                      <Input placeholder="John Doe" required />
+                      <Input placeholder="John Doe" required value={form.full_name} onChange={(e) => updateField("full_name", e.target.value)} maxLength={100} />
                     </div>
                     <div>
                       <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
-                      <Input type="email" placeholder="john@example.com" required />
+                      <Input type="email" placeholder="john@example.com" required value={form.email} onChange={(e) => updateField("email", e.target.value)} maxLength={255} />
                     </div>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Subject</label>
-                    <Input placeholder="How can we help?" required />
+                    <Input placeholder="How can we help?" required value={form.subject} onChange={(e) => updateField("subject", e.target.value)} maxLength={200} />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Message</label>
-                    <Textarea placeholder="Tell us more..." rows={5} required />
+                    <Textarea placeholder="Tell us more..." rows={5} required value={form.message} onChange={(e) => updateField("message", e.target.value)} maxLength={2000} />
                   </div>
-                  <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90">
-                    Send Message <Send className="w-4 h-4 ml-2" />
+                  <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90" disabled={loading}>
+                    {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Sending...</> : <>Send Message <Send className="w-4 h-4 ml-2" /></>}
                   </Button>
                 </form>
               )}
