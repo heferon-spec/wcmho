@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Ikhaya",
+    "about": "Mayelana Nathi",
+    "mentalHealth": "Impilo Yengqondo",
+    "philanthropy": "Ukupha",
+    "donorDashboard": "Ibhodi Labaxhasi",
+    "pages": "Amakhasi",
+    "contact": "Xhumana Nathi",
+    "ourTeam": "Ithimba Lethu",
+    "becomeVolunteer": "Yiba Ivolontiya",
+    "events": "Imicimbi",
+    "portfolio": "Imisebenzi",
+    "gallery": "Igalari",
+    "faq": "Imibuzo",
+    "shop": "Isitolo",
+    "news": "Izindaba",
+    "donateNow": "Nikela Manje"
+  },
+  "hero": {
+    "tagline": "Shintsha Umhlaba Ndawonye",
+    "title1": "Ukuhlomisa Imiphakathi",
+    "title2": "Ngobubele,",
+    "title3": "Ulwazi Nokunakekela",
+    "exploreMore": "Hlola Kabanzi",
+    "becomeVolunteer": "Yiba Ivolontiya"
+  },
+  "stats": {
+    "yearsOperating": "Iminyaka Sisebenza",
+    "geographicReach": "Ukufinyelela Kwezindawo",
+    "totalVolunteers": "Amavolontiya Onke",
+    "beneficiariesImpacted": "Abantu Abasizakele",
+    "activeVolunteers": "Amavolontiya Asebenzayo",
+    "productsGifts": "Imikhiqizo Nezipho",
+    "projectsCompleted": "Imiklamo Eqediwe"
+  },
+  "common": {
+    "readMore": "Funda Kabanzi",
+    "learnMore": "Funda Kabanzi",
+    "getInTouch": "Xhumana Nathi",
+    "viewAll": "Buka Konke"
+  }
+}

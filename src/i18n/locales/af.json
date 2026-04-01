@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Tuis",
+    "about": "Oor Ons",
+    "mentalHealth": "Geestesgesondheid",
+    "philanthropy": "Filantropie",
+    "donorDashboard": "Skenker Paneelbord",
+    "pages": "Bladsye",
+    "contact": "Kontak",
+    "ourTeam": "Ons Span",
+    "becomeVolunteer": "'n Vrywilliger Word",
+    "events": "Geleenthede",
+    "portfolio": "Portefeulje",
+    "gallery": "Galery",
+    "faq": "Vrae",
+    "shop": "Winkel",
+    "news": "Nuus & Artikels",
+    "donateNow": "Skenk Nou"
+  },
+  "hero": {
+    "tagline": "Verander die Wêreld Saam",
+    "title1": "Bemagtiging van Gemeenskappe",
+    "title2": "Deur Medelye,",
+    "title3": "Kennis en Sorg",
+    "exploreMore": "Verken Meer",
+    "becomeVolunteer": "Word 'n Vrywilliger"
+  },
+  "stats": {
+    "yearsOperating": "Jare Bedrywig",
+    "geographicReach": "Geografiese Bereik",
+    "totalVolunteers": "Totale Vrywilligers",
+    "beneficiariesImpacted": "Begunstigdes Beïnvloed",
+    "activeVolunteers": "Aktiewe Vrywilligers",
+    "productsGifts": "Ons Produkte & Geskenke",
+    "projectsCompleted": "Projekte Voltooi"
+  },
+  "common": {
+    "readMore": "Lees Meer",
+    "learnMore": "Leer Meer",
+    "getInTouch": "Kontak Ons",
+    "viewAll": "Sien Alles"
+  }
+}

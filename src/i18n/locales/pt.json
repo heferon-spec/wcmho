@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre Nós",
+    "mentalHealth": "Saúde Mental",
+    "philanthropy": "Filantropia",
+    "donorDashboard": "Painel do Doador",
+    "pages": "Páginas",
+    "contact": "Contacto",
+    "ourTeam": "Nossa Equipa",
+    "becomeVolunteer": "Ser Voluntário",
+    "events": "Eventos",
+    "portfolio": "Portfólio",
+    "gallery": "Galeria",
+    "faq": "FAQ",
+    "shop": "Loja",
+    "news": "Notícias",
+    "donateNow": "Doe Agora"
+  },
+  "hero": {
+    "tagline": "Mudar o Mundo Juntos",
+    "title1": "Capacitar Comunidades",
+    "title2": "Através da Compaixão,",
+    "title3": "Conhecimento e Cuidado",
+    "exploreMore": "Explorar Mais",
+    "becomeVolunteer": "Ser Voluntário"
+  },
+  "stats": {
+    "yearsOperating": "Anos de Operação",
+    "geographicReach": "Alcance Geográfico",
+    "totalVolunteers": "Total de Voluntários",
+    "beneficiariesImpacted": "Beneficiários Impactados",
+    "activeVolunteers": "Voluntários Activos",
+    "productsGifts": "Produtos e Presentes",
+    "projectsCompleted": "Projetos Concluídos"
+  },
+  "common": {
+    "readMore": "Ler Mais",
+    "learnMore": "Saber Mais",
+    "getInTouch": "Entre em Contacto",
+    "viewAll": "Ver Tudo"
+  }
+}
