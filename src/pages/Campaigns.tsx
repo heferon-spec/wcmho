@@ -104,6 +104,41 @@ const Campaigns = () => {
         </div>
       </section>
 
+      {/* Get Involved Section */}
+      <section className="px-4 mb-12">
+        <div className="container mx-auto">
+          <SectionHeading label="Get Involved" title="Support Our Cause" description="Choose how you'd like to make a difference — locally or internationally." />
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="bg-card rounded-xl p-8 shadow-elevated border border-border text-center hover:shadow-card transition-shadow">
+              <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-7 h-7 text-accent" />
+              </div>
+              <h3 className="font-heading text-xl font-bold text-foreground mb-2">South African Donations</h3>
+              <p className="text-sm text-muted-foreground mb-6">Donate via Paystack — South Africa's trusted payment platform. Your contribution directly supports local programs.</p>
+              <Button asChild size="lg" className="bg-hero-gradient text-primary-foreground hover:opacity-90 w-full">
+                <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">
+                  Donate (South Africa) <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+              className="bg-card rounded-xl p-8 shadow-elevated border border-border text-center hover:shadow-card transition-shadow">
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Globe className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="font-heading text-xl font-bold text-foreground mb-2">International Donations</h3>
+              <p className="text-sm text-muted-foreground mb-6">For international donors — use our global payment link or contact us for bank wire instructions.</p>
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full">
+                <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">
+                  Donate (International) <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Dashboard Stats */}
       <section className="px-4">
         <div className="container mx-auto">
