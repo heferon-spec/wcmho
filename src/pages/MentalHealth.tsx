@@ -96,46 +96,6 @@ const professionals = [
     bio: "Dr. Grace Okonkwo is a Licensed Grief Counselor with a Master's in Bereavement Studies and 10 years of experience. She specialises in helping individuals process loss through death, divorce, miscarriage, and significant life transitions. Dr. Okonkwo facilitates individual sessions, grief support groups, and workplace bereavement programs using narrative therapy and meaning-making approaches.",
     days: ["Monday", "Wednesday", "Thursday"], times: ["10:00", "11:00", "13:00", "14:00", "15:00"],
   },
-  {
-    name: "Dr. Thomas Weber", role: "Clinical Psychologist", specialty: "Stress Management", image: prof1,
-    bio: "Dr. Thomas Weber is a Clinical Psychologist specialising in occupational stress, burnout prevention, and corporate wellness. With 11 years of practice, he offers executive coaching, stress management workshops, and individual therapy for professionals under high pressure. Dr. Weber is certified in Mindfulness-Based Stress Reduction (MBSR) and biofeedback therapy.",
-    days: ["Tuesday", "Thursday", "Friday"], times: ["09:00", "10:00", "14:00", "15:00", "16:00"],
-  },
-  {
-    name: "Dr. Aisha Patel", role: "Psychotherapist", specialty: "Eating Disorders", image: prof2,
-    bio: "Dr. Aisha Patel is a Psychotherapist specialising in eating disorders including anorexia nervosa, bulimia, binge eating disorder, and body dysmorphia. With 9 years of clinical experience, she uses a multi-disciplinary approach combining CBT-E (Enhanced Cognitive Behavioral Therapy), nutritional counseling coordination, and body image work. Dr. Patel is passionate about recovery-focused care.",
-    days: ["Monday", "Wednesday", "Friday"], times: ["10:00", "11:00", "12:00", "14:00"],
-  },
-  {
-    name: "Dr. Carlos Rivera", role: "Psychiatrist", specialty: "Schizophrenia", image: prof3,
-    bio: "Dr. Carlos Rivera is a Psychiatrist with 17 years of experience managing schizophrenia, psychotic disorders, and severe mental illness. He specialises in antipsychotic medication management, early psychosis intervention, and community-based psychiatric rehabilitation. Dr. Rivera is committed to reducing the stigma around psychotic disorders and improving patient autonomy.",
-    days: ["Monday", "Tuesday", "Thursday"], times: ["09:00", "10:00", "11:00", "14:00", "15:00"],
-  },
-  {
-    name: "Dr. Hannah Müller", role: "Art Therapist", specialty: "Expressive Therapy", image: prof1,
-    bio: "Dr. Hannah Müller is a registered Art Therapist with 8 years of experience using creative expression as a therapeutic tool. She works with trauma survivors, children, and individuals with developmental disabilities, using visual arts, music, and movement to facilitate healing. Dr. Müller holds a Master's in Art Therapy and is certified in Trauma-Informed Expressive Arts Therapy.",
-    days: ["Tuesday", "Wednesday", "Friday"], times: ["10:00", "11:00", "13:00", "14:00"],
-  },
-  {
-    name: "Dr. Solomon Adebayo", role: "Licensed Counselor", specialty: "Cultural Psychology", image: prof2,
-    bio: "Dr. Solomon Adebayo is a Licensed Counselor specialising in cultural and cross-cultural psychology with 12 years of experience. He addresses the mental health needs of immigrant communities, refugees, and individuals navigating cultural identity challenges. Dr. Adebayo integrates indigenous African healing practices with Western psychotherapy approaches for culturally responsive care.",
-    days: ["Monday", "Thursday", "Friday"], times: ["09:00", "10:00", "11:00", "14:00", "15:00"],
-  },
-  {
-    name: "Dr. Jessica Park", role: "Clinical Psychologist", specialty: "Sleep Disorders", image: prof3,
-    bio: "Dr. Jessica Park is a Clinical Psychologist specialising in sleep disorders, insomnia, and circadian rhythm disturbances. With 10 years of experience, she is trained in Cognitive Behavioral Therapy for Insomnia (CBT-I) and collaborates with sleep medicine physicians for comprehensive care. Dr. Park helps clients improve their sleep quality through evidence-based behavioral interventions.",
-    days: ["Tuesday", "Wednesday", "Thursday"], times: ["09:00", "10:00", "14:00", "15:00", "16:00"],
-  },
-  {
-    name: "Dr. André Dupont", role: "Psychopharmacologist", specialty: "Medication Management", image: prof1,
-    bio: "Dr. André Dupont is a Psychopharmacologist with 15 years of experience in psychiatric medication management, drug interactions, and treatment-resistant conditions. He provides comprehensive medication consultations, reviews, and ongoing pharmacological management for complex psychiatric cases. Dr. Dupont works collaboratively with therapists to ensure integrated treatment plans.",
-    days: ["Monday", "Wednesday", "Friday"], times: ["09:00", "10:00", "11:00", "12:00"],
-  },
-  {
-    name: "Dr. Zara Mahlangu", role: "Community Psychologist", specialty: "Social Wellbeing", image: prof2,
-    bio: "Dr. Zara Mahlangu is a Community Psychologist with 11 years of experience in social wellbeing, community mental health, and participatory action research. She develops and implements community-based mental health programs, facilitates support groups, and advocates for mental health policy reform. Dr. Mahlangu is dedicated to making psychology accessible to underserved populations across South Africa.",
-    days: ["Tuesday", "Thursday", "Friday"], times: ["10:00", "11:00", "13:00", "14:00", "15:00"],
-  },
 ];
 
 const sessionTypes = ["Individual Counseling", "Couples Counseling", "Family Counseling", "Grief & Loss Counseling"];

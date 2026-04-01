@@ -76,6 +76,16 @@ const images = [
   { src: gallery28, alt: "Community food distribution" },
   { src: gallery29, alt: "Humanitarian aid drive" },
   { src: gallery30, alt: "Community outreach event" },
+  { src: gallery31, alt: "Community volunteer event" },
+  { src: gallery32, alt: "Community engagement session" },
+  { src: gallery33, alt: "Team collaboration" },
+  { src: gallery34, alt: "Outreach program" },
+  { src: gallery35, alt: "Mental health awareness event" },
+  { src: gallery36, alt: "Community support gathering" },
+  { src: gallery37, alt: "Volunteer coordination" },
+  { src: gallery38, alt: "Community workshop" },
+  { src: gallery39, alt: "Youth engagement program" },
+  { src: gallery40, alt: "Impact initiative" },
 ];
 
 const Gallery = () => {

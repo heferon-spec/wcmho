@@ -17,10 +17,10 @@ const values = [
 ];
 
 const impactStats = [
-  { value: "537+", label: "Local Branches" },
-  { value: "3,224+", label: "Total Staff" },
-  { value: "6,882+", label: "Volunteers" },
-  { value: "100.5K", label: "Worldwide Donors" },
+  { value: "10", label: "Years Operating" },
+  { value: "Southern Africa", label: "Geographic Reach" },
+  { value: "2,000+", label: "Volunteers" },
+  { value: "270+", label: "Active Volunteers" },
 ];
 
 const fadeUp = {

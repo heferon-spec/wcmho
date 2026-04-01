@@ -47,7 +47,6 @@ const legalTeam = [
 
 const headsOfDepartments = [
   { name: "Boitumelo Sedupane", role: "HR Executive", image: boitumeloSedupane },
-  { name: "Qhakazile Mathebula", role: "HR Assistant", image: qhakazileMathebula },
   { name: "Luvuyo Mncanca", role: "Humanitarian Executive", image: luvuyoMncanca },
   { name: "Beaulah Rose", role: "Mental Health Executive", image: beaulahRose },
   { name: "Dr Talifhani Khubana", role: "CFO", image: null },
