@@ -18,7 +18,7 @@ import celiweRahlagane from "@/assets/celiwe-rahlagane.jpg";
 import florenceMaleka from "@/assets/florence-maleka.jpg";
 import vukaKhumalo from "@/assets/vuka-khumalo.png";
 import boitumeloSedupane from "@/assets/boitumelo-sedupane.jpg";
-import qhakazileMathebula from "@/assets/qhakazile-mathebula.jpg";
+
 import luvuyoMncanca from "@/assets/luvuyo-mncanca.jpg";
 import beaulahRose from "@/assets/beaulah-rose.jpg";
 import patriciaMoloiwa from "@/assets/patricia-moloiwa.png";
