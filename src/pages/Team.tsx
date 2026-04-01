@@ -18,7 +18,7 @@ import celiweRahlagane from "@/assets/celiwe-rahlagane.jpg";
 import florenceMaleka from "@/assets/florence-maleka.jpg";
 import vukaKhumalo from "@/assets/vuka-khumalo.png";
 import boitumeloSedupane from "@/assets/boitumelo-sedupane.jpg";
-import qhakazileMathebula from "@/assets/qhakazile-mathebula.jpg";
+
 import luvuyoMncanca from "@/assets/luvuyo-mncanca.jpg";
 import beaulahRose from "@/assets/beaulah-rose.jpg";
 import patriciaMoloiwa from "@/assets/patricia-moloiwa.png";
@@ -47,7 +47,6 @@ const legalTeam = [
 
 const headsOfDepartments = [
   { name: "Boitumelo Sedupane", role: "HR Executive", image: boitumeloSedupane },
-  { name: "Qhakazile Mathebula", role: "HR Assistant", image: qhakazileMathebula },
   { name: "Luvuyo Mncanca", role: "Humanitarian Executive", image: luvuyoMncanca },
   { name: "Beaulah Rose", role: "Mental Health Executive", image: beaulahRose },
   { name: "Dr Talifhani Khubana", role: "CFO", image: null },

@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "mentalHealth": "Mental Health",
+    "philanthropy": "Philanthropy",
+    "donorDashboard": "Donor Dashboard",
+    "pages": "Pages",
+    "contact": "Contact",
+    "ourTeam": "Our Team",
+    "becomeVolunteer": "Become a Volunteer",
+    "events": "Events",
+    "portfolio": "Portfolio",
+    "gallery": "Gallery",
+    "faq": "FAQ",
+    "shop": "Shop",
+    "news": "News & Articles",
+    "donateNow": "Donate Now"
+  },
+  "hero": {
+    "tagline": "Change The World Together",
+    "title1": "Empowering Communities",
+    "title2": "Through Compassion,",
+    "title3": "Knowledge and Care",
+    "exploreMore": "Explore More",
+    "becomeVolunteer": "Become a Volunteer"
+  },
+  "stats": {
+    "yearsOperating": "Years Operating",
+    "geographicReach": "Geographic Reach",
+    "totalVolunteers": "Total Volunteers",
+    "beneficiariesImpacted": "Beneficiaries Impacted",
+    "activeVolunteers": "Active Volunteers",
+    "productsGifts": "Our Products & Gifts",
+    "projectsCompleted": "Projects Completed"
+  },
+  "common": {
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "getInTouch": "Get In Touch",
+    "viewAll": "View All"
+  }
+}

@@ -34,6 +34,16 @@ import gallery27 from "@/assets/gallery-27.jpg";
 import gallery28 from "@/assets/gallery-28.jpg";
 import gallery29 from "@/assets/gallery-29.jpg";
 import gallery30 from "@/assets/gallery-30.jpg";
+import gallery31 from "@/assets/gallery-31.jpg";
+import gallery32 from "@/assets/gallery-32.jpg";
+import gallery33 from "@/assets/gallery-33.jpg";
+import gallery34 from "@/assets/gallery-34.jpg";
+import gallery35 from "@/assets/gallery-35.jpg";
+import gallery36 from "@/assets/gallery-36.jpg";
+import gallery37 from "@/assets/gallery-37.jpg";
+import gallery38 from "@/assets/gallery-38.jpg";
+import gallery39 from "@/assets/gallery-39.jpg";
+import gallery40 from "@/assets/gallery-40.jpg";
 
 const images = [
   { src: gallery1, alt: "Men's Day Summit audience" },
@@ -66,6 +76,16 @@ const images = [
   { src: gallery28, alt: "Community food distribution" },
   { src: gallery29, alt: "Humanitarian aid drive" },
   { src: gallery30, alt: "Community outreach event" },
+  { src: gallery31, alt: "Community volunteer event" },
+  { src: gallery32, alt: "Community engagement session" },
+  { src: gallery33, alt: "Team collaboration" },
+  { src: gallery34, alt: "Outreach program" },
+  { src: gallery35, alt: "Mental health awareness event" },
+  { src: gallery36, alt: "Community support gathering" },
+  { src: gallery37, alt: "Volunteer coordination" },
+  { src: gallery38, alt: "Community workshop" },
+  { src: gallery39, alt: "Youth engagement program" },
+  { src: gallery40, alt: "Impact initiative" },
 ];
 
 const Gallery = () => {

@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "mentalHealth": "Santé Mentale",
+    "philanthropy": "Philanthropie",
+    "donorDashboard": "Tableau des Donateurs",
+    "pages": "Pages",
+    "contact": "Contact",
+    "ourTeam": "Notre Équipe",
+    "becomeVolunteer": "Devenir Bénévole",
+    "events": "Événements",
+    "portfolio": "Portfolio",
+    "gallery": "Galerie",
+    "faq": "FAQ",
+    "shop": "Boutique",
+    "news": "Actualités",
+    "donateNow": "Faire un Don"
+  },
+  "hero": {
+    "tagline": "Changeons le Monde Ensemble",
+    "title1": "Autonomiser les Communautés",
+    "title2": "Par la Compassion,",
+    "title3": "Le Savoir et le Soin",
+    "exploreMore": "En Savoir Plus",
+    "becomeVolunteer": "Devenir Bénévole"
+  },
+  "stats": {
+    "yearsOperating": "Années d'Activité",
+    "geographicReach": "Portée Géographique",
+    "totalVolunteers": "Total Bénévoles",
+    "beneficiariesImpacted": "Bénéficiaires Touchés",
+    "activeVolunteers": "Bénévoles Actifs",
+    "productsGifts": "Nos Produits & Cadeaux",
+    "projectsCompleted": "Projets Réalisés"
+  },
+  "common": {
+    "readMore": "Lire la Suite",
+    "learnMore": "En Savoir Plus",
+    "getInTouch": "Contactez-Nous",
+    "viewAll": "Voir Tout"
+  }
+}

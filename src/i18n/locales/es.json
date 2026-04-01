@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre Nosotros",
+    "mentalHealth": "Salud Mental",
+    "philanthropy": "Filantropía",
+    "donorDashboard": "Panel de Donantes",
+    "pages": "Páginas",
+    "contact": "Contacto",
+    "ourTeam": "Nuestro Equipo",
+    "becomeVolunteer": "Ser Voluntario",
+    "events": "Eventos",
+    "portfolio": "Portafolio",
+    "gallery": "Galería",
+    "faq": "Preguntas Frecuentes",
+    "shop": "Tienda",
+    "news": "Noticias",
+    "donateNow": "Donar Ahora"
+  },
+  "hero": {
+    "tagline": "Cambiemos el Mundo Juntos",
+    "title1": "Empoderando Comunidades",
+    "title2": "A Través de la Compasión,",
+    "title3": "El Conocimiento y el Cuidado",
+    "exploreMore": "Explorar Más",
+    "becomeVolunteer": "Ser Voluntario"
+  },
+  "stats": {
+    "yearsOperating": "Años Operando",
+    "geographicReach": "Alcance Geográfico",
+    "totalVolunteers": "Total Voluntarios",
+    "beneficiariesImpacted": "Beneficiarios Impactados",
+    "activeVolunteers": "Voluntarios Activos",
+    "productsGifts": "Productos y Regalos",
+    "projectsCompleted": "Proyectos Completados"
+  },
+  "common": {
+    "readMore": "Leer Más",
+    "learnMore": "Saber Más",
+    "getInTouch": "Contáctanos",
+    "viewAll": "Ver Todo"
+  }
+}

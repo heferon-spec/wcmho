@@ -19,16 +19,16 @@ import thulisileButhelezi from "@/assets/thulisile-buthelezi.jpg";
 import thabangMokaka from "@/assets/thabang-mokaka.jpg";
 
 const stats = [
-  { icon: Building, value: "537+", label: "Local WCMHCO Branches" },
-  { icon: Users, value: "3,224+", label: "Total WCMHCO Staff" },
-  { icon: HandHeart, value: "6,882+", label: "Total Volunteers" },
+  { icon: Building, value: "10", label: "Years Operating" },
+  { icon: Users, value: "Southern Africa", label: "Geographic Reach" },
+  { icon: HandHeart, value: "2,000+", label: "Total Volunteers" },
 ];
 
 const impactStats = [
-  { value: "2,500+", label: "Total Happy Families" },
-  { value: "270+", label: "Total Our Volunteers" },
+  { value: "10,000+", label: "Beneficiaries Impacted" },
+  { value: "270+", label: "Active Volunteers" },
   { value: "3,150+", label: "Our Products & Gifts" },
-  { value: "8,700+", label: "Worldwide Donors" },
+  { value: "50+", label: "Projects Completed" },
 ];
 
 const features = [
