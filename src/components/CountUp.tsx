@@ -9,20 +9,21 @@ interface CountUpProps {
 const CountUp = ({ value, className }: CountUpProps) => {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
-  const [display, setDisplay] = useState("0");
 
   // Extract numeric part, prefix, and suffix
   const match = value.match(/^([^\d]*)(\d[\d,.]*)([^\d]*)$/);
+  const isTextOnly = !match;
   const prefix = match?.[1] || "";
   const numStr = match?.[2] || "0";
   const suffix = match?.[3] || "";
+  const [display, setDisplay] = useState(isTextOnly ? value : "0");
   const target = parseFloat(numStr.replace(/,/g, ""));
   const hasDecimal = numStr.includes(".");
   const decimalPlaces = hasDecimal ? numStr.split(".")[1]?.replace(/[^\d]/g, "").length || 0 : 0;
   const hasCommas = numStr.includes(",");
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || isTextOnly) return;
     const duration = 2000;
     const steps = 60;
     const increment = target / steps;
@@ -46,7 +47,7 @@ const CountUp = ({ value, className }: CountUpProps) => {
     }, duration / steps);
 
     return () => clearInterval(timer);
-  }, [isInView, target, numStr, hasDecimal, decimalPlaces, hasCommas]);
+  }, [isInView, isTextOnly, target, numStr, hasDecimal, decimalPlaces, hasCommas]);
 
   return (
     <motion.span
@@ -56,7 +57,7 @@ const CountUp = ({ value, className }: CountUpProps) => {
       animate={isInView ? { opacity: 1, scale: 1 } : {}}
       transition={{ duration: 0.4 }}
     >
-      {prefix}{display}{suffix}
+      {isTextOnly ? value : <>{prefix}{display}{suffix}</>}
     </motion.span>
   );
 };
