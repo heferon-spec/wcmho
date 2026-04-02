@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ShoppingBag, Loader2, Heart, Truck, Shield, RotateCcw, Star } from "lucide-react";
+import { ShoppingBag, Loader2, Heart, Truck, Shield, RotateCcw, Star, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import PageHero from "@/components/PageHero";
@@ -10,6 +10,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { storefrontApiRequest, STOREFRONT_PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useCurrency } from "@/hooks/useCurrency";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
 
 const fadeUp = {
