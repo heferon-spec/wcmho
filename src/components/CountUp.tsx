@@ -9,13 +9,14 @@ interface CountUpProps {
 const CountUp = ({ value, className }: CountUpProps) => {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
-  const [display, setDisplay] = useState("0");
 
   // Extract numeric part, prefix, and suffix
   const match = value.match(/^([^\d]*)(\d[\d,.]*)([^\d]*)$/);
+  const isTextOnly = !match;
   const prefix = match?.[1] || "";
   const numStr = match?.[2] || "0";
   const suffix = match?.[3] || "";
+  const [display, setDisplay] = useState(isTextOnly ? value : "0");
   const target = parseFloat(numStr.replace(/,/g, ""));
   const hasDecimal = numStr.includes(".");
   const decimalPlaces = hasDecimal ? numStr.split(".")[1]?.replace(/[^\d]/g, "").length || 0 : 0;
