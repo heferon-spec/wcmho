@@ -43,9 +43,11 @@ const Shop = () => {
   const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({});
   const [activeCategory, setActiveCategory] = useState("All");
   const [reviewStats, setReviewStats] = useState<Record<string, { avg: number; count: number }>>({});
+  const [currencyOpen, setCurrencyOpen] = useState(false);
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const navigate = useNavigate();
+  const { selectedCurrency, currencies: currencyList, changeCurrency, formatPrice } = useCurrency();
 
   useEffect(() => {
     async function fetchProducts() {
