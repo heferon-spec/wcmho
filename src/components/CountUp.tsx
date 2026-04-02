@@ -23,7 +23,7 @@ const CountUp = ({ value, className }: CountUpProps) => {
   const hasCommas = numStr.includes(",");
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || isTextOnly) return;
     const duration = 2000;
     const steps = 60;
     const increment = target / steps;
