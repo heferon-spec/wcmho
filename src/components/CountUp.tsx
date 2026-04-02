@@ -47,7 +47,7 @@ const CountUp = ({ value, className }: CountUpProps) => {
     }, duration / steps);
 
     return () => clearInterval(timer);
-  }, [isInView, target, numStr, hasDecimal, decimalPlaces, hasCommas]);
+  }, [isInView, isTextOnly, target, numStr, hasDecimal, decimalPlaces, hasCommas]);
 
   return (
     <motion.span
