@@ -16,9 +16,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import mentalHealthBg from "@/assets/mental-health-bg.jpg";
-import prof1 from "@/assets/professional-1.jpg";
-import prof2 from "@/assets/professional-2.jpg";
-import prof3 from "@/assets/professional-3.jpg";
 
 const programs = [
   { icon: Brain, title: "Cognitive Behavioral Therapy", desc: "Evidence-based approach to treating anxiety, depression, and other mental health conditions through structured therapeutic sessions." },
