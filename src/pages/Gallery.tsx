@@ -88,6 +88,8 @@ const images = [
   { src: gallery38, alt: "Community workshop" },
   { src: gallery39, alt: "Youth engagement program" },
   { src: gallery40, alt: "Impact initiative" },
+  { src: gallery41, alt: "Community outreach program" },
+  { src: gallery42, alt: "Volunteer event" },
 ];
 
 const Gallery = () => {
