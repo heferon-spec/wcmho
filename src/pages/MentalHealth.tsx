@@ -382,8 +382,14 @@ const MentalHealth = () => {
               <motion.div key={p.name} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="bg-card rounded-2xl overflow-hidden shadow-card border border-border group">
                 <div className="flex items-start gap-4 p-5">
-                  <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                  <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-muted flex items-center justify-center">
+                    {p.image ? (
+                      <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <svg className="w-10 h-10 text-muted-foreground/40" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                      </svg>
+                    )}
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-heading text-base font-semibold text-foreground">{p.name}</h3>
