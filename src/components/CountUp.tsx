@@ -57,7 +57,7 @@ const CountUp = ({ value, className }: CountUpProps) => {
       animate={isInView ? { opacity: 1, scale: 1 } : {}}
       transition={{ duration: 0.4 }}
     >
-      {prefix}{display}{suffix}
+      {isTextOnly ? value : <>{prefix}{display}{suffix}</>}
     </motion.span>
   );
 };
