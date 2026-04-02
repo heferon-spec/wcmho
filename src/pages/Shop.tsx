@@ -123,9 +123,35 @@ const Shop = () => {
     <div>
       <PageHero title="Shop for a Cause" subtitle="Every purchase supports our mental health programs across South Africa" bgImage={philanthropyBg} />
 
-      {/* Trust Badges */}
+      {/* Currency Selector + Trust Badges */}
       <section className="py-8 border-b border-border">
         <div className="container mx-auto">
+          {/* Currency Selector */}
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              <button
+                onClick={() => setCurrencyOpen(!currencyOpen)}
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-border text-sm font-medium text-foreground hover:border-primary transition-colors"
+              >
+                {selectedCurrency.symbol} {selectedCurrency.code} <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+              {currencyOpen && (
+                <div className="absolute top-full mt-1 left-1/2 -translate-x-1/2 w-56 bg-card rounded-lg shadow-elevated border border-border py-2 z-50">
+                  {currencyList.map((c) => (
+                    <button
+                      key={c.code}
+                      onClick={() => { changeCurrency(c); setCurrencyOpen(false); }}
+                      className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                        selectedCurrency.code === c.code ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:bg-muted hover:text-primary"
+                      }`}
+                    >
+                      {c.symbol} {c.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
               { icon: Heart, label: "100% Goes to Charity" },
