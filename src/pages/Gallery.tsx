@@ -44,6 +44,8 @@ import gallery37 from "@/assets/gallery-37.jpg";
 import gallery38 from "@/assets/gallery-38.jpg";
 import gallery39 from "@/assets/gallery-39.jpg";
 import gallery40 from "@/assets/gallery-40.jpg";
+import gallery41 from "@/assets/gallery-41.jpg";
+import gallery42 from "@/assets/gallery-42.jpg";
 
 const images = [
   { src: gallery1, alt: "Men's Day Summit audience" },
@@ -86,6 +88,8 @@ const images = [
   { src: gallery38, alt: "Community workshop" },
   { src: gallery39, alt: "Youth engagement program" },
   { src: gallery40, alt: "Impact initiative" },
+  { src: gallery41, alt: "Community outreach program" },
+  { src: gallery42, alt: "Volunteer event" },
 ];
 
 const Gallery = () => {
