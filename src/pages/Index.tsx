@@ -71,25 +71,25 @@ const Index = () => {
         <img src={volunteerHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-overlay-gradient" />
         <div className="absolute inset-0 bg-primary/30" />
-        <div className="relative container mx-auto px-4 pt-20">
+        <div className="relative container mx-auto px-4 pt-20 pb-48 md:pb-32">
           <div className="max-w-3xl">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm text-accent px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Heart className="w-4 h-4" /> Change The World Together
+              <Heart className="w-4 h-4" /> {t("hero.tagline")}
             </motion.span>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
               className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-snug mb-6">
-              Empowering Communities
+              {t("hero.title1")}
               <br />
-              Through Compassion,
+              {t("hero.title2")}
               <br />
-              Knowledge and Care
+              {t("hero.title3")}
             </motion.h1>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -97,13 +97,13 @@ const Index = () => {
               transition={{ delay: 0.6 }}
               className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-base px-8">
-                <Link to="/about">Explore More <ArrowRight className="w-4 h-4 ml-2" /></Link>
+                <Link to="/about">{t("hero.exploreMore")} <ArrowRight className="w-4 h-4 ml-2" /></Link>
               </Button>
               <Button asChild size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 text-base px-10 font-bold shadow-elevated">
-                <Link to="/become-volunteer">Become a Volunteer <HandHeart className="w-5 h-5 ml-2" /></Link>
+                <Link to="/become-volunteer">{t("hero.becomeVolunteer")} <HandHeart className="w-5 h-5 ml-2" /></Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground text-base px-8">
-                <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">Donate Now</a>
+                <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">{t("nav.donateNow")}</a>
               </Button>
             </motion.div>
           </div>
@@ -112,14 +112,14 @@ const Index = () => {
         {/* Stats Overlay */}
         <div className="absolute bottom-0 left-0 right-0">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-3 gap-0">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-0">
               {stats.map((stat) => (
-                <div key={stat.label} className="bg-accent/90 p-6 text-center first:rounded-tl-xl last:rounded-tr-xl">
+                <div key={stat.label} className="bg-accent/90 p-4 sm:p-6 text-center first:rounded-tl-xl last:rounded-tr-xl">
                   <div className="w-12 h-12 rounded-full bg-accent-foreground/20 flex items-center justify-center mx-auto mb-2">
                     <stat.icon className="w-6 h-6 text-accent-foreground" />
                   </div>
                    <CountUp value={stat.value} className="font-heading text-2xl md:text-3xl font-bold text-accent-foreground" />
-                   <p className="text-xs md:text-sm text-accent-foreground/80 mt-1">{stat.label}</p>
+                   <p className="text-xs md:text-sm text-accent-foreground/80 mt-1">{t(`stats.${stat.tKey}`)}</p>
                 </div>
               ))}
             </div>
