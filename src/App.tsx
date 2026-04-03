@@ -35,6 +35,7 @@ const AppContent = () => {
   useCartSync();
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <main>
         <Routes>
