@@ -130,7 +130,7 @@ const Campaigns = () => {
               <h3 className="font-heading text-xl font-bold text-foreground mb-2">International Donations</h3>
               <p className="text-sm text-muted-foreground mb-6">For international donors — use our global payment link or contact us for bank wire instructions.</p>
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full">
-                <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">
+                <a href="https://donorbox.org/international-payments" target="_blank" rel="noopener noreferrer">
                   Donate (International) <ArrowRight className="w-4 h-4 ml-2" />
                 </a>
               </Button>

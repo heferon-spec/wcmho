@@ -7,6 +7,7 @@ import { useCartSync } from "@/hooks/useCartSync";
 import { AuthProvider } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import MentalHealth from "./pages/MentalHealth";
@@ -34,6 +35,7 @@ const AppContent = () => {
   useCartSync();
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <main>
         <Routes>
