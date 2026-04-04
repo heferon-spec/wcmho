@@ -71,7 +71,7 @@ const Index = () => {
         <img src={volunteerHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-overlay-gradient" />
         <div className="absolute inset-0 bg-primary/30" />
-        <div className="relative container mx-auto px-4 pt-20 pb-48 md:pb-32">
+        <div className="relative container mx-auto px-4 pt-20 pb-72 sm:pb-48 md:pb-32">
           <div className="max-w-3xl">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
