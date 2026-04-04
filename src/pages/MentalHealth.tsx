@@ -176,7 +176,7 @@ const MentalHealth = () => {
 
   return (
     <div>
-      <PageHero title="Mental Health Care" subtitle="Specialized programs and professionals dedicated to your wellbeing" bgImage={mentalHealthBg} />
+      <PageHero title={t("mentalHealth.heroTitle")} subtitle={t("mentalHealth.heroSubtitle")} bgImage={mentalHealthBg} />
 
       {/* Programs */}
       <section className="section-padding">
