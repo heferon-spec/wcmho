@@ -111,6 +111,7 @@ const fadeUp = {
 };
 
 const MentalHealth = () => {
+  const { t } = useTranslation();
   const [bookingOpen, setBookingOpen] = useState(false);
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState("");
