@@ -15,6 +15,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 import mentalHealthBg from "@/assets/mental-health-bg.jpg";
 
 const programs = [
@@ -110,6 +111,7 @@ const fadeUp = {
 };
 
 const MentalHealth = () => {
+  const { t } = useTranslation();
   const [bookingOpen, setBookingOpen] = useState(false);
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState("");
@@ -174,12 +176,12 @@ const MentalHealth = () => {
 
   return (
     <div>
-      <PageHero title="Mental Health Care" subtitle="Specialized programs and professionals dedicated to your wellbeing" bgImage={mentalHealthBg} />
+      <PageHero title={t("mentalHealth.heroTitle")} subtitle={t("mentalHealth.heroSubtitle")} bgImage={mentalHealthBg} />
 
       {/* Programs */}
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeading label="Our Programs" title="Comprehensive Care Pathways" description="We provide a full spectrum of mental health services tailored to individual needs." />
+          <SectionHeading label={t("mentalHealth.programsLabel")} title={t("mentalHealth.programsTitle")} description={t("mentalHealth.programsDesc")} />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {programs.map((p, i) => (
               <motion.div key={p.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
