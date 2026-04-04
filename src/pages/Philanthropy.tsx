@@ -45,9 +45,9 @@ const Philanthropy = () => {
   const { t } = useTranslation();
 
   const stats = [
-    { icon: Building, value: "537+", label: t("philanthropy.localBranches") },
-    { icon: Users, value: "3,224+", label: t("philanthropy.totalStaff") },
-    { icon: HandHeart, value: "6,882+", label: t("stats.totalVolunteers") },
+    { icon: Building, value: "10", label: t("stats.yearsOperating") },
+    { icon: Globe, value: "Southern Africa", label: t("stats.geographicReach") },
+    { icon: HandHeart, value: "2,000+", label: t("stats.totalVolunteers") },
   ];
 
   const impactStats = [
