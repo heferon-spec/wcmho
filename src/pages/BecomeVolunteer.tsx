@@ -8,79 +8,57 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
+import { useTranslation } from "react-i18next";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
 
-const benefits = [
-  { icon: Heart, title: "Make a Real Impact", desc: "Help transform lives in communities that need it most." },
-  { icon: Users, title: "Join a Community", desc: "Connect with like-minded people passionate about mental health." },
-  { icon: Clock, title: "Flexible Hours", desc: "Volunteer on your schedule — weekdays, weekends, or virtually." },
-  { icon: Award, title: "Gain Experience", desc: "Build valuable skills and receive certification for your work." },
-];
-
 const BecomeVolunteer = () => {
+  const { t } = useTranslation();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone: "",
-    date_of_birth: "",
-    city: "",
-    address: "",
-    area_of_interest: "",
-    availability: "",
-    previous_experience: "",
-    motivation: "",
-    special_skills: "",
-    emergency_contact_name: "",
-    emergency_contact_phone: "",
+    first_name: "", last_name: "", email: "", phone: "", date_of_birth: "", city: "", address: "",
+    area_of_interest: "", availability: "", previous_experience: "", motivation: "", special_skills: "",
+    emergency_contact_name: "", emergency_contact_phone: "",
   });
 
-  const updateField = (field: string, value: string) =>
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const benefits = [
+    { icon: Heart, title: t("volunteer.makeImpact"), desc: t("volunteer.makeImpactDesc") },
+    { icon: Users, title: t("volunteer.joinCommunity"), desc: t("volunteer.joinCommunityDesc") },
+    { icon: Clock, title: t("volunteer.flexibleHours"), desc: t("volunteer.flexibleHoursDesc") },
+    { icon: Award, title: t("volunteer.gainExperience"), desc: t("volunteer.gainExperienceDesc") },
+  ];
+
+  const updateField = (field: string, value: string) => setForm((prev) => ({ ...prev, [field]: value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
       const { error } = await supabase.from("volunteer_applications").insert({
-        first_name: form.first_name.trim(),
-        last_name: form.last_name.trim(),
-        email: form.email.trim(),
-        phone: form.phone.trim(),
-        date_of_birth: form.date_of_birth || null,
-        city: form.city.trim() || null,
-        address: form.address.trim() || null,
-        area_of_interest: form.area_of_interest,
-        availability: form.availability,
-        previous_experience: form.previous_experience.trim() || null,
-        motivation: form.motivation.trim(),
-        special_skills: form.special_skills.trim() || null,
-        emergency_contact_name: form.emergency_contact_name.trim() || null,
+        first_name: form.first_name.trim(), last_name: form.last_name.trim(), email: form.email.trim(),
+        phone: form.phone.trim(), date_of_birth: form.date_of_birth || null, city: form.city.trim() || null,
+        address: form.address.trim() || null, area_of_interest: form.area_of_interest, availability: form.availability,
+        previous_experience: form.previous_experience.trim() || null, motivation: form.motivation.trim(),
+        special_skills: form.special_skills.trim() || null, emergency_contact_name: form.emergency_contact_name.trim() || null,
         emergency_contact_phone: form.emergency_contact_phone.trim() || null,
       });
       if (error) throw error;
       setSubmitted(true);
-      toast.success("Application submitted successfully!");
-      // Send email notification (non-blocking)
+      toast.success(t("volunteer.applicationSubmitted"));
       supabase.functions.invoke("send-volunteer-notification", { body: form }).catch(console.warn);
     } catch (err: any) {
       console.error(err);
       toast.error("Failed to submit application. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   };
 
   return (
     <div>
-      <PageHero title="Become a Volunteer" subtitle="Join us in creating a world where mental health care is accessible to all" bgImage={philanthropyBg} />
+      <PageHero title={t("volunteer.heroTitle")} subtitle={t("volunteer.heroSubtitle")} bgImage={philanthropyBg} />
 
-      {/* Why Volunteer */}
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeading label="Why Volunteer" title="Be Part of the Change" />
+          <SectionHeading label={t("volunteer.whyVolunteerLabel")} title={t("volunteer.whyVolunteerTitle")} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((b, i) => (
               <motion.div key={b.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
@@ -96,26 +74,24 @@ const BecomeVolunteer = () => {
         </div>
       </section>
 
-      {/* Full Application Form */}
       <section className="section-padding bg-muted">
         <div className="container mx-auto">
           <div className="max-w-3xl mx-auto">
-            <SectionHeading label="Application Form" title="Volunteer Registration" description="Complete the form below and our team coordinator will contact you within 48 hours." />
+            <SectionHeading label={t("volunteer.applicationLabel")} title={t("volunteer.applicationTitle")} description={t("volunteer.applicationDesc")} />
             {submitted ? (
               <div className="bg-card rounded-2xl p-12 shadow-card text-center">
                 <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
-                <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Application Submitted!</h3>
-                <p className="text-muted-foreground">Thank you for your interest. We'll review your application and get back to you shortly.</p>
+                <h3 className="font-heading text-2xl font-bold text-foreground mb-2">{t("volunteer.applicationSubmitted")}</h3>
+                <p className="text-muted-foreground">{t("volunteer.applicationSubmittedDesc")}</p>
               </div>
             ) : (
               <motion.form initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                onSubmit={handleSubmit}
-                className="bg-card rounded-2xl p-8 shadow-card space-y-6">
+                onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-card space-y-6">
                 
-                <h4 className="font-heading text-lg font-semibold text-foreground border-b border-border pb-3">Personal Information</h4>
+                <h4 className="font-heading text-lg font-semibold text-foreground border-b border-border pb-3">{t("volunteer.personalInfo")}</h4>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">First Name *</label>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">{t("contact.fullName").split(" ")[0]} *</label>
                     <Input placeholder="John" required value={form.first_name} onChange={(e) => updateField("first_name", e.target.value)} maxLength={100} />
                   </div>
                   <div>
@@ -125,11 +101,11 @@ const BecomeVolunteer = () => {
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Email Address *</label>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">{t("contact.emailLabel")} *</label>
                     <Input type="email" placeholder="john@example.com" required value={form.email} onChange={(e) => updateField("email", e.target.value)} maxLength={255} />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Phone Number *</label>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">{t("contact.phone")} *</label>
                     <Input type="tel" placeholder="+27 75 452 4052" required value={form.phone} onChange={(e) => updateField("phone", e.target.value)} maxLength={30} />
                   </div>
                 </div>
@@ -144,11 +120,11 @@ const BecomeVolunteer = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">Address</label>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">{t("contact.address")}</label>
                   <Input placeholder="114 George Street, Kenilworth, Johannesburg, 2190" value={form.address} onChange={(e) => updateField("address", e.target.value)} />
                 </div>
 
-                <h4 className="font-heading text-lg font-semibold text-foreground border-b border-border pb-3 pt-4">Volunteer Details</h4>
+                <h4 className="font-heading text-lg font-semibold text-foreground border-b border-border pb-3 pt-4">{t("volunteer.volunteerDetails")}</h4>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Area of Interest *</label>
@@ -180,14 +156,14 @@ const BecomeVolunteer = () => {
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Why do you want to volunteer with us? *</label>
-                  <Textarea placeholder="Tell us about your motivation and what you hope to contribute..." rows={4} required value={form.motivation} onChange={(e) => updateField("motivation", e.target.value)} maxLength={2000} />
+                  <Textarea placeholder="Tell us about your motivation..." rows={4} required value={form.motivation} onChange={(e) => updateField("motivation", e.target.value)} maxLength={2000} />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Special Skills or Qualifications</label>
                   <Textarea placeholder="Languages spoken, certifications, etc." rows={3} value={form.special_skills} onChange={(e) => updateField("special_skills", e.target.value)} />
                 </div>
 
-                <h4 className="font-heading text-lg font-semibold text-foreground border-b border-border pb-3 pt-4">Emergency Contact</h4>
+                <h4 className="font-heading text-lg font-semibold text-foreground border-b border-border pb-3 pt-4">{t("volunteer.emergencyContact")}</h4>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Emergency Contact Name</label>
@@ -205,7 +181,7 @@ const BecomeVolunteer = () => {
                 </div>
 
                 <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90" disabled={loading}>
-                  {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Submitting...</> : <>Submit Application <ArrowRight className="w-4 h-4 ml-2" /></>}
+                  {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Submitting...</> : <>{t("common.submitApplication")} <ArrowRight className="w-4 h-4 ml-2" /></>}
                 </Button>
               </motion.form>
             )}

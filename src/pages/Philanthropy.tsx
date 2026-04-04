@@ -93,9 +93,9 @@ const Philanthropy = () => {
         </div>
         <div className="absolute bottom-0 left-0 right-0">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-0">
+            <div className="grid grid-cols-3 gap-0">
               {stats.map((stat) => (
-                <div key={stat.label} className="bg-accent/90 p-4 sm:p-6 text-center first:rounded-tl-xl last:rounded-tr-xl">
+                <div key={stat.label} className="bg-accent/90 p-3 sm:p-6 text-center first:rounded-tl-xl last:rounded-tr-xl">
                   <div className="w-12 h-12 rounded-full bg-accent-foreground/20 flex items-center justify-center mx-auto mb-2">
                     <stat.icon className="w-6 h-6 text-accent-foreground" />
                   </div>

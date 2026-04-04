@@ -3,20 +3,14 @@ import { motion } from "framer-motion";
 import { ShoppingBag, Loader2, Heart, Truck, Shield, RotateCcw, Star, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import PageHero from "@/components/PageHero";
-import SectionHeading from "@/components/SectionHeading";
 import { CartDrawer } from "@/components/CartDrawer";
 import { useCartStore } from "@/stores/cartStore";
 import { storefrontApiRequest, STOREFRONT_PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useCurrency } from "@/hooks/useCurrency";
+import { useTranslation } from "react-i18next";
 import philanthropyBg from "@/assets/philanthropy-bg.jpg";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
-};
 
 const CATEGORIES = [
   { label: "All", query: "" },
@@ -38,6 +32,7 @@ const CATEGORIES = [
 ];
 
 const Shop = () => {
+  const { t } = useTranslation();
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({});
@@ -120,68 +115,66 @@ const Shop = () => {
   };
 
   return (
-    <div>
-      <PageHero title="Shop for a Cause" subtitle="Every purchase supports our mental health programs across South Africa" bgImage={philanthropyBg} />
+    <div className="bg-background min-h-screen">
+      {/* Slim Hero Banner */}
+      <div className="relative h-40 sm:h-48 overflow-hidden">
+        <img src={philanthropyBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-primary/60" />
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
+          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-primary-foreground">{t("shop.heroTitle")}</h1>
+          <p className="text-sm text-primary-foreground/80 mt-1">{t("shop.heroSubtitle")}</p>
+        </div>
+      </div>
 
-      {/* Currency Selector + Trust Badges */}
-      <section className="py-8 border-b border-border">
-        <div className="container mx-auto">
-          {/* Currency Selector */}
-          <div className="flex justify-center mb-6">
-            <div className="relative">
-              <button
-                onClick={() => setCurrencyOpen(!currencyOpen)}
-                className="flex items-center gap-2 px-4 py-2 rounded-full border border-border text-sm font-medium text-foreground hover:border-primary transition-colors"
-              >
-                {selectedCurrency.symbol} {selectedCurrency.code} <ChevronDown className="w-3.5 h-3.5" />
-              </button>
-              {currencyOpen && (
-                <div className="absolute top-full mt-1 left-1/2 -translate-x-1/2 w-56 bg-card rounded-lg shadow-elevated border border-border py-2 z-50">
-                  {currencyList.map((c) => (
-                    <button
-                      key={c.code}
-                      onClick={() => { changeCurrency(c); setCurrencyOpen(false); }}
-                      className={`w-full text-left px-4 py-2 text-sm transition-colors ${
-                        selectedCurrency.code === c.code ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:bg-muted hover:text-primary"
-                      }`}
-                    >
-                      {c.symbol} {c.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+      {/* Trust Bar + Currency */}
+      <div className="border-b border-border bg-card">
+        <div className="container mx-auto px-3 py-3 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-4 sm:gap-6 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1"><Heart className="w-3.5 h-3.5 text-primary" /> {t("shop.charityLabel")}</span>
+            <span className="hidden sm:flex items-center gap-1"><Truck className="w-3.5 h-3.5 text-primary" /> {t("shop.freeShipping")}</span>
+            <span className="hidden md:flex items-center gap-1"><Shield className="w-3.5 h-3.5 text-primary" /> {t("shop.secureCheckout")}</span>
+            <span className="hidden md:flex items-center gap-1"><RotateCcw className="w-3.5 h-3.5 text-primary" /> {t("shop.returns")}</span>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {[
-              { icon: Heart, label: "100% Goes to Charity" },
-              { icon: Truck, label: "Free Shipping Over R500" },
-              { icon: Shield, label: "Secure Checkout" },
-              { icon: RotateCcw, label: "30-Day Returns" },
-            ].map((b) => (
-              <div key={b.label} className="flex flex-col items-center gap-2">
-                <b.icon className="w-6 h-6 text-primary" />
-                <span className="text-xs font-medium text-muted-foreground">{b.label}</span>
+          <div className="relative">
+            <button
+              onClick={() => setCurrencyOpen(!currencyOpen)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-medium text-foreground hover:border-primary transition-colors"
+            >
+              {selectedCurrency.symbol} {selectedCurrency.code} <ChevronDown className="w-3 h-3" />
+            </button>
+            {currencyOpen && (
+              <div className="absolute top-full mt-1 right-0 w-48 bg-card rounded-lg shadow-elevated border border-border py-1 z-50 max-h-64 overflow-y-auto">
+                {currencyList.map((c) => (
+                  <button
+                    key={c.code}
+                    onClick={() => { changeCurrency(c); setCurrencyOpen(false); }}
+                    className={`w-full text-left px-3 py-1.5 text-xs transition-colors ${
+                      selectedCurrency.code === c.code ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:bg-muted"
+                    }`}
+                  >
+                    {c.symbol} {c.label}
+                  </button>
+                ))}
               </div>
-            ))}
+            )}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Floating Cart */}
       <div className="fixed bottom-6 right-6 z-40">
         <CartDrawer />
       </div>
 
-      {/* Category Filter */}
-      <section className="pt-10 pb-2">
-        <div className="container mx-auto">
-          <div className="flex flex-wrap gap-2 justify-center">
+      {/* Category Filter - horizontal scroll */}
+      <div className="border-b border-border bg-background sticky top-0 z-30">
+        <div className="container mx-auto px-2 py-2 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-1.5 min-w-max">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.label}
                 onClick={() => setActiveCategory(cat.label)}
-                className={`px-4 py-2 text-sm rounded-full border transition-colors font-medium ${
+                className={`px-3 py-1.5 text-xs rounded-full border whitespace-nowrap transition-colors font-medium ${
                   activeCategory === cat.label
                     ? "bg-primary text-primary-foreground border-primary"
                     : "border-border text-muted-foreground hover:border-primary hover:text-foreground"
@@ -192,108 +185,124 @@ const Shop = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Products */}
-      <section className="section-padding">
-        <div className="container mx-auto">
-          <SectionHeading label="Mental Health & Wellness" title="Shop & Support" description="100% of proceeds go directly to our mental health care initiatives." />
+      {/* Product Grid */}
+      <div className="container mx-auto px-2 sm:px-4 py-4">
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-20">
+            <ShoppingBag className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
+            <p className="text-sm text-muted-foreground">{t("shop.noProducts")} "{activeCategory}"</p>
+            <p className="text-xs text-muted-foreground mt-1">{t("shop.checkBackSoon")}</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3">
+            {products.map((p, i) => {
+              const variant = getSelectedVariant(p);
+              const image = p.node.images.edges[0]?.node;
+              const stats = reviewStats[p.node.handle];
+              return (
+                <motion.div
+                  key={p.node.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: i * 0.03 }}
+                  className="bg-card rounded-lg overflow-hidden border border-border group hover:shadow-card transition-shadow"
+                >
+                  {/* Product Image */}
+                  <div
+                    className="aspect-[3/4] bg-muted overflow-hidden cursor-pointer relative"
+                    onClick={() => navigate(`/product/${p.node.handle}`)}
+                  >
+                    {image ? (
+                      <img
+                        src={image.url}
+                        alt={image.altText || p.node.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <ShoppingBag className="w-10 h-10 text-muted-foreground/20" />
+                      </div>
+                    )}
+                    {/* Multiple images indicator */}
+                    {p.node.images.edges.length > 1 && (
+                      <div className="absolute bottom-1.5 right-1.5 bg-foreground/60 text-primary-foreground text-[10px] px-1.5 py-0.5 rounded-full">
+                        {p.node.images.edges.length} imgs
+                      </div>
+                    )}
+                  </div>
 
-          {loading ? (
-            <div className="flex justify-center py-20">
-              <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            </div>
-          ) : products.length === 0 ? (
-            <div className="text-center py-20">
-              <ShoppingBag className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
-              <p className="text-lg text-muted-foreground">No products found in "{activeCategory}"</p>
-              <p className="text-sm text-muted-foreground mt-1">Check back soon for new items!</p>
-            </div>
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {products.map((p, i) => {
-                const variant = getSelectedVariant(p);
-                const image = p.node.images.edges[0]?.node;
-                const stats = reviewStats[p.node.handle];
-                return (
-                  <motion.div key={p.node.id} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-                    className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group hover:shadow-card transition-shadow">
-                    <div
-                      className="aspect-square bg-muted flex items-center justify-center relative overflow-hidden cursor-pointer"
+                  {/* Product Info */}
+                  <div className="p-2 sm:p-3">
+                    <h3
+                      className="text-xs sm:text-sm font-medium text-foreground leading-tight line-clamp-2 cursor-pointer hover:text-primary transition-colors"
                       onClick={() => navigate(`/product/${p.node.handle}`)}
                     >
-                      {image ? (
-                        <img src={image.url} alt={image.altText || p.node.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      ) : (
-                        <ShoppingBag className="w-16 h-16 text-muted-foreground/20" />
-                      )}
+                      {p.node.title}
+                    </h3>
+
+                    {/* Rating */}
+                    <div className="flex items-center gap-0.5 mt-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star key={star} className={`w-2.5 h-2.5 ${
+                          stats && star <= Math.round(stats.avg)
+                            ? "text-yellow-500 fill-yellow-500"
+                            : "text-muted-foreground/20"
+                        }`} />
+                      ))}
+                      {stats && <span className="text-[10px] text-muted-foreground ml-0.5">{stats.count}</span>}
                     </div>
-                    <div className="p-4">
-                      <h3
-                        className="font-heading text-base font-semibold text-foreground mt-1 cursor-pointer hover:text-primary transition-colors"
-                        onClick={() => navigate(`/product/${p.node.handle}`)}
-                      >
-                        {p.node.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground mt-1 mb-2 line-clamp-2">{p.node.description}</p>
 
-                      {/* Reviews */}
-                      <div className="flex items-center gap-1 mb-3">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star key={star} className={`w-3.5 h-3.5 ${
-                            stats && star <= Math.round(stats.avg)
-                              ? "text-yellow-500 fill-yellow-500"
-                              : "text-muted-foreground/30"
-                          }`} />
-                        ))}
-                        <span className="text-xs text-muted-foreground ml-1">
-                          {stats ? `${stats.avg.toFixed(1)} (${stats.count})` : "No reviews yet"}
-                        </span>
-                      </div>
-
-                      {/* Size selector */}
-                      {p.node.options.length > 0 && p.node.options[0].values.length > 1 && (
-                        <div className="mb-3">
-                          <p className="text-xs font-medium text-muted-foreground mb-1">{p.node.options[0].name}</p>
-                          <div className="flex flex-wrap gap-1">
-                            {p.node.variants.edges.map((v) => (
-                              <button
-                                key={v.node.id}
-                                onClick={() => setSelectedVariants(prev => ({ ...prev, [p.node.id]: v.node.id }))}
-                                className={`px-2 py-1 text-xs rounded border transition-colors ${
-                                  (selectedVariants[p.node.id] === v.node.id || (!selectedVariants[p.node.id] && v.node.id === p.node.variants.edges[0]?.node.id))
-                                    ? "bg-primary text-primary-foreground border-primary"
-                                    : "border-border text-muted-foreground hover:border-primary"
-                                }`}
-                              >
-                                {v.node.title}
-                              </button>
-                            ))}
-                          </div>
+                    {/* Size selector */}
+                    {p.node.options.length > 0 && p.node.options[0].values.length > 1 && (
+                      <div className="mt-1.5">
+                        <div className="flex flex-wrap gap-0.5">
+                          {p.node.variants.edges.slice(0, 5).map((v) => (
+                            <button
+                              key={v.node.id}
+                              onClick={() => setSelectedVariants(prev => ({ ...prev, [p.node.id]: v.node.id }))}
+                              className={`px-1.5 py-0.5 text-[10px] rounded border transition-colors ${
+                                (selectedVariants[p.node.id] === v.node.id || (!selectedVariants[p.node.id] && v.node.id === p.node.variants.edges[0]?.node.id))
+                                  ? "bg-primary text-primary-foreground border-primary"
+                                  : "border-border text-muted-foreground hover:border-primary"
+                              }`}
+                            >
+                              {v.node.title}
+                            </button>
+                          ))}
+                          {p.node.variants.edges.length > 5 && (
+                            <span className="text-[10px] text-muted-foreground self-center ml-0.5">+{p.node.variants.edges.length - 5}</span>
+                          )}
                         </div>
-                      )}
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-lg font-bold text-primary">
-                          {formatPrice(parseFloat(variant?.price.amount || "0"))}
-                        </span>
-                        <Button
-                          size="sm"
-                          onClick={() => handleAddToCart(p)}
-                          disabled={isLoading}
-                          className="bg-primary text-primary-foreground hover:bg-primary/90"
-                        >
-                          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add to Cart"}
-                        </Button>
                       </div>
+                    )}
+
+                    {/* Price + Add to Cart */}
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="text-sm sm:text-base font-bold text-primary">
+                        {formatPrice(parseFloat(variant?.price.amount || "0"))}
+                      </span>
+                      <Button
+                        size="sm"
+                        onClick={() => handleAddToCart(p)}
+                        disabled={isLoading}
+                        className="bg-primary text-primary-foreground hover:bg-primary/90 h-7 px-2 text-[10px] sm:text-xs"
+                      >
+                        {isLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <><ShoppingBag className="w-3 h-3 mr-0.5" /> Add</>}
+                      </Button>
                     </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -181,7 +181,7 @@ const MentalHealth = () => {
       {/* Programs */}
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeading label="Our Programs" title="Comprehensive Care Pathways" description="We provide a full spectrum of mental health services tailored to individual needs." />
+          <SectionHeading label={t("mentalHealth.programsLabel")} title={t("mentalHealth.programsTitle")} description={t("mentalHealth.programsDesc")} />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {programs.map((p, i) => (
               <motion.div key={p.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}

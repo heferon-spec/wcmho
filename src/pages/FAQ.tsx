@@ -1,6 +1,7 @@
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useTranslation } from "react-i18next";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const faqs = [
@@ -14,27 +15,31 @@ const faqs = [
   { q: "How can organizations partner with you?", a: "We welcome partnerships with schools, businesses, and NGOs. Reach out via our Contact page to discuss collaboration opportunities." },
 ];
 
-const FAQ = () => (
-  <div>
-    <PageHero title="FAQ" subtitle="Common questions answered" bgImage={aboutBg} />
-    <section className="section-padding">
-      <div className="container mx-auto max-w-3xl">
-        <SectionHeading label="Questions" title="Frequently Asked Questions" />
-        <Accordion type="single" collapsible className="space-y-3">
-          {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`faq-${i}`} className="bg-card rounded-xl border border-border px-6 shadow-soft">
-              <AccordionTrigger className="text-left font-heading text-base font-semibold text-foreground hover:no-underline">
-                {f.q}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed">
-                {f.a}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-    </section>
-  </div>
-);
+const FAQ = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <PageHero title={t("faq.heroTitle")} subtitle={t("faq.heroSubtitle")} bgImage={aboutBg} />
+      <section className="section-padding">
+        <div className="container mx-auto max-w-3xl">
+          <SectionHeading label={t("faq.questionsLabel")} title={t("faq.questionsTitle")} />
+          <Accordion type="single" collapsible className="space-y-3">
+            {faqs.map((f, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="bg-card rounded-xl border border-border px-6 shadow-soft">
+                <AccordionTrigger className="text-left font-heading text-base font-semibold text-foreground hover:no-underline">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed">
+                  {f.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 export default FAQ;

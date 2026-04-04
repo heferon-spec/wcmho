@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import TicketBookingDialog from "@/components/TicketBookingDialog";
+import { useTranslation } from "react-i18next";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const events = [
@@ -26,6 +27,7 @@ const fadeUp = {
 };
 
 const Events = () => {
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -34,7 +36,7 @@ const Events = () => {
 
   return (
     <div>
-      <PageHero title="Events" subtitle="Join us at our upcoming events and be part of the change" bgImage={aboutBg} />
+      <PageHero title={t("events.heroTitle")} subtitle={t("events.heroSubtitle")} bgImage={aboutBg} />
 
       {/* Calendar Overview */}
       <section className="relative -mt-16 z-10 px-4">
@@ -43,19 +45,19 @@ const Events = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div>
                 <p className="font-heading text-3xl font-bold text-primary">{events.length}</p>
-                <p className="text-sm text-muted-foreground">Upcoming Events</p>
+                <p className="text-sm text-muted-foreground">{t("events.upcomingEvents")}</p>
               </div>
               <div>
                 <p className="font-heading text-3xl font-bold text-accent">{events.filter(e => e.price === "Free").length}</p>
-                <p className="text-sm text-muted-foreground">Free Events</p>
+                <p className="text-sm text-muted-foreground">{t("events.freeEvents")}</p>
               </div>
               <div>
                 <p className="font-heading text-3xl font-bold text-primary">{events.reduce((a, e) => a + e.spots, 0)}</p>
-                <p className="text-sm text-muted-foreground">Total Spots</p>
+                <p className="text-sm text-muted-foreground">{t("events.totalSpots")}</p>
               </div>
               <div>
                 <p className="font-heading text-3xl font-bold text-accent">{categories.length - 1}</p>
-                <p className="text-sm text-muted-foreground">Categories</p>
+                <p className="text-sm text-muted-foreground">{t("events.categories")}</p>
               </div>
             </div>
           </div>
@@ -65,9 +67,8 @@ const Events = () => {
       {/* Events List */}
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeading label="Upcoming Events" title="Find an Event Near You" description="Workshops, galas, retreats and more — there's something for everyone." />
+          <SectionHeading label={t("events.eventsLabel")} title={t("events.eventsTitle")} description={t("events.eventsDesc")} />
 
-          {/* Category Filter */}
           <div className="flex flex-wrap gap-2 mb-10 justify-center">
             {categories.map(cat => (
               <button key={cat} onClick={() => setSelectedCategory(cat)}
@@ -99,11 +100,11 @@ const Events = () => {
                     <div className="flex flex-wrap gap-4 mt-3 text-xs text-muted-foreground">
                       <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {event.time}</span>
                       <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {event.location}</span>
-                      <span className="flex items-center gap-1"><Ticket className="w-3.5 h-3.5" /> {event.spots} spots</span>
+                      <span className="flex items-center gap-1"><Ticket className="w-3.5 h-3.5" /> {event.spots} {t("events.spots")}</span>
                     </div>
                     <Button size="sm" className="mt-4 bg-hero-gradient text-primary-foreground hover:opacity-90"
                       onClick={() => { setSelectedEvent(event); setDialogOpen(true); }}>
-                      Get Tickets <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                      {t("events.getTickets")} <ArrowRight className="w-3.5 h-3.5 ml-1" />
                     </Button>
                   </div>
                 </motion.div>
@@ -117,10 +118,10 @@ const Events = () => {
       <section className="py-20 bg-primary">
         <div className="container mx-auto px-4 text-center">
           <Calendar className="w-12 h-12 text-accent mx-auto mb-4" />
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">Want to Host an Event?</h2>
-          <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">Partner with us to organise mental health awareness events in your community.</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">{t("events.hostEventTitle")}</h2>
+          <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">{t("events.hostEventDesc")}</p>
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-            <a href="/contact">Contact Us <ArrowRight className="w-4 h-4 ml-2" /></a>
+            <a href="/contact">{t("events.contactUs")} <ArrowRight className="w-4 h-4 ml-2" /></a>
           </Button>
         </div>
       </section>
