@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Loader2, ShoppingBag } from "lucide-react";
+import { ArrowLeft, Loader2, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartDrawer } from "@/components/CartDrawer";
 import { useCartStore } from "@/stores/cartStore";
@@ -15,6 +15,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
 
@@ -54,7 +55,8 @@ const ProductDetail = () => {
   }
 
   const selectedVariant = product.variants.edges.find((v: any) => v.node.id === selectedVariantId)?.node;
-  const image = product.images.edges[0]?.node;
+  const images = product.images.edges;
+  const currentImage = images[selectedImageIndex]?.node;
 
   const handleAddToCart = async () => {
     if (!selectedVariant) return;
@@ -81,13 +83,48 @@ const ProductDetail = () => {
         </div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="grid md:grid-cols-2 gap-8 lg:gap-12">
-          {/* Image */}
-          <div className="aspect-square bg-muted rounded-xl overflow-hidden">
-            {image ? (
-              <img src={image.url} alt={image.altText || product.title} className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <ShoppingBag className="w-24 h-24 text-muted-foreground/20" />
+          {/* Image Gallery */}
+          <div>
+            <div className="aspect-square bg-muted rounded-xl overflow-hidden relative">
+              {currentImage ? (
+                <img src={currentImage.url} alt={currentImage.altText || product.title} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <ShoppingBag className="w-24 h-24 text-muted-foreground/20" />
+                </div>
+              )}
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setSelectedImageIndex((prev) => (prev - 1 + images.length) % images.length)}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-foreground/50 text-primary-foreground rounded-full p-1.5 hover:bg-foreground/70 transition-colors"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => setSelectedImageIndex((prev) => (prev + 1) % images.length)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-foreground/50 text-primary-foreground rounded-full p-1.5 hover:bg-foreground/70 transition-colors"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                    {images.map((_: any, idx: number) => (
+                      <button key={idx} onClick={() => setSelectedImageIndex(idx)}
+                        className={`w-2 h-2 rounded-full transition-colors ${idx === selectedImageIndex ? "bg-primary" : "bg-primary-foreground/50"}`} />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+            {/* Thumbnail strip */}
+            {images.length > 1 && (
+              <div className="flex gap-2 mt-3 overflow-x-auto">
+                {images.map((img: any, idx: number) => (
+                  <button key={idx} onClick={() => setSelectedImageIndex(idx)}
+                    className={`w-16 h-16 rounded-lg overflow-hidden border-2 shrink-0 transition-colors ${idx === selectedImageIndex ? "border-primary" : "border-transparent"}`}>
+                    <img src={img.node.url} alt={img.node.altText || `View ${idx + 1}`} className="w-full h-full object-cover" />
+                  </button>
+                ))}
               </div>
             )}
           </div>
