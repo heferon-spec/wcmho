@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Brain, Heart, ArrowRight, DollarSign, Target, BarChart3, Users, TrendingUp, Star, ExternalLink, Globe, MapPin } from "lucide-react";
+import { Brain, Heart, ArrowRight, DollarSign, Target, BarChart3, Users, TrendingUp, Star, ExternalLink, Globe, MapPin, Pencil, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import CreateCampaignDialog from "@/components/CreateCampaignDialog";
@@ -11,6 +14,7 @@ import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import campaignBg from "@/assets/campaign-bg.jpg";
 
 const fadeUp = {
@@ -34,6 +38,9 @@ const Campaigns = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { isAdmin } = useIsAdmin();
+  const [expandedCampaign, setExpandedCampaign] = useState<string | null>(null);
+  const [editingCampaign, setEditingCampaign] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState({ title: "", description: "", goal_amount: "", paystack_link: "", image_url: "" });
 
   const { data: campaigns = [], refetch: refetchCampaigns } = useQuery({ queryKey: ["campaigns"], queryFn: fetchCampaigns });
   const { data: donations = [] } = useQuery({ queryKey: ["campaign-donations"], queryFn: fetchDonations });
@@ -51,6 +58,36 @@ const Campaigns = () => {
     { icon: Users, value: String(totalDonors), label: t("campaigns.totalDonations") },
     { icon: TrendingUp, value: `${avgCompletion}%`, label: t("campaigns.avgCompletion") },
   ];
+
+  const startEditing = (c: any) => {
+    setEditingCampaign(c.id);
+    setEditForm({
+      title: c.title,
+      description: c.description,
+      goal_amount: String(c.goal_amount),
+      paystack_link: c.paystack_link || "",
+      image_url: c.image_url || "",
+    });
+  };
+
+  const handleSaveEdit = async (campaignId: string) => {
+    const { error } = await supabase.from("campaigns").update({
+      title: editForm.title,
+      description: editForm.description,
+      goal_amount: parseFloat(editForm.goal_amount),
+      paystack_link: editForm.paystack_link || null,
+      image_url: editForm.image_url || null,
+    }).eq("id", campaignId);
+    if (error) {
+      toast.error("Failed to update: " + error.message);
+    } else {
+      toast.success("Campaign updated!");
+      setEditingCampaign(null);
+      refetchCampaigns();
+    }
+  };
+
+  const canEditCampaign = (c: any) => isAdmin || (user && c.user_id === user.id);
 
   return (
     <div>
@@ -150,7 +187,7 @@ const Campaigns = () => {
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10">
             <SectionHeading label={t("campaigns.campaignGrid")} title={t("campaigns.campaignGridTitle")} description={t("campaigns.campaignGridDesc")} />
-            {isAdmin && (
+            {(isAdmin || user) && (
               <div className="mt-4 md:mt-0">
                 <CreateCampaignDialog onCreated={() => refetchCampaigns()} />
               </div>
@@ -167,10 +204,13 @@ const Campaigns = () => {
               {campaigns.map((c, i) => {
                 const percent = Number(c.goal_amount) > 0 ? Math.round((Number(c.raised_amount) / Number(c.goal_amount)) * 100) : 0;
                 const donateLink = c.paystack_link || "https://paystack.shop/pay/87qgnu5n8o";
+                const isExpanded = expandedCampaign === c.id;
+                const isEditing = editingCampaign === c.id;
                 return (
                   <motion.div key={c.id} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                     className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group hover:shadow-card transition-shadow">
-                    <div className="aspect-video bg-primary/5 flex items-center justify-center relative overflow-hidden">
+                    <div className="aspect-video bg-primary/5 flex items-center justify-center relative overflow-hidden cursor-pointer"
+                      onClick={() => setExpandedCampaign(isExpanded ? null : c.id)}>
                       {c.image_url ? (
                         <img src={c.image_url} alt={c.title} className="w-full h-full object-cover" />
                       ) : (
@@ -179,23 +219,58 @@ const Campaigns = () => {
                       <div className="absolute top-3 right-3 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-full">{percent}%</div>
                     </div>
                     <div className="p-5">
-                      <h3 className="font-heading text-lg font-semibold text-foreground mb-2 line-clamp-2">{c.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{c.description}</p>
-                      <div className="w-full bg-muted rounded-full h-2.5 mb-3">
-                        <div className="bg-accent h-2.5 rounded-full transition-all" style={{ width: `${Math.min(percent, 100)}%` }} />
-                      </div>
-                      <div className="flex justify-between text-sm mb-4">
-                        <span className="text-muted-foreground">{t("campaigns.raised")}: <span className="text-primary font-semibold">R{Number(c.raised_amount).toLocaleString()}</span></span>
-                        <span className="text-muted-foreground">{t("campaigns.goal")}: R{Number(c.goal_amount).toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-muted-foreground">{c.donation_count} {t("campaigns.donations")}</span>
-                        <Button asChild size="sm" className="bg-hero-gradient text-primary-foreground hover:opacity-90">
-                          <a href={donateLink} target="_blank" rel="noopener noreferrer">
-                            {t("common.donateNow")} <ExternalLink className="w-3 h-3 ml-1" />
-                          </a>
-                        </Button>
-                      </div>
+                      {isEditing ? (
+                        <div className="space-y-3">
+                          <div><Label>Title</Label><Input value={editForm.title} onChange={(e) => setEditForm({...editForm, title: e.target.value})} /></div>
+                          <div><Label>Description</Label><Textarea value={editForm.description} onChange={(e) => setEditForm({...editForm, description: e.target.value})} rows={3} /></div>
+                          <div><Label>Goal (ZAR)</Label><Input type="number" value={editForm.goal_amount} onChange={(e) => setEditForm({...editForm, goal_amount: e.target.value})} /></div>
+                          <div><Label>Paystack Link</Label><Input value={editForm.paystack_link} onChange={(e) => setEditForm({...editForm, paystack_link: e.target.value})} /></div>
+                          <div><Label>Image URL</Label><Input value={editForm.image_url} onChange={(e) => setEditForm({...editForm, image_url: e.target.value})} /></div>
+                          <div className="flex gap-2">
+                            <Button size="sm" onClick={() => handleSaveEdit(c.id)} className="bg-hero-gradient text-primary-foreground">Save</Button>
+                            <Button size="sm" variant="outline" onClick={() => setEditingCampaign(null)}>Cancel</Button>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="flex items-start justify-between">
+                            <h3 className="font-heading text-lg font-semibold text-foreground mb-2 line-clamp-2 cursor-pointer"
+                              onClick={() => setExpandedCampaign(isExpanded ? null : c.id)}>{c.title}</h3>
+                            {canEditCampaign(c) && (
+                              <button onClick={() => startEditing(c)} className="text-muted-foreground hover:text-primary transition-colors ml-2 shrink-0">
+                                <Pencil className="w-4 h-4" />
+                              </button>
+                            )}
+                          </div>
+                          <p className={`text-sm text-muted-foreground mb-4 ${isExpanded ? "" : "line-clamp-2"}`}>{c.description}</p>
+                          {isExpanded && (
+                            <div className="mb-4 p-3 bg-muted rounded-lg text-sm text-muted-foreground space-y-1">
+                              <p><span className="font-semibold text-foreground">Created:</span> {new Date(c.created_at).toLocaleDateString()}</p>
+                              <p><span className="font-semibold text-foreground">Status:</span> {c.status}</p>
+                              <p><span className="font-semibold text-foreground">Donations:</span> {c.donation_count}</p>
+                            </div>
+                          )}
+                          <button onClick={() => setExpandedCampaign(isExpanded ? null : c.id)}
+                            className="text-xs text-primary flex items-center gap-1 mb-3 hover:underline">
+                            {isExpanded ? <>Show less <ChevronUp className="w-3 h-3" /></> : <>View details <ChevronDown className="w-3 h-3" /></>}
+                          </button>
+                          <div className="w-full bg-muted rounded-full h-2.5 mb-3">
+                            <div className="bg-accent h-2.5 rounded-full transition-all" style={{ width: `${Math.min(percent, 100)}%` }} />
+                          </div>
+                          <div className="flex justify-between text-sm mb-4">
+                            <span className="text-muted-foreground">{t("campaigns.raised")}: <span className="text-primary font-semibold">R{Number(c.raised_amount).toLocaleString()}</span></span>
+                            <span className="text-muted-foreground">{t("campaigns.goal")}: R{Number(c.goal_amount).toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs text-muted-foreground">{c.donation_count} {t("campaigns.donations")}</span>
+                            <Button asChild size="sm" className="bg-hero-gradient text-primary-foreground hover:opacity-90">
+                              <a href={donateLink} target="_blank" rel="noopener noreferrer">
+                                {t("common.donateNow")} <ExternalLink className="w-3 h-3 ml-1" />
+                              </a>
+                            </Button>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </motion.div>
                 );
