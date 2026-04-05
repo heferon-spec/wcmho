@@ -23,8 +23,8 @@ const portfolioProjects = [
   { title: "Community Food Drive Initiative", cats: ["Community", "Food Security"], desc: "Distributing food parcels to over 5,000 families across underserved communities in Gauteng and KwaZulu-Natal.", image: portfolioCom1 },
   { title: "Winter Relief Campaign", cats: ["Community", "Charity"], desc: "Annual campaign providing warm blankets, clothing, and essentials to homeless individuals and vulnerable families.", image: portfolioCom2 },
   { title: "Community Outreach", cats: ["Community", "Humanitarian"], desc: "Deploying volunteers to rural communities with food parcels, hygiene kits, and children's educational materials.", image: portfolioCom3 },
-  { title: "Mental Health Awareness Golf Day", cats: ["Wellness", "Fundraising"], desc: "Using the power of sport to break the stigma around men's mental health. Our annual golf day creates a safe space for men to open up, be vulnerable, and have honest conversations about their emotional wellbeing — proving that strength lies in seeking help.", image: portfolioWell1 },
-  { title: "Mindfulness & Wellbeing Programs", cats: ["Wellness", "Self-Care"], desc: "Partner with us to host a Mental Health Golf Day for your organisation. A unique team-building experience that promotes open dialogue, mindfulness, and emotional wellness — bringing colleagues together on the green for a meaningful cause.", image: portfolioWell2 },
+  { title: "Mental Health Awareness Golf Day", cats: ["Wellness", "Fundraising"], desc: "Using the power of sport to break the stigma around men's mental health. Our annual golf day creates a safe space for men to open up, be vulnerable, and have honest conversations about their emotional wellbeing.", image: portfolioWell1 },
+  { title: "Mindfulness & Wellbeing Programs", cats: ["Wellness", "Self-Care"], desc: "Partner with us to host a Mental Health Golf Day for your organisation. A unique team-building experience that promotes open dialogue, mindfulness, and emotional wellness.", image: portfolioWell2 },
   { title: "Annual Awards & Recognition Gala", cats: ["Wellness", "Community"], desc: "Celebrating outstanding volunteers, donors, and community heroes at our annual recognition ceremony.", image: portfolioWell3 },
 ];
 
@@ -56,21 +56,21 @@ const Portfolio = () => {
             ))}
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filtered.map((project, i) => (
               <motion.div key={project.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group">
                 <div className="aspect-video overflow-hidden">
                   <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                <div className="p-5">
+                <div className="p-3 sm:p-5">
                   <div className="flex gap-2 mb-2 flex-wrap">
                     {project.cats.map((c) => (
                       <span key={c} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{c}</span>
                     ))}
                   </div>
-                  <h3 className="font-heading text-lg font-semibold text-foreground mb-2">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{project.desc}</p>
+                  <h3 className="font-heading text-sm sm:text-lg font-semibold text-foreground mb-1 sm:mb-2 leading-tight">{project.title}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">{project.desc}</p>
                 </div>
               </motion.div>
             ))}

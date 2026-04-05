@@ -40,12 +40,21 @@ import gallery33 from "@/assets/gallery-33.jpg";
 import gallery34 from "@/assets/gallery-34.jpg";
 import gallery35 from "@/assets/gallery-35.jpg";
 import gallery36 from "@/assets/gallery-36.jpg";
-import gallery37 from "@/assets/gallery-37.jpg";
 import gallery38 from "@/assets/gallery-38.jpg";
 import gallery39 from "@/assets/gallery-39.jpg";
 import gallery40 from "@/assets/gallery-40.jpg";
 import gallery41 from "@/assets/gallery-41.jpg";
 import gallery42 from "@/assets/gallery-42.jpg";
+import gallery43 from "@/assets/gallery-43.jpg";
+import gallery44 from "@/assets/gallery-44.jpg";
+import gallery45 from "@/assets/gallery-45.jpg";
+import gallery46 from "@/assets/gallery-46.jpg";
+import gallery47 from "@/assets/gallery-47.jpg";
+import gallery48 from "@/assets/gallery-48.jpg";
+import gallery49 from "@/assets/gallery-49.jpg";
+import gallery50 from "@/assets/gallery-50.jpg";
+import gallery51 from "@/assets/gallery-51.jpg";
+import gallery52 from "@/assets/gallery-52.jpg";
 
 const images = [
   { src: gallery1, alt: "Men's Day Summit audience" },
@@ -84,12 +93,21 @@ const images = [
   { src: gallery34, alt: "Outreach program" },
   { src: gallery35, alt: "Mental health awareness event" },
   { src: gallery36, alt: "Community support gathering" },
-  { src: gallery37, alt: "Volunteer coordination" },
   { src: gallery38, alt: "Community workshop" },
   { src: gallery39, alt: "Youth engagement program" },
   { src: gallery40, alt: "Impact initiative" },
   { src: gallery41, alt: "Community outreach program" },
   { src: gallery42, alt: "Volunteer event" },
+  { src: gallery43, alt: "World Changers team group photo" },
+  { src: gallery44, alt: "Community event auditorium" },
+  { src: gallery45, alt: "Youth workshop session" },
+  { src: gallery46, alt: "Community awareness event" },
+  { src: gallery47, alt: "Audience at community event" },
+  { src: gallery48, alt: "Community outreach gathering" },
+  { src: gallery49, alt: "Event venue audience" },
+  { src: gallery50, alt: "Volunteer outreach team" },
+  { src: gallery51, alt: "Community hall event" },
+  { src: gallery52, alt: "Youth engagement session" },
 ];
 
 const Gallery = () => {
@@ -128,7 +146,6 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {lightboxIndex !== null && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}

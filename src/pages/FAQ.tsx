@@ -4,19 +4,19 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useTranslation } from "react-i18next";
 import aboutBg from "@/assets/about-bg.jpg";
 
-const faqs = [
-  { q: "What services does World Changers offer?", a: "We provide a full range of mental health services including individual therapy, group counseling, family therapy, trauma recovery, and community wellness programs." },
-  { q: "How can I schedule a session?", a: "You can schedule a session through our Contact page, call us directly, or click 'Schedule a Session' on any professional's profile on our Mental Health page." },
-  { q: "Do you offer free services?", a: "Yes! We offer free drop-in counseling, community workshops, and support groups. Our philanthropic initiatives ensure care is accessible to everyone." },
-  { q: "How can I donate?", a: "Donations can be made through our Contact page or by reaching out directly. We accept one-time and recurring donations to support our programs." },
-  { q: "Can I volunteer remotely?", a: "Absolutely! We have virtual volunteer opportunities including online peer support, content creation, and fundraising campaigns." },
-  { q: "Is my information kept confidential?", a: "Yes. All client information is strictly confidential and protected under HIPAA regulations and international privacy standards." },
-  { q: "Do you accept insurance?", a: "We work with various insurance providers. Please contact us with your insurance details and we'll help verify your coverage." },
-  { q: "How can organizations partner with you?", a: "We welcome partnerships with schools, businesses, and NGOs. Reach out via our Contact page to discuss collaboration opportunities." },
-];
-
 const FAQ = () => {
   const { t } = useTranslation();
+
+  const faqs = [
+    { q: t("faq.q1"), a: t("faq.a1") },
+    { q: t("faq.q2"), a: t("faq.a2") },
+    { q: t("faq.q3"), a: t("faq.a3") },
+    { q: t("faq.q4"), a: t("faq.a4") },
+    { q: t("faq.q5"), a: t("faq.a5") },
+    { q: t("faq.q6"), a: t("faq.a6") },
+    { q: t("faq.q7"), a: t("faq.a7") },
+    { q: t("faq.q8"), a: t("faq.a8") },
+  ];
 
   return (
     <div>
