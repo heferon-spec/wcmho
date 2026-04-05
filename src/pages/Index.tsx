@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Building, Star, Eye, Target, Lightbulb, Globe, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
-import VoiceAgent from "@/components/VoiceAgent";
+import { Phone } from "lucide-react";
 import CountUp from "@/components/CountUp";
 import { useTranslation } from "react-i18next";
 import volunteerHero from "@/assets/volunteer-hero.jpg";
