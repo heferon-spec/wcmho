@@ -21,7 +21,7 @@ const Footer = () => {
             <h4 className="font-heading text-base font-semibold mb-4">World Changers MHC</h4>
             <p className="text-sm opacity-70 leading-relaxed mb-4">
               NGO REG: 238-677<br />
-              POB Number: 930084594<br /><br />
+              PBO Number: 930084594<br /><br />
               Your donations are eligible for tax deduction.
             </p>
           </div>
@@ -62,7 +62,9 @@ const Footer = () => {
             <ul className="space-y-3 text-sm opacity-70">
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 shrink-0 text-accent" />
-                <button className="hover:opacity-100 hover:text-accent transition-all" onClick={() => document.querySelector<HTMLButtonElement>('[title="Call now"]')?.click()}>{t("footer.callReception")}</button>
+                <a href="tel:+27754524052" className="hover:opacity-100 hover:text-accent transition-all flex items-center gap-1">
+                  <span>+27 75 452 4052</span>
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 shrink-0 text-accent" />

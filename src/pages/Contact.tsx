@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, Send, Newspaper, Loader2 } from "lucide-react";
+import { Mail, MapPin, Clock, Send, Newspaper, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import PageHero from "@/components/PageHero";
-import VoiceAgent from "@/components/VoiceAgent";
 import { useTranslation } from "react-i18next";
 import aboutBg from "@/assets/about-bg.jpg";
 
@@ -17,10 +16,10 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ full_name: "", email: "", subject: "", message: "" });
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
 
   const contactInfo = [
-    { icon: Phone, label: t("contact.phone"), value: t("contact.callReception"), href: undefined, isAgent: true },
     { icon: Mail, label: t("contact.email"), value: "info@worldchangersmh.org", href: "mailto:info@worldchangersmh.org" },
     { icon: MapPin, label: t("contact.address"), value: "114 George Street, Kenilworth, Johannesburg, 2190", href: "https://maps.google.com/?q=114+George+Street,+Kenilworth,+Johannesburg,+2190" },
     { icon: Clock, label: t("contact.hours"), value: "Mon – Fri: 8AM – 6PM", href: undefined },
@@ -43,6 +42,30 @@ const Contact = () => {
       console.error(err);
       toast.error("Failed to send message. Please try again.");
     } finally { setLoading(false); }
+  };
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setNewsletterLoading(true);
+    try {
+      const { error } = await supabase.from("newsletter_subscribers").insert({
+        email: newsletterEmail.trim(),
+      });
+      if (error) {
+        if (error.code === '23505') {
+          toast.info("You're already subscribed!");
+        } else {
+          throw error;
+        }
+      }
+      setNewsletterSubmitted(true);
+      toast.success("Successfully subscribed!");
+    } catch (err: any) {
+      console.error(err);
+      toast.error("Failed to subscribe. Please try again.");
+    } finally {
+      setNewsletterLoading(false);
+    }
   };
 
   return (
@@ -71,11 +94,6 @@ const Contact = () => {
                     </div>
                   </div>
                 ))}
-              </div>
-              <div className="mt-6 p-5 rounded-xl bg-muted border border-border">
-                <h4 className="font-heading text-lg font-semibold text-foreground mb-2">{t("contact.callReception")}</h4>
-                <p className="text-sm text-muted-foreground mb-4">{t("contact.callReceptionDesc")}</p>
-                <VoiceAgent variant="button" />
               </div>
             </div>
 
@@ -129,10 +147,10 @@ const Contact = () => {
                 <p className="text-sm text-muted-foreground mt-1">{t("contact.nextNewsletter")}</p>
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setNewsletterSubmitted(true); }} className="flex flex-col sm:flex-row gap-3">
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3">
                 <Input type="email" placeholder={t("contact.enterEmail")} required value={newsletterEmail} onChange={(e) => setNewsletterEmail(e.target.value)} className="flex-1" />
-                <Button type="submit" className="bg-hero-gradient text-primary-foreground hover:opacity-90 px-8">
-                  {t("common.subscribe")} <Mail className="w-4 h-4 ml-2" />
+                <Button type="submit" className="bg-hero-gradient text-primary-foreground hover:opacity-90 px-8" disabled={newsletterLoading}>
+                  {newsletterLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>{t("common.subscribe")} <Mail className="w-4 h-4 ml-2" /></>}
                 </Button>
               </form>
             )}
