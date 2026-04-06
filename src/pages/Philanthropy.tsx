@@ -227,8 +227,8 @@ const Philanthropy = () => {
                       <span key={c} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{c}</span>
                     ))}
                   </div>
-                  <h3 className="font-heading text-lg font-semibold text-foreground mb-2">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{project.desc}</p>
+                   <h3 className="font-heading text-sm sm:text-lg font-semibold text-foreground mb-1 sm:mb-2 leading-tight">{project.title}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">{project.desc}</p>
                 </div>
               </motion.div>
             ))}

@@ -35,7 +35,7 @@ import gallery28 from "@/assets/gallery-28.jpg";
 import gallery29 from "@/assets/gallery-29.jpg";
 import gallery30 from "@/assets/gallery-30.jpg";
 import gallery31 from "@/assets/gallery-31.jpg";
-import gallery32 from "@/assets/gallery-32.jpg";
+
 import gallery33 from "@/assets/gallery-33.jpg";
 import gallery34 from "@/assets/gallery-34.jpg";
 import gallery35 from "@/assets/gallery-35.jpg";
