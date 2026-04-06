@@ -109,7 +109,7 @@ const headsOfDepartments: TeamMember[] = [
   },
   { name: "Dr Talifhani Khubana", role: "CFO", image: null },
   {
-    name: "Patricia Moloiwa", role: "Chief Marketing Officer (CMO) & Digital Division Lead", image: patriciaMoloiwa,
+    name: "Patricia Moloiwa", role: "Chief Marketing Officer (CMO)", image: patriciaMoloiwa,
     bio: "Lerato Manaka (Patricia Moloiwa) has a comprehensive background spanning over ten years in broadcasting, advertising sales, and operations. She is also the founder of PBGC Consulting's Digital Division, where she develops and implements effective campaigns that attract clients, increase awareness, enhance visibility, and build strategic partnerships in rural Limpopo. Currently pursuing a Bachelor of Commerce in Information Technology Management, her unique blend of technical expertise, business acumen, and entrepreneurial skills enables her to identify opportunities and foster sustainable growth. Passionate about harnessing technology for economic impact, she is committed to building partnerships that deliver measurable results while empowering local communities and nurturing talent.",
     linkedin: "https://www.linkedin.com/in/lerato-manaka-1071a327",
   },

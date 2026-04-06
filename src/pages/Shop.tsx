@@ -215,14 +215,14 @@ const Shop = () => {
                 >
                   {/* Product Image */}
                   <div
-                    className="aspect-[3/4] bg-muted overflow-hidden cursor-pointer relative"
+                    className="aspect-square bg-muted overflow-hidden cursor-pointer relative"
                     onClick={() => navigate(`/product/${p.node.handle}`)}
                   >
                     {image ? (
                       <img
                         src={image.url}
                         alt={image.altText || p.node.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
