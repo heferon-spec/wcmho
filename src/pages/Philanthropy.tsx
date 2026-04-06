@@ -221,7 +221,7 @@ const Philanthropy = () => {
                 <div className="aspect-video overflow-hidden">
                   <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                <div className="p-5">
+                <div className="p-3 sm:p-5">
                   <div className="flex gap-2 mb-2 flex-wrap">
                     {project.cats.map((c) => (
                       <span key={c} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{c}</span>
