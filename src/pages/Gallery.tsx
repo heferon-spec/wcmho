@@ -88,7 +88,7 @@ const images = [
   { src: gallery29, alt: "Humanitarian aid drive" },
   { src: gallery30, alt: "Community outreach event" },
   { src: gallery31, alt: "Community volunteer event" },
-  { src: gallery32, alt: "Community engagement session" },
+  
   { src: gallery33, alt: "Team collaboration" },
   { src: gallery34, alt: "Outreach program" },
   { src: gallery35, alt: "Mental health awareness event" },
