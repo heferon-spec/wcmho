@@ -96,6 +96,9 @@ const Contact = () => {
                   </div>
                 ))}
               </div>
+              <div className="mt-6">
+                <VoiceAgent variant="icon" />
+              </div>
             </div>
 
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:col-span-3 bg-card rounded-2xl p-8 shadow-card">

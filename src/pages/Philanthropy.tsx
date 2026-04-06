@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, Users, HandHeart, ArrowRight, Shield, Globe, Phone, Building, Star, Play, Home, Utensils } from "lucide-react";
+import { Heart, Users, HandHeart, ArrowRight, Shield, Globe, Building, Star, Play, Home, Utensils } from "lucide-react";
+import VoiceAgent from "@/components/VoiceAgent";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import { useTranslation } from "react-i18next";
