@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Target, Eye, Heart, Award, ArrowRight, Users, Globe, Brain, HandHeart, Shield, Megaphone } from "lucide-react";
 import CountUp from "@/components/CountUp";
-import { Phone } from "lucide-react";
+import VoiceAgent from "@/components/VoiceAgent";
 import { Button } from "@/components/ui/button";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
