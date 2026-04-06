@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import VoiceAgent from "@/components/VoiceAgent";
 
 const socialLinks = [
   { label: "Instagram", url: "https://www.instagram.com/wc_mentalhealthcare", icon: "instagram" },
