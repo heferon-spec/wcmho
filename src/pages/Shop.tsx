@@ -215,7 +215,7 @@ const Shop = () => {
                 >
                   {/* Product Image */}
                   <div
-                    className="aspect-[3/4] bg-muted overflow-hidden cursor-pointer relative"
+                    className="aspect-square bg-muted overflow-hidden cursor-pointer relative"
                     onClick={() => navigate(`/product/${p.node.handle}`)}
                   >
                     {image ? (
