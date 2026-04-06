@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, Users, HandHeart, ArrowRight, Shield, Globe, Phone, Building, Star, Play, Home, Utensils } from "lucide-react";
+import { Heart, Users, HandHeart, ArrowRight, Shield, Globe, Building, Star, Play, Home, Utensils } from "lucide-react";
+import VoiceAgent from "@/components/VoiceAgent";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import { useTranslation } from "react-i18next";
@@ -146,15 +147,7 @@ const Philanthropy = () => {
                 <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
                   <Link to="/about">{t("common.exploreMore")} <ArrowRight className="w-4 h-4 ml-2" /></Link>
                 </Button>
-                <a href="tel:+27754524052" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Phone className="w-4 h-4 text-accent" />
-                  </div>
-                  <div>
-                    <span className="text-xs text-muted-foreground block">{t("philanthropy.callAnytime")}</span>
-                    <span className="font-semibold">+27 75 452 4052</span>
-                  </div>
-                </a>
+                <VoiceAgent variant="icon" />
               </div>
             </motion.div>
           </div>
@@ -214,7 +207,7 @@ const Philanthropy = () => {
       <section className="section-padding bg-muted">
         <div className="container mx-auto">
           <SectionHeading label={t("philanthropy.portfolioLabel")} title={t("philanthropy.portfolioTitle")} description={t("philanthropy.portfolioDesc")} />
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {portfolioProjects.map((project, i) => (
               <motion.div key={project.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group">

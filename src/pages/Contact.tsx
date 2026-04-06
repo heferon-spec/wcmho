@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Clock, Send, Newspaper, Loader2 } from "lucide-react";
+import VoiceAgent from "@/components/VoiceAgent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -94,6 +95,9 @@ const Contact = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+              <div className="mt-6">
+                <VoiceAgent variant="icon" />
               </div>
             </div>
 

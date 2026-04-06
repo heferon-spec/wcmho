@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Heart, Users, Brain, HandHeart, ArrowRight, Shield, Sparkles, Building, Star, Eye, Target, Lightbulb, Globe, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
-import { Phone } from "lucide-react";
+import VoiceAgent from "@/components/VoiceAgent";
 import CountUp from "@/components/CountUp";
 import { useTranslation } from "react-i18next";
 import volunteerHero from "@/assets/volunteer-hero.jpg";
@@ -167,15 +167,7 @@ const Index = () => {
                 <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
                   <Link to="/about">{t("common.exploreMore")} <ArrowRight className="w-4 h-4 ml-2" /></Link>
                 </Button>
-                <a href="tel:+27754524052" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Phone className="w-4 h-4 text-accent" />
-                  </div>
-                  <div>
-                    <span className="text-xs text-muted-foreground block">Call Us</span>
-                    <span className="font-semibold">+27 75 452 4052</span>
-                  </div>
-                </a>
+                <VoiceAgent variant="icon" />
               </div>
             </motion.div>
           </div>
