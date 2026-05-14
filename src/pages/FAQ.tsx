@@ -19,10 +19,20 @@ const FAQ = () => {
     { q: t("faq.q8"), a: t("faq.a8") },
   ];
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
     <div>
 
-      <SEO title="Frequently Asked Questions — World Changers MHCO" description="Answers to common questions about World Changers programs, donations, volunteering and mental health services." path="/faq" />
+      <SEO title="Frequently Asked Questions — World Changers MHCO" description="Answers to common questions about World Changers programs, donations, volunteering and mental health services." path="/faq" jsonLd={faqJsonLd} />
       <PageHero title={t("faq.heroTitle")} subtitle={t("faq.heroSubtitle")} bgImage={aboutBg} />
       <section className="section-padding">
         <div className="container mx-auto max-w-3xl">
