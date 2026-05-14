@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { Heart, Users, Clock, Award, ArrowRight, CheckCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -54,6 +55,8 @@ const BecomeVolunteer = () => {
 
   return (
     <div>
+
+      <SEO title="Become a Volunteer — World Changers MHCO" description="Join 2,000+ volunteers transforming mental health and community wellness across Southern Africa. Apply to volunteer today." path="/become-volunteer" />
       <PageHero title={t("volunteer.heroTitle")} subtitle={t("volunteer.heroSubtitle")} bgImage={philanthropyBg} />
 
       <section className="section-padding">

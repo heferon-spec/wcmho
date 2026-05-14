@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEO from "@/components/SEO";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import PageHero from "@/components/PageHero";
@@ -209,6 +210,8 @@ const Team = () => {
 
   return (
     <div>
+
+      <SEO title="Our Team & Leadership — World Changers MHCO" description="Meet the board, leadership and staff driving World Changers Mental Health Care Organisation across Southern Africa." path="/team" />
       <PageHero title="Our Team" subtitle="The dedicated people behind our mission" bgImage={aboutBg} />
 
       <section className="px-4 -mt-10 relative z-10">

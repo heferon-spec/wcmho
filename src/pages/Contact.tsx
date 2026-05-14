@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Clock, Send, Newspaper, Loader2 } from "lucide-react";
 import VoiceAgent from "@/components/VoiceAgent";
@@ -71,6 +72,8 @@ const Contact = () => {
 
   return (
     <div>
+
+      <SEO title="Contact World Changers MHCO" description="Get in touch with World Changers Mental Health Care Organisation in Kenilworth, South Africa. Email, address and contact form." path="/contact" />
       <PageHero title={t("contact.heroTitle")} subtitle={t("contact.heroSubtitle")} bgImage={aboutBg} />
 
       <section className="section-padding">

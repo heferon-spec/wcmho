@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -41,6 +42,8 @@ const Portfolio = () => {
 
   return (
     <div>
+
+      <SEO title="Project Portfolio — World Changers MHCO" description="Browse our portfolio of mental health, education, community and wellness projects delivered across Southern Africa." path="/portfolio" />
       <PageHero title="Our Portfolio" subtitle="Successful projects and case studies from our global mission" bgImage={aboutBg} />
 
       <section className="section-padding">

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import SEO from "@/components/SEO";
 import { Shield, FileText, Lock, Eye, Scale, UserCheck, BookOpen, Download } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
@@ -58,6 +59,8 @@ const documents = [
 
 const Policies = () => (
   <div>
+
+    <SEO title="Site Policies — World Changers MHCO" description="Privacy, governance and compliance documents for World Changers Mental Health Care Organisation." path="/policies" />
     <PageHero title="Site Policies" subtitle="Transparency, compliance, and governance" bgImage={aboutBg} />
 
     {/* Policies Grid */}
