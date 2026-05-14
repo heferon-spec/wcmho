@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEO from "@/components/SEO";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, ArrowRight, Clock, Tag, X } from "lucide-react";
 import PageHero from "@/components/PageHero";
@@ -113,6 +114,8 @@ const News = () => {
 
   return (
     <div>
+
+      <SEO title="News & Articles — World Changers MHCO" description="Latest articles, announcements and stories from World Changers Mental Health Care Organisation." path="/news" />
       <PageHero title="News & Articles" subtitle="Mental health resources, humanitarian stories, and community outreach updates" bgImage={heroBg} />
 
       {/* Featured Article */}

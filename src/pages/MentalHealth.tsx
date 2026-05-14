@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X, Mic, Play, Phone, Video, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -176,6 +177,8 @@ const MentalHealth = () => {
 
   return (
     <div>
+
+      <SEO title="Mental Health Care Programs & Booking — World Changers" description="Book counseling, therapy and wellness programs with our qualified mental health providers. Confidential care across Southern Africa." path="/mental-health" />
       <PageHero title={t("mentalHealth.heroTitle")} subtitle={t("mentalHealth.heroSubtitle")} bgImage={mentalHealthBg} />
 
       {/* Programs */}

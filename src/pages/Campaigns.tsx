@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Brain, Heart, ArrowRight, DollarSign, Target, BarChart3, Users, TrendingUp, Star, ExternalLink, Globe, MapPin, Pencil, ChevronDown, ChevronUp } from "lucide-react";
@@ -91,6 +92,8 @@ const Campaigns = () => {
 
   return (
     <div>
+
+      <SEO title="Active Campaigns & Donations — World Changers MHCO" description="Support active fundraising campaigns advancing mental health care, education and community wellness. Donate securely online." path="/campaigns" />
       <PageHero title={t("campaigns.heroTitle")} subtitle={t("campaigns.heroSubtitle")} bgImage={campaignBg} />
 
       {/* Donate Online + Offline */}

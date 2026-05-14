@@ -1,0 +1,26 @@
+# World Changers Mental Health Care Organisation
+
+> A non-profit transforming lives across Southern Africa through compassionate mental health care, counseling, education, and philanthropic action.
+
+World Changers MHCO provides mental health support, runs community outreach and humanitarian campaigns, mobilises volunteers, and partners with donors to expand access to care. Based in Kenilworth, South Africa.
+
+## Pages
+
+- [Home](/): Mission, vision, leadership, and impact overview.
+- [About](/about): Organisation story, values, and approach.
+- [Mental Health Care](/mental-health): Programs, providers, and booking.
+- [Philanthropy](/philanthropy): Community outreach and humanitarian portfolio.
+- [Campaigns](/campaigns): Active fundraising campaigns and donations.
+- [Portfolio](/portfolio): Project portfolio and case studies.
+- [Events](/events): Upcoming events and ticket bookings.
+- [Gallery](/gallery): Photos from programs and events.
+- [Team](/team): Board, leadership, and staff bios.
+- [Become a Volunteer](/become-volunteer): Volunteer application.
+- [Shop](/shop): Branded apparel and merchandise supporting our work.
+- [News](/news): Articles and announcements.
+- [FAQ](/faq): Frequently asked questions.
+- [Contact](/contact): Address, email, and contact form.
+
+## Optional
+
+- [Policies](/policies): Governance, privacy, and compliance documents.

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { Heart, Users, HandHeart, ArrowRight, Shield, Globe, Building, Star, Play, Home, Utensils } from "lucide-react";
 import VoiceAgent from "@/components/VoiceAgent";
@@ -67,6 +68,8 @@ const Philanthropy = () => {
 
   return (
     <div>
+
+      <SEO title="Philanthropy & Community Outreach — World Changers" description="Explore our humanitarian portfolio: education, community wellness and outreach projects making real impact across Southern Africa." path="/philanthropy" />
       {/* Hero */}
       <section className="relative min-h-[80vh] flex items-center overflow-hidden">
         <img src={philanthropyBg} alt="" className="absolute inset-0 w-full h-full object-cover" />

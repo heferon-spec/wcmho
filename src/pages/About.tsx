@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
 import { Target, Eye, Heart, Award, ArrowRight, Users, Globe, Brain, HandHeart, Shield, Megaphone } from "lucide-react";
 import CountUp from "@/components/CountUp";
@@ -43,6 +44,8 @@ const About = () => {
 
   return (
     <div>
+
+      <SEO title="About Us — World Changers MHCO" description="Learn about World Changers Mental Health Care Organisation — our story, mission, values and the team transforming mental health across Southern Africa." path="/about" />
       <PageHero title={t("nav.about")} subtitle={t("about.whoWeAreTitle")} bgImage={aboutBg} />
 
       {/* Who We Are */}

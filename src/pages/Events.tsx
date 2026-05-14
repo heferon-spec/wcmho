@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin, Ticket, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -36,6 +37,8 @@ const Events = () => {
 
   return (
     <div>
+
+      <SEO title="Events & Workshops — World Changers MHCO" description="Upcoming mental health awareness walks, workshops, fundraising galas and trainings. Book your tickets online." path="/events" />
       <PageHero title={t("events.heroTitle")} subtitle={t("events.heroSubtitle")} bgImage={aboutBg} />
 
       {/* Calendar Overview */}

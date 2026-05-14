@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEO from "@/components/SEO";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
@@ -120,6 +121,8 @@ const Gallery = () => {
 
   return (
     <div>
+
+      <SEO title="Photo Gallery — World Changers MHCO" description="Photos from our programs, outreach campaigns, events and community wellness initiatives across Southern Africa." path="/gallery" />
       <PageHero title="Gallery" subtitle="Moments that capture our impact" bgImage={philanthropyBg} />
       <section className="section-padding">
         <div className="container mx-auto">

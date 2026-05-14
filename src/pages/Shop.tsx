@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ShoppingBag, Loader2, Heart, Truck, Shield, RotateCcw, Star, ChevronDown } from "lucide-react";
@@ -116,6 +117,7 @@ const Shop = () => {
 
   return (
     <div className="bg-background min-h-screen">
+      <SEO title="Shop — Branded Apparel & Merch — World Changers MHCO" description="Buy World Changers branded clothing and accessories. Every purchase supports our mental health and outreach work." path="/shop" />
       {/* Slim Hero Banner */}
       <div className="relative h-40 sm:h-48 overflow-hidden">
         <img src={philanthropyBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
