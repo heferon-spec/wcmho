@@ -6,6 +6,7 @@ import SectionHeading from "@/components/SectionHeading";
 import VoiceAgent from "@/components/VoiceAgent";
 import CountUp from "@/components/CountUp";
 import { useTranslation } from "react-i18next";
+import SEO from "@/components/SEO";
 import volunteerHero from "@/assets/volunteer-hero.jpg";
 import aboutBg from "@/assets/about-bg.jpg";
 import teamPhoto from "@/assets/team-photo.jpg";
@@ -66,9 +67,14 @@ const Index = () => {
 
   return (
     <div>
+      <SEO
+        title="World Changers MHCO — Mental Health Care & Philanthropy"
+        description="Transforming lives across Southern Africa through compassionate mental health care, counseling, education and philanthropic action. Donate or volunteer today."
+        path="/"
+      />
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <img src={volunteerHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={volunteerHero} alt="World Changers volunteers supporting communities" fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-overlay-gradient" />
         <div className="absolute inset-0 bg-primary/30" />
         <div className="relative container mx-auto px-4 pt-20 pb-72 sm:pb-48 md:pb-32">
