@@ -250,23 +250,23 @@ const Team = () => {
               )}
               <div className="text-center mt-4">
                 <p className="text-white font-heading text-xl font-bold">{selectedMember.name}</p>
-                <p className="text-white/70 text-sm">{selectedMember.role}</p>
+                <p className="text-white/90 text-sm">{selectedMember.role}</p>
                 {(selectedMember.linkedin || selectedMember.instagram) && (
                   <div className="flex items-center justify-center gap-4 mt-3">
                     {selectedMember.linkedin && (
-                      <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform flex items-center gap-1.5 text-sm text-white/70">
+                      <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform flex items-center gap-1.5 text-sm text-white/90">
                         <LinkedInIcon /> <span>LinkedIn</span>
                       </a>
                     )}
                     {selectedMember.instagram && (
-                      <a href={selectedMember.instagram} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform flex items-center gap-1.5 text-sm text-white/70">
+                      <a href={selectedMember.instagram} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform flex items-center gap-1.5 text-sm text-white/90">
                         <InstagramIcon /> <span>Instagram</span>
                       </a>
                     )}
                   </div>
                 )}
                 {selectedMember.bio && (
-                  <p className="text-white/60 text-sm mt-4 leading-relaxed text-left px-4">{selectedMember.bio}</p>
+                  <p className="text-white/90 text-sm mt-4 leading-relaxed text-left px-4">{selectedMember.bio}</p>
                 )}
               </div>
             </div>
