@@ -167,7 +167,7 @@ const Gallery = () => {
               className="max-w-full max-h-[85vh] object-contain rounded-lg"
               onClick={(e) => e.stopPropagation()}
             />
-            <p className="absolute bottom-6 text-white/70 text-sm">{images[lightboxIndex].alt} • {lightboxIndex + 1}/{images.length}</p>
+            <p className="absolute bottom-6 text-white/90 text-sm">{images[lightboxIndex].alt} • {lightboxIndex + 1}/{images.length}</p>
           </motion.div>
         )}
       </AnimatePresence>
