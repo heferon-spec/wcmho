@@ -94,7 +94,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from: 'World Changers MHC Bookings <onboarding@resend.dev>',
         to: [email],
-        subject: `Booking Confirmed — ${session_type} with ${provider_name}`,
+        subject: `Booking Confirmed — ${String(raw.session_type || '').slice(0,80)} with ${String(raw.provider_name || '').slice(0,80)}`,
         html: htmlBody,
       }),
     });
