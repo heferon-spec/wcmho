@@ -129,6 +129,21 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Require a shared cron secret OR the service role key to invoke this mass-email function.
+    const cronSecret = Deno.env.get('CRON_SECRET');
+    const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    const auth = req.headers.get('Authorization')?.replace(/^Bearer\s+/i, '') || '';
+    const headerSecret = req.headers.get('x-cron-secret') || '';
+    const authorized =
+      (cronSecret && (auth === cronSecret || headerSecret === cronSecret)) ||
+      (serviceRoleKey && auth === serviceRoleKey);
+    if (!authorized) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
     if (!RESEND_API_KEY) throw new Error('RESEND_API_KEY not configured');
 

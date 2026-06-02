@@ -1,3 +1,5 @@
+import { escapeHtml as e } from '../_shared/escape.ts';
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
@@ -9,10 +11,27 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { full_name, email, provider_name, session_type, session_date, session_time, session_mode } = await req.json();
+    // Require a Supabase apikey header (sent automatically by supabase-js) to
+    // gate the endpoint against unauthenticated abuse.
+    const apikey = req.headers.get('apikey') || req.headers.get('Authorization');
+    if (!apikey) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
 
-    if (!email || !full_name) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
+    const raw = await req.json();
+    const full_name = e(raw.full_name);
+    const email = String(raw.email || '').trim();
+    const provider_name = e(raw.provider_name);
+    const session_type = e(raw.session_type);
+    const session_date = e(raw.session_date);
+    const session_time = e(raw.session_time);
+    const session_mode = e(raw.session_mode);
+
+    if (!email || !raw.full_name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return new Response(JSON.stringify({ error: 'Invalid input' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
@@ -75,7 +94,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from: 'World Changers MHC Bookings <onboarding@resend.dev>',
         to: [email],
-        subject: `Booking Confirmed — ${session_type} with ${provider_name}`,
+        subject: `Booking Confirmed — ${String(raw.session_type || '').slice(0,80)} with ${String(raw.provider_name || '').slice(0,80)}`,
         html: htmlBody,
       }),
     });
