@@ -30,8 +30,8 @@ Deno.serve(async (req) => {
     const session_time = e(raw.session_time);
     const session_mode = e(raw.session_mode);
 
-    if (!email || !full_name) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
+    if (!email || !raw.full_name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return new Response(JSON.stringify({ error: 'Invalid input' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
