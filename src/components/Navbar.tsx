@@ -1,38 +1,40 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, ChevronDown, ShoppingCart, User, Globe } from "lucide-react";
+import { Menu, ChevronDown, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { useTranslation } from "react-i18next";
 import { languages } from "@/i18n";
 
+const DONATE_URL = "https://paystack.shop/pay/87qgnu5n8o";
+
+type NavChild = { label: string; path?: string; href?: string };
+type NavLink = { label: string; path?: string; children?: NavChild[] };
+
 const Navbar = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [langOpen, setLangOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  const { user } = useAuth();
   const { t, i18n } = useTranslation();
 
-  const navLinks = [
+  const navLinks: NavLink[] = [
     { label: t("nav.home"), path: "/" },
     { label: t("nav.about"), path: "/about" },
-    { label: t("nav.mentalHealth"), path: "/mental-health" },
-    { label: t("nav.philanthropy"), path: "/philanthropy" },
-    { label: t("nav.donorDashboard"), path: "/campaigns" },
     {
-      label: t("nav.pages"),
+      label: "Our Work",
       children: [
-        { label: t("nav.ourTeam"), path: "/team" },
-        { label: t("nav.becomeVolunteer"), path: "/become-volunteer" },
+        { label: "Mental Health Services", path: "/mental-health" },
+        { label: "Programmes & Impact", path: "/philanthropy" },
         { label: t("nav.events"), path: "/events" },
-        { label: t("nav.portfolio"), path: "/portfolio" },
-        { label: t("nav.gallery"), path: "/gallery" },
-        { label: t("nav.faq"), path: "/faq" },
-        { label: t("nav.shop"), path: "/shop" },
-        { label: t("nav.news"), path: "/news" },
+      ],
+    },
+    {
+      label: "Get Involved",
+      children: [
+        { label: t("nav.becomeVolunteer"), path: "/become-volunteer" },
+        { label: "Donate", href: DONATE_URL },
       ],
     },
     { label: t("nav.contact"), path: "/contact" },
@@ -52,19 +54,26 @@ const Navbar = () => {
         <nav className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) =>
             link.children ? (
-              <div key={link.label} className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
+              <div key={link.label} className="relative" onMouseEnter={() => setOpenDropdown(link.label)} onMouseLeave={() => setOpenDropdown(null)}>
                 <button className="flex items-center gap-1 px-4 py-2 text-sm font-bold text-foreground hover:text-primary transition-colors rounded-lg">
                   {link.label} <ChevronDown className="w-3.5 h-3.5" />
                 </button>
                 <AnimatePresence>
-                  {dropdownOpen && (
+                  {openDropdown === link.label && (
                     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
-                      className="absolute top-full left-0 mt-1 w-52 bg-card rounded-lg shadow-elevated border border-border py-2">
-                      {link.children.map((child) => (
-                        <Link key={child.path} to={child.path} className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors">
-                          {child.label}
-                        </Link>
-                      ))}
+                      className="absolute top-full left-0 mt-1 w-56 bg-card rounded-lg shadow-elevated border border-border py-2">
+                      {link.children.map((child) =>
+                        child.href ? (
+                          <a key={child.label} href={child.href} target="_blank" rel="noopener noreferrer"
+                            className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors">
+                            {child.label}
+                          </a>
+                        ) : (
+                          <Link key={child.path} to={child.path!} className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors">
+                            {child.label}
+                          </Link>
+                        )
+                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -78,7 +87,7 @@ const Navbar = () => {
           )}
         </nav>
 
-        {/* Right Icons */}
+        {/* Right Side */}
         <div className="flex items-center gap-2">
           {/* Language Selector */}
           <div className="relative" onMouseEnter={() => setLangOpen(true)} onMouseLeave={() => setLangOpen(false)}>
@@ -106,21 +115,14 @@ const Navbar = () => {
             </AnimatePresence>
           </div>
 
-          <Link to="/shop" className="p-2 text-foreground hover:text-primary transition-colors" title="Shop">
-            <ShoppingCart className="w-5 h-5" />
-          </Link>
-          <Link to={user ? "/profile-settings" : "/login"} className="p-2 text-foreground hover:text-primary transition-colors" title={user ? "My Account" : "Log In"}>
-            {user?.user_metadata?.avatar_url ? (
-              <img src={user.user_metadata.avatar_url} alt="" className="w-6 h-6 rounded-full object-cover" />
-            ) : (
-              <User className={`w-5 h-5 ${user ? 'text-primary' : ''}`} />
-            )}
-          </Link>
-          <Button asChild className="hidden md:inline-flex bg-hero-gradient hover:opacity-90 text-primary-foreground ml-2">
-            <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">{t("nav.donateNow")}</a>
+          <Button asChild variant="outline" className="hidden md:inline-flex border-primary text-primary hover:bg-primary hover:text-primary-foreground ml-2">
+            <Link to="/mental-health">Get Help</Link>
+          </Button>
+          <Button asChild className="hidden md:inline-flex bg-accent text-accent-foreground hover:bg-accent/90">
+            <a href={DONATE_URL} target="_blank" rel="noopener noreferrer">{t("nav.donateNow")}</a>
           </Button>
 
-          {/* Mobile Menu - Sheet */}
+          {/* Mobile Menu */}
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <button className="lg:hidden p-2 text-foreground">
@@ -153,12 +155,19 @@ const Navbar = () => {
                   link.children ? (
                     <div key={link.label}>
                       <p className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider mt-4">{link.label}</p>
-                      {link.children.map((child) => (
-                        <Link key={child.path} to={child.path} onClick={() => setMobileOpen(false)}
-                          className={`block px-6 py-2.5 text-sm rounded-lg transition-colors ${location.pathname === child.path ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:text-primary hover:bg-muted"}`}>
-                          {child.label}
-                        </Link>
-                      ))}
+                      {link.children.map((child) =>
+                        child.href ? (
+                          <a key={child.label} href={child.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}
+                            className="block px-6 py-2.5 text-sm rounded-lg text-foreground hover:text-primary hover:bg-muted transition-colors">
+                            {child.label}
+                          </a>
+                        ) : (
+                          <Link key={child.path} to={child.path!} onClick={() => setMobileOpen(false)}
+                            className={`block px-6 py-2.5 text-sm rounded-lg transition-colors ${location.pathname === child.path ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:text-primary hover:bg-muted"}`}>
+                            {child.label}
+                          </Link>
+                        )
+                      )}
                     </div>
                   ) : (
                     <Link key={link.path} to={link.path!} onClick={() => setMobileOpen(false)}
@@ -167,8 +176,11 @@ const Navbar = () => {
                     </Link>
                   )
                 )}
-                <Button asChild className="mt-6 bg-hero-gradient text-primary-foreground">
-                  <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>{t("nav.donateNow")}</a>
+                <Button asChild variant="outline" className="mt-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                  <Link to="/mental-health" onClick={() => setMobileOpen(false)}>Get Help</Link>
+                </Button>
+                <Button asChild className="mt-2 bg-accent text-accent-foreground hover:bg-accent/90">
+                  <a href={DONATE_URL} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>{t("nav.donateNow")}</a>
                 </Button>
               </nav>
             </SheetContent>

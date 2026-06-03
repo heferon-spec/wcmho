@@ -1,66 +1,72 @@
-## Go-Live Fixes (7 changes)
+## Navigation & Homepage Wiring Overhaul
 
-Scope is strictly the items below — no design, navigation, or layout changes elsewhere.
+Strictly nav structure, routing, and CTA destinations — no visual, copy, or content changes.
 
-### 1. Hide therapist profiles section
-**File:** `src/pages/MentalHealth.tsx`
-- Wrap the "Professionals" section (lines 378–418) with `{false && (...)}` so the code is preserved but never rendered.
-- Also remove the provider selector requirement from the booking form is **out of scope** — leave it (booking flow is being replaced with mailto in step 3).
+### 1. `src/components/Navbar.tsx` — new nav structure
 
-### 2. Wire all three forms to Formspree → nigel@worldchangersmh.org
-Use endpoint `https://formspree.io/f/xwkgpnqb` for all three. POST as JSON with `Accept: application/json`. On success show inline confirmation + sonner toast; on failure show error toast.
+Replace `navLinks` with:
 
-- **Contact form** (`src/pages/Contact.tsx`): replace the Supabase insert in `handleSubmit` with a `fetch` to Formspree. Keep existing success-screen UI.
-- **Newsletter form** (`src/pages/Contact.tsx`): replace the Supabase insert in `handleNewsletterSubmit` with a Formspree fetch (include `_subject: "Newsletter signup"`). Keep existing success UI.
-- **Volunteer form** (`src/pages/Volunteers.tsx`): add controlled state (name, email, motivation), replace the stub `onSubmit` with a Formspree fetch (include `_subject: "Volunteer application"`), add loading state and error toast. Keep existing "Thank You!" success screen.
+```
+Home              → /
+About             → /about
+Our Work ▾
+  Mental Health Services → /mental-health
+  Programmes & Impact    → /philanthropy
+  Events                 → /events
+Get Involved ▾
+  Become a Volunteer → /become-volunteer
+  Donate             → https://paystack.shop/pay/87qgnu5n8o (target _blank)
+Contact           → /contact
+```
 
-### 3. Replace booking calendar with mailto
-**File:** `src/pages/MentalHealth.tsx`
-- Replace the "Open Booking Calendar" button (line 229–231) with an `<a>` styled like the Button pointing to `mailto:nigel@worldchangersmh.org?subject=Booking%20Request`.
-- Remove (or simply stop rendering) the modal booking section (lines 237–376) since it's no longer reachable. Keep the code but wrap in `{false && (...)}` for easy restore.
+- Dropdown items support either internal `path` or external `href` (open in new tab). Update the desktop dropdown render and mobile Sheet render to handle both (use `<a target="_blank" rel="noopener noreferrer">` when `href` is set).
+- Remove the Shop cart icon link (`/shop`) from the top-right icon cluster.
+- Remove the Login/User icon link from the top-right icon cluster.
+- Keep the Language selector.
+- Replace the single "Donate Now" right-side button with two right-side CTAs (desktop + mobile sheet footer):
+  - **Donate Now** → `https://paystack.shop/pay/87qgnu5n8o` (new tab) — `bg-accent text-accent-foreground hover:bg-accent/90` (accent, high contrast)
+  - **Get Help** → `/mental-health` — outlined primary (`variant="outline"` with `border-primary text-primary hover:bg-primary hover:text-primary-foreground`)
+- Remove "Pages" dropdown entirely (Portfolio, Gallery, FAQ, Shop, News, Team, Become Volunteer, Events all gone or relocated as above). Team/Portfolio/Gallery/FAQ/Shop/News pages remain reachable by URL but not from the menu.
 
-### 4. Replace event ticket button with mailto
-**File:** `src/pages/Events.tsx`
-- Replace the "Get Tickets" Button (lines ~131–134) with an `<a>` to `mailto:nigel@worldchangersmh.org?subject=Event%20Ticket%20Enquiry%20-%20<event title>` styled identically.
-- Remove the `TicketBookingDialog` import/usage and the `selectedEvent`/`dialogOpen` state (dead after the swap).
+### 2. `src/components/Footer.tsx` — new column structure
 
-### 5. Remove non-WCMHCO products from the shop
-Products are pulled live from Shopify. Two-part approach:
-- **Frontend safety net**: in `src/pages/Shop.tsx`, add a denylist filter (smartwatch, label printer, baby carrier, and any other non-branded keywords detected) applied to the products array before render, so even if a product slips through Shopify it's not displayed.
-- **Source cleanup**: connect Shopify, list all products, identify the non-WCMHCO ones, and delete them from the store. (Will need `shopify--connect_shopify_account` first; then `shopify--list_products` and `shopify--delete_product` for each offending item, with your confirmation before deleting.)
+Replace the Quick Links + Programs columns with four columns. Keep the first column (org info + reg numbers) and the fourth column (Contact Info block with VoiceAgent/email/address). Update to:
 
-### 6. Populate the Policies page
-**File:** `src/pages/Policies.tsx`
-- Add a new section (above existing "Governance" grid, or replacing the placeholder feel) containing three clean cards/blocks:
-  - **Privacy Policy** — WCMHCO collects only the information necessary to deliver its services (e.g. contact details for enquiries, bookings, donations and volunteer applications). We do not sell, rent or share personal data with third parties for marketing. Data is stored securely and retained only as long as needed.
-  - **Refund Policy** — All donations made to WCMHCO are non-refundable. For event tickets or merchandise purchases, please contact info@worldchangersmh.org within 7 days for assistance.
-  - **Cookie Policy** — This site uses essential cookies to keep the site functioning and minimal analytics cookies to understand how visitors use it. No personal advertising profiles are built. You can disable cookies in your browser settings.
-- Keep current styling/tokens; use existing `SectionHeading` + card pattern. No layout overhaul.
+- **Organisation**: Home (/), About Us (/about), Contact (/contact)
+- **Our Work**: Mental Health Services (/mental-health), Programmes & Impact (/philanthropy), Events (/events)
+- **Get Involved**: Become a Volunteer (/become-volunteer), Donate Now (Paystack, new tab)
+- **Legal**: Privacy Policy (/policies), and plain text "NPO 238-677 · PBO 930084594"
 
-### 7. Mobile hero contrast fix
-**File:** `src/pages/Index.tsx` (hero, lines 76–134)
-- Strengthen the dark overlay on small screens: change `bg-primary/30` to `bg-primary/55 sm:bg-primary/30` (or add an additional `bg-foreground/40 sm:bg-foreground/0` layer behind the text) so white headline + tagline pass WCAG AA on mobile while desktop visual stays the same.
-- Optionally add `drop-shadow-lg` to the H1 on `sm:drop-shadow-none` if needed for extra legibility.
+Keep the existing Contact info block by merging it into the org column or as a fifth block — to stay minimal and within the existing grid, fold contact email/address/voice into the **Organisation** column (under the existing reg numbers). Use `lg:grid-cols-4` with the four columns above. Remove Programs column.
+
+Remove from footer: Shop, Portfolio, Login, Donor Dashboard (/campaigns) link.
+
+### 3. `src/pages/Index.tsx` — CTA wiring
+
+- Hero **Explore More** button: change `<Link to="/about">` → `<Link to="/mental-health">`. Keep label/translation key.
+- Hero **Donate Now** button: already Paystack — leave.
+- **Portfolio CTA section** (lines 308–316, the `<section>` containing `SectionHeading` portfolioLabel/Title/Desc and "View All Projects" button): delete the entire section.
+- Scan the rest of Index.tsx for any other "Donate"/CTA bottom section pointing to `/contact`; if present, repoint to Paystack (new tab). Plan view shows lines 1–332; will read 333–367 during implementation to confirm and fix the bottom CTA referenced by user.
+
+### 4. `src/App.tsx` — keep all routes
+
+No route deletions. `/shop`, `/portfolio`, `/login`, `/campaigns`, `/team`, `/gallery`, `/faq`, `/news`, `/product/:handle`, `/profile-settings`, `/mood-tracker` all remain so existing URLs/SEO don't 404.
+
+### 5. Out of scope (untouched)
+
+- All page content, copy, images, styling, brand tokens
+- `/team`, `/mental-health` content, `/campaigns` Paystack/bank details
+- `VoiceAgent` component, i18n keys, SEO meta
+
+### Files touched
+
+- `src/components/Navbar.tsx`
+- `src/components/Footer.tsx`
+- `src/pages/Index.tsx`
 
 ### Technical notes
 
-- Formspree endpoint: `https://formspree.io/f/xwkgpnqb` (as supplied). All three forms post the same way:
-  ```ts
-  await fetch("https://formspree.io/f/xwkgpnqb", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({ ...fields, _subject: "..." }),
-  });
-  ```
-- No DB migrations, RLS changes, edge-function changes, or design-token edits.
-- Shopify deletion runs only after you confirm the product list.
-
-### Files touched
-- `src/pages/MentalHealth.tsx` (steps 1, 3)
-- `src/pages/Contact.tsx` (step 2)
-- `src/pages/Volunteers.tsx` (step 2)
-- `src/pages/Events.tsx` (step 4)
-- `src/pages/Shop.tsx` (step 5 — frontend filter)
-- `src/pages/Policies.tsx` (step 6)
-- `src/pages/Index.tsx` (step 7)
-- Shopify store (step 5 — product deletions, with confirmation)
+- Donate URL constant: `https://paystack.shop/pay/87qgnu5n8o`, always `target="_blank" rel="noopener noreferrer"`.
+- Dropdown item type extended: `{ label: string; path?: string; href?: string; external?: boolean }`.
+- "Get Help" button uses outlined primary variant; "Donate Now" uses accent fill — both visible on desktop top bar and inside the mobile Sheet footer.
+- i18n: reuse existing translation keys where they already exist (`nav.donateNow`, `nav.about`, `nav.mentalHealth`, `nav.philanthropy`, `nav.events`, `nav.becomeVolunteer`, `nav.contact`, `nav.home`). For new labels ("Our Work", "Get Involved", "Get Help", "Donate", "Programmes & Impact", "Mental Health Services", "Organisation", "Our Work", "Get Involved", "Legal", "Privacy Policy") use plain English strings inline — translation file edits are out of scope per Part 6.
