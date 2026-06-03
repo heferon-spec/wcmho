@@ -103,7 +103,7 @@ const Index = () => {
               transition={{ delay: 0.6 }}
               className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-base px-8">
-                <Link to="/about">{t("common.exploreMore")} <ArrowRight className="w-4 h-4 ml-2" /></Link>
+                <Link to="/mental-health">{t("common.exploreMore")} <ArrowRight className="w-4 h-4 ml-2" /></Link>
               </Button>
               <Button asChild size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 text-base px-10 font-bold shadow-elevated">
                 <Link to="/become-volunteer">{t("common.becomeVolunteer")} <HandHeart className="w-5 h-5 ml-2" /></Link>
@@ -305,15 +305,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Portfolio CTA */}
-      <section className="section-padding">
-        <div className="container mx-auto text-center">
-          <SectionHeading label={t("index.portfolioLabel")} title={t("index.portfolioTitle")} description={t("index.portfolioDesc")} />
-          <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
-            <Link to="/portfolio">{t("common.viewAllProjects")} <ArrowRight className="w-4 h-4 ml-2" /></Link>
-          </Button>
-        </div>
-      </section>
 
       {/* Introductory Video Section */}
       <section className="section-padding bg-muted">
@@ -351,7 +342,7 @@ const Index = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-base px-8">
-                <Link to="/contact">{t("common.donateNow")}</Link>
+                <a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer">{t("common.donateNow")}</a>
               </Button>
               <Button asChild size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 text-base px-10 font-bold">
                 <Link to="/become-volunteer">{t("common.becomeVolunteer")} <HandHeart className="w-5 h-5 ml-2" /></Link>

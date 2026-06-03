@@ -27,35 +27,31 @@ const Footer = () => {
             </p>
           </div>
           <div>
-            <h4 className="font-heading text-base font-semibold mb-4">{t("footer.quickLinks")}</h4>
+            <h4 className="font-heading text-base font-semibold mb-4">Organisation</h4>
             <ul className="space-y-2 text-sm opacity-70">
-              {[
-                { label: t("nav.about"), path: "/about" },
-                { label: t("nav.mentalHealth"), path: "/mental-health" },
-                { label: t("nav.philanthropy"), path: "/philanthropy" },
-                { label: t("nav.donorDashboard"), path: "/campaigns" },
-                { label: t("nav.ourTeam"), path: "/team" },
-                { label: t("nav.events"), path: "/events" },
-                { label: t("nav.contact"), path: "/contact" },
-                { label: "Policies", path: "/policies" },
-              ].map((l) => (
-                <li key={l.path}>
-                  <Link to={l.path} className="hover:opacity-100 hover:text-accent transition-all">{l.label}</Link>
-                </li>
-              ))}
+              <li><Link to="/" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.home")}</Link></li>
+              <li><Link to="/about" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.about")}</Link></li>
+              <li><Link to="/contact" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.contact")}</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-heading text-base font-semibold mb-4">{t("footer.programs")}</h4>
+            <h4 className="font-heading text-base font-semibold mb-4">Our Work</h4>
             <ul className="space-y-2 text-sm opacity-70">
-              <li>Anxiety & Depression Care</li>
-              <li>Youth Mental Health</li>
-              <li>Community Outreach</li>
-              <li>Volunteer Programs</li>
-              <li>Fundraising Campaigns</li>
-              <li>Trauma Recovery</li>
-              <li>Skills Development</li>
-              <li>Humanitarian Aid</li>
+              <li><Link to="/mental-health" className="hover:opacity-100 hover:text-accent transition-all">Mental Health Services</Link></li>
+              <li><Link to="/philanthropy" className="hover:opacity-100 hover:text-accent transition-all">Programmes & Impact</Link></li>
+              <li><Link to="/events" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.events")}</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-heading text-base font-semibold mb-4">Get Involved</h4>
+            <ul className="space-y-2 text-sm opacity-70">
+              <li><Link to="/become-volunteer" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.becomeVolunteer")}</Link></li>
+              <li><a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.donateNow")}</a></li>
+            </ul>
+            <h4 className="font-heading text-base font-semibold mt-6 mb-4">Legal</h4>
+            <ul className="space-y-2 text-sm opacity-70">
+              <li><Link to="/policies" className="hover:opacity-100 hover:text-accent transition-all">Privacy Policy</Link></li>
+              <li className="text-xs">NPO 238-677 · PBO 930084594</li>
             </ul>
           </div>
           <div>
