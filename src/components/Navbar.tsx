@@ -21,7 +21,13 @@ const Navbar = () => {
 
   const navLinks: NavLink[] = [
     { label: t("nav.home"), path: "/" },
-    { label: t("nav.about"), path: "/about" },
+    {
+      label: t("nav.about"),
+      children: [
+        { label: "About Us", path: "/about" },
+        { label: "Our Team", path: "/team" },
+      ],
+    },
     {
       label: "Our Work",
       children: [
@@ -34,6 +40,7 @@ const Navbar = () => {
       label: "Get Involved",
       children: [
         { label: t("nav.becomeVolunteer"), path: "/become-volunteer" },
+        { label: "Partnerships", path: "/partnerships" },
         { label: "Donate", href: DONATE_URL },
       ],
     },
