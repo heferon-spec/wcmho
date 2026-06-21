@@ -17,6 +17,7 @@ import Contact from "./pages/Contact";
 import Team from "./pages/Team";
 import BecomeVolunteer from "./pages/BecomeVolunteer";
 import Portfolio from "./pages/Portfolio";
+import Partnerships from "./pages/Partnerships";
 import Gallery from "./pages/Gallery";
 import FAQ from "./pages/FAQ";
 import Shop from "./pages/Shop";
@@ -48,6 +49,7 @@ const AppContent = () => {
           <Route path="/team" element={<Team />} />
           <Route path="/become-volunteer" element={<BecomeVolunteer />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/partnerships" element={<Partnerships />} />
           <Route path="/events" element={<Events />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/faq" element={<FAQ />} />
