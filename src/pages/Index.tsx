@@ -14,16 +14,16 @@ import nigelJeche from "@/assets/nigel-jeche.png";
 import tebohoNthoana from "@/assets/teboho-nthoana.jpg";
 import kojoHudson from "@/assets/kojo-hudson.jpg";
 import lungeloNtobongwana from "@/assets/lungelo-ntobongwana.jpg";
-import thulisileButhelezi from "@/assets/thulisile-buthelezi.jpg";
-import thabangMokaka from "@/assets/thabang-mokaka.jpg";
+import boitumeloSedupane from "@/assets/boitumelo-sedupane.jpg";
+import florenceMaleka from "@/assets/florence-maleka.jpg";
 
 const boardMembers = [
-  { name: "Nigel Jeche", role: "CEO (Founder)", image: nigelJeche },
+  { name: "Nigel Jeche", role: "CEO & Founder", image: nigelJeche },
   { name: "Teboho Nthoana", role: "Chairperson", image: tebohoNthoana },
   { name: "Kojo Hudson", role: "Vice Chairperson", image: kojoHudson },
   { name: "Lungelo Ntobongwana", role: "Board Member", image: lungeloNtobongwana },
-  { name: "Thulisile P. Buthelezi", role: "Secretary", image: thulisileButhelezi },
-  { name: "Thabang K. Mokaka", role: "Administrator", image: thabangMokaka },
+  { name: "Boitumelo Sedupane", role: "Board Member", image: boitumeloSedupane },
+  { name: "Adv. Florence Maleka", role: "Board Member", image: florenceMaleka },
 ];
 
 const marqueeItems = ["Mental Health", "Education", "Counseling", "Wellness", "Support", "Donation"];

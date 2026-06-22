@@ -211,38 +211,49 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
 
   if (variant === "icon") {
     return (
-      <button
-        onClick={isActive ? stopConversation : startConversation}
-        disabled={isConnecting}
-        className={`relative flex items-center gap-3 group ${className}`}
-        title={isActive ? "End call" : "Call now"}
-      >
-        <div className="relative flex items-center justify-center" style={{ width: 56, height: 56 }}>
-          {isActive && <SpeakingWaves isSpeaking={conversation.isSpeaking} />}
-          <img
-            src={receptionistAvatar}
-            alt="AI Receptionist"
-            className={`w-12 h-12 rounded-full object-cover border-2 relative z-10 transition-all ${
-              isActive ? "border-primary shadow-lg" : "border-border group-hover:border-primary/50"
-            }`}
-          />
-          {isActive && (
-            <span className="absolute top-0 right-0 w-3 h-3 bg-accent rounded-full border-2 border-card z-20" />
-          )}
-        </div>
-        <div>
-          <span className="text-xs text-muted-foreground block">
-            {isActive ? "End Call" : "Call Now"}
-          </span>
-          <span className="font-semibold text-sm text-foreground">
-            {isActive
-              ? conversation.isSpeaking
-                ? "Agent speaking..."
-                : "Listening..."
-              : "Call Now (The Reception)"}
-          </span>
-        </div>
-      </button>
+      <div className={`flex flex-col items-start gap-2 ${className}`}>
+        <button
+          onClick={isActive ? stopConversation : startConversation}
+          disabled={isConnecting}
+          aria-label={isActive ? "End reception call" : "Call the Reception now"}
+          className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-colors shadow-md disabled:opacity-50"
+          title={isActive ? "End call" : "Call the Reception"}
+        >
+          <Phone className="w-5 h-5" />
+        </button>
+        <button
+          onClick={isActive ? stopConversation : startConversation}
+          disabled={isConnecting}
+          className="relative flex items-center gap-3 group"
+          title={isActive ? "End call" : "Call now"}
+        >
+          <div className="relative flex items-center justify-center" style={{ width: 56, height: 56 }}>
+            {isActive && <SpeakingWaves isSpeaking={conversation.isSpeaking} />}
+            <img
+              src={receptionistAvatar}
+              alt="AI Receptionist"
+              className={`w-12 h-12 rounded-full object-cover border-2 relative z-10 transition-all ${
+                isActive ? "border-primary shadow-lg" : "border-border group-hover:border-primary/50"
+              }`}
+            />
+            {isActive && (
+              <span className="absolute top-0 right-0 w-3 h-3 bg-accent rounded-full border-2 border-card z-20" />
+            )}
+          </div>
+          <div className="text-left">
+            <span className="text-xs text-muted-foreground block">
+              {isActive ? "End Call" : "Call Now"}
+            </span>
+            <span className="font-semibold text-sm text-foreground">
+              {isActive
+                ? conversation.isSpeaking
+                  ? "Agent speaking..."
+                  : "Listening..."
+                : "Call Now (The Reception)"}
+            </span>
+          </div>
+        </button>
+      </div>
     );
   }
 
@@ -289,6 +300,15 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
             exit={{ opacity: 0, scale: 0.95 }}
             className="flex flex-col items-center gap-4"
           >
+            <button
+              onClick={startConversation}
+              disabled={isConnecting}
+              aria-label="Call the Reception now"
+              className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-colors shadow-md disabled:opacity-50"
+              title="Call the Reception"
+            >
+              <Phone className="w-5 h-5" />
+            </button>
             <button
               onClick={startConversation}
               disabled={isConnecting}
