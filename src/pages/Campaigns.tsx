@@ -30,7 +30,7 @@ const fetchCampaigns = async () => {
 };
 
 const fetchDonations = async () => {
-  const { data, error } = await supabase.from("campaign_donations").select("id, campaign_id, amount, created_at").order("created_at", { ascending: false }).limit(100);
+  const { data, error } = await (supabase as any).from("public_campaign_donations").select("id, campaign_id, amount, created_at").order("created_at", { ascending: false }).limit(100);
   if (error) throw error;
   return data;
 };

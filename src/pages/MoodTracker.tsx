@@ -44,14 +44,6 @@ const MoodTracker = () => {
   useEffect(() => {
     if (!user) { navigate("/login"); return; }
     fetchEntries();
-    // Realtime subscription
-    const channel = supabase
-      .channel("mood-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "mood_entries", filter: `user_id=eq.${user.id}` }, () => {
-        fetchEntries();
-      })
-      .subscribe();
-    return () => { supabase.removeChannel(channel); };
   }, [user]);
 
   const fetchEntries = async () => {
