@@ -9,15 +9,19 @@ import TicketBookingDialog from "@/components/TicketBookingDialog";
 import { useTranslation } from "react-i18next";
 import aboutBg from "@/assets/about-bg.jpg";
 
-const events = [
-  { title: "Mental Health Awareness Walk", date: "2026-03-15", time: "08:00 AM", location: "Johannesburg CBD", price: "Free", category: "Awareness", spots: 200 },
-  { title: "Youth Resilience Workshop", date: "2026-03-22", time: "10:00 AM", location: "Kenilworth Community Hall", price: "R50", category: "Workshop", spots: 50 },
-  { title: "Annual Fundraising Gala", date: "2026-04-10", time: "06:00 PM", location: "Sandton Convention Centre", price: "R500", category: "Fundraising", spots: 300 },
-  { title: "Trauma-Informed Care Training", date: "2026-04-18", time: "09:00 AM", location: "Online (Zoom)", price: "R150", category: "Training", spots: 100 },
-  { title: "World Mental Health Day Celebration", date: "2026-10-10", time: "10:00 AM", location: "Constitution Hill, JHB", price: "Free", category: "Awareness", spots: 500 },
-  { title: "Volunteer Appreciation Dinner", date: "2026-05-20", time: "06:30 PM", location: "Melrose Arch", price: "R200", category: "Social", spots: 80 },
-  { title: "Mindfulness & Meditation Retreat", date: "2026-06-14", time: "07:00 AM", location: "Magaliesberg Mountains", price: "R1,200", category: "Retreat", spots: 30 },
-  { title: "School Counselor Certification Program", date: "2026-07-05", time: "08:00 AM", location: "Wits University", price: "R2,500", category: "Training", spots: 40 },
+type EventItem = {
+  title: string;
+  monthLabel: string;
+  dateNote: string;
+  location: string;
+  category: string;
+  comingSoon: boolean;
+};
+
+const events: EventItem[] = [
+  { title: "Mental Health Golf Day", monthLabel: "NOV", dateNote: "Date to be confirmed", location: "Johannesburg", category: "Fundraising", comingSoon: true },
+  { title: "Thrive Fest – Wellness Festival", monthLabel: "DEC", dateNote: "Date to be confirmed", location: "Cape Town", category: "Wellness", comingSoon: true },
+  { title: "Annual Fundraising Gala Dinner", monthLabel: "DEC", dateNote: "Date to be confirmed", location: "Johannesburg", category: "Fundraising", comingSoon: true },
 ];
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
