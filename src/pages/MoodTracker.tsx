@@ -75,6 +75,7 @@ const MoodTracker = () => {
       toast.success("Mood logged!");
       setSelectedMood(null);
       setNote("");
+      await fetchEntries();
     } catch (err: any) {
       toast.error(err.message || "Failed to log mood");
     } finally {
@@ -85,7 +86,10 @@ const MoodTracker = () => {
   const handleDelete = async (id: string) => {
     const { error } = await supabase.from("mood_entries").delete().eq("id", id);
     if (error) toast.error("Failed to delete");
-    else toast.success("Entry removed");
+    else {
+      toast.success("Entry removed");
+      await fetchEntries();
+    }
   };
 
   // Chart data
