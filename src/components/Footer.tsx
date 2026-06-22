@@ -51,7 +51,6 @@ const Footer = () => {
             <h4 className="font-heading text-base font-semibold mt-6 mb-4">Legal</h4>
             <ul className="space-y-2 text-sm opacity-70">
               <li><Link to="/policies" className="hover:opacity-100 hover:text-accent transition-all">Privacy Policy</Link></li>
-              <li className="text-xs">NPO 238-677 · PBO 930084594</li>
             </ul>
           </div>
           <div>
