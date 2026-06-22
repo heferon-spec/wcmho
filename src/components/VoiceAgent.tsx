@@ -211,15 +211,16 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
 
   if (variant === "icon") {
     return (
-      <div className={`flex flex-col items-start gap-2 ${className}`}>
+      <div className={`flex flex-col items-start gap-3 ${className}`}>
         <button
           onClick={isActive ? stopConversation : startConversation}
           disabled={isConnecting}
           aria-label={isActive ? "End reception call" : "Call the Reception now"}
-          className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-colors shadow-md disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 px-5 h-11 rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors shadow-md disabled:opacity-50 font-semibold text-sm"
           title={isActive ? "End call" : "Call the Reception"}
         >
-          <Phone className="w-5 h-5" />
+          <Phone className="w-4 h-4" />
+          {isActive ? "End Call" : isConnecting ? "Connecting..." : "Call Now"}
         </button>
         <button
           onClick={isActive ? stopConversation : startConversation}
@@ -242,14 +243,14 @@ const VoiceAgent = ({ variant = "button", className = "" }: VoiceAgentProps) => 
           </div>
           <div className="text-left">
             <span className="text-xs text-muted-foreground block">
-              {isActive ? "End Call" : "Call Now"}
+              {isActive ? "On call" : "The Reception"}
             </span>
             <span className="font-semibold text-sm text-foreground">
               {isActive
                 ? conversation.isSpeaking
                   ? "Agent speaking..."
                   : "Listening..."
-                : "Call Now (The Reception)"}
+                : "AI Receptionist"}
             </span>
           </div>
         </button>
