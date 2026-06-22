@@ -423,13 +423,86 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_campaign_donations: {
+        Row: {
+          amount: number | null
+          campaign_id: string | null
+          created_at: string | null
+          id: string | null
+        }
+        Insert: {
+          amount?: number | null
+          campaign_id?: string | null
+          created_at?: string | null
+          id?: string | null
+        }
+        Update: {
+          amount?: number | null
+          campaign_id?: string | null
+          created_at?: string | null
+          id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_donations_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
+        }
+        Returns: boolean
+      }
+      voice_cancel_booking: {
+        Args: { p_booking_id: string; p_email: string }
+        Returns: boolean
+      }
+      voice_cancel_booking_by_email: {
+        Args: { p_email: string; p_session_date: string }
+        Returns: boolean
+      }
+      voice_check_availability: {
+        Args: { p_date: string; p_provider: string }
+        Returns: {
+          session_time: string
+        }[]
+      }
+      voice_get_bookings: {
+        Args: { p_email?: string; p_phone?: string }
+        Returns: {
+          full_name: string
+          id: string
+          provider_name: string
+          session_date: string
+          session_mode: string
+          session_time: string
+          session_type: string
+          status: string
+        }[]
+      }
+      voice_reschedule_booking: {
+        Args: {
+          p_booking_id: string
+          p_email: string
+          p_new_date: string
+          p_new_time: string
+        }
+        Returns: boolean
+      }
+      voice_reschedule_booking_by_email: {
+        Args: {
+          p_email: string
+          p_new_date: string
+          p_new_time: string
+          p_original_date: string
         }
         Returns: boolean
       }

@@ -44,14 +44,6 @@ const MoodTracker = () => {
   useEffect(() => {
     if (!user) { navigate("/login"); return; }
     fetchEntries();
-    // Realtime subscription
-    const channel = supabase
-      .channel("mood-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "mood_entries", filter: `user_id=eq.${user.id}` }, () => {
-        fetchEntries();
-      })
-      .subscribe();
-    return () => { supabase.removeChannel(channel); };
   }, [user]);
 
   const fetchEntries = async () => {
@@ -83,6 +75,7 @@ const MoodTracker = () => {
       toast.success("Mood logged!");
       setSelectedMood(null);
       setNote("");
+      await fetchEntries();
     } catch (err: any) {
       toast.error(err.message || "Failed to log mood");
     } finally {
@@ -93,7 +86,10 @@ const MoodTracker = () => {
   const handleDelete = async (id: string) => {
     const { error } = await supabase.from("mood_entries").delete().eq("id", id);
     if (error) toast.error("Failed to delete");
-    else toast.success("Entry removed");
+    else {
+      toast.success("Entry removed");
+      await fetchEntries();
+    }
   };
 
   // Chart data
