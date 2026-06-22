@@ -50,10 +50,10 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-card/90 backdrop-blur-md border-b border-border">
-      <div className="container mx-auto flex items-center justify-between h-24 md:h-28 px-4">
+      <div className="container mx-auto flex items-center justify-between h-28 md:h-32 px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <img alt="World Changers" className="h-20 md:h-28 w-auto mix-blend-multiply" src="/lovable-uploads/23ca8ce6-94a0-490f-b830-aa186f641c8c.png" />
+          <img alt="World Changers" className="h-24 md:h-32 w-auto mix-blend-multiply" src="/lovable-uploads/23ca8ce6-94a0-490f-b830-aa186f641c8c.png" />
         </Link>
 
         {/* Desktop Nav */}
