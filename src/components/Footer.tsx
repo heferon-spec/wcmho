@@ -23,7 +23,7 @@ const Footer = () => {
             <p className="text-sm opacity-70 leading-relaxed mb-4">
               NGO REG: 238-677<br />
               PBO Number: 930084594<br /><br />
-              Your donations are eligible for tax deduction.
+              Donations are tax-deductible under Section 18A — a receipt is issued for every donation.
             </p>
           </div>
           <div>
@@ -31,6 +31,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm opacity-70">
               <li><Link to="/" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.home")}</Link></li>
               <li><Link to="/about" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.about")}</Link></li>
+              <li><Link to="/team" className="hover:opacity-100 hover:text-accent transition-all">Our Team</Link></li>
               <li><Link to="/contact" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.contact")}</Link></li>
             </ul>
           </div>
@@ -39,18 +40,24 @@ const Footer = () => {
             <ul className="space-y-2 text-sm opacity-70">
               <li><Link to="/mental-health" className="hover:opacity-100 hover:text-accent transition-all">Mental Health Services</Link></li>
               <li><Link to="/philanthropy" className="hover:opacity-100 hover:text-accent transition-all">Programmes & Impact</Link></li>
+              <li><Link to="/portfolio" className="hover:opacity-100 hover:text-accent transition-all">Portfolio</Link></li>
               <li><Link to="/events" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.events")}</Link></li>
+              <li><Link to="/news" className="hover:opacity-100 hover:text-accent transition-all">News</Link></li>
+              <li><Link to="/gallery" className="hover:opacity-100 hover:text-accent transition-all">Gallery</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-heading text-base font-semibold mb-4">Get Involved</h4>
             <ul className="space-y-2 text-sm opacity-70">
               <li><Link to="/become-volunteer" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.becomeVolunteer")}</Link></li>
+              <li><Link to="/campaigns" className="hover:opacity-100 hover:text-accent transition-all">Campaigns</Link></li>
+              <li><Link to="/faq" className="hover:opacity-100 hover:text-accent transition-all">FAQ</Link></li>
               <li><a href="https://paystack.shop/pay/87qgnu5n8o" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 hover:text-accent transition-all">{t("nav.donateNow")}</a></li>
             </ul>
             <h4 className="font-heading text-base font-semibold mt-6 mb-4">Legal</h4>
             <ul className="space-y-2 text-sm opacity-70">
               <li><Link to="/policies" className="hover:opacity-100 hover:text-accent transition-all">Privacy Policy</Link></li>
+              <li className="opacity-60">NPO 238-677 · PBO 930084594 · Section 18A receipts issued</li>
             </ul>
           </div>
           <div>

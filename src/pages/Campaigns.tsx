@@ -112,6 +112,7 @@ const Campaigns = () => {
                   {t("common.donateNow")} <ArrowRight className="w-4 h-4 ml-2" />
                 </a>
               </Button>
+              <p className="text-xs text-muted-foreground mt-3">Tax-deductible under Section 18A — a receipt is issued for every donation.</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
               className="bg-card rounded-xl p-8 shadow-elevated border border-border text-center">

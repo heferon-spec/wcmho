@@ -12,7 +12,6 @@
   <url><loc>https://world-changers-org.lovable.app/events</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://world-changers-org.lovable.app/gallery</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://world-changers-org.lovable.app/faq</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://world-changers-org.lovable.app/shop</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://world-changers-org.lovable.app/news</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://world-changers-org.lovable.app/policies</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
 </urlset>

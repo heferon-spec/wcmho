@@ -25,7 +25,6 @@ const Navbar = () => {
       label: t("nav.about"),
       children: [
         { label: "About Us", path: "/about" },
-        { label: "Our Team", path: "/team" },
       ],
     },
     {
@@ -33,16 +32,27 @@ const Navbar = () => {
       children: [
         { label: "Mental Health Services", path: "/mental-health" },
         { label: "Programmes & Impact", path: "/philanthropy" },
+        { label: "Portfolio", path: "/portfolio" },
         { label: t("nav.events"), path: "/events" },
       ],
     },
     {
+      label: "Media",
+      children: [
+        { label: "News", path: "/news" },
+        { label: "Gallery", path: "/gallery" },
+      ],
+    },
+    { label: "Our Team", path: "/team" },
+    {
       label: "Get Involved",
       children: [
         { label: t("nav.becomeVolunteer"), path: "/become-volunteer" },
+        { label: "Campaigns", path: "/campaigns" },
         { label: "Partnerships", path: "/partnerships" },
       ],
     },
+    { label: "FAQ", path: "/faq" },
     { label: t("nav.contact"), path: "/contact" },
   ];
 

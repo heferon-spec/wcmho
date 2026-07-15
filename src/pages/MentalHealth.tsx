@@ -1,23 +1,27 @@
 import { useState } from "react";
 import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
-import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X, Mic, Play, Phone, Video, ExternalLink } from "lucide-react";
+import { Brain, Shield, Users, Sparkles, HeartPulse, Leaf, Activity, Stethoscope, BookOpen, HandHeart, Presentation, CalendarDays, Clock, X, Mic, Play, Phone, Video } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
-import { format } from "date-fns";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import VoiceAgent from "@/components/VoiceAgent";
+import SafetyNote from "@/components/SafetyNote";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import mentalHealthBg from "@/assets/mental-health-bg.jpg";
+import bongiweMthembu from "@/assets/bongiwe-mthembu.jpeg";
+import masegoMitchell from "@/assets/masego-mitchell.jpeg";
+import nickyVlantis from "@/assets/nicky-vlantis.jpeg";
+import patienceThabede from "@/assets/patience-thabede.jpeg";
+import shelleyRoets from "@/assets/shelley-roets.jpeg";
+import takalaniMulaudzi from "@/assets/takalani-mulaudzi.jpeg";
 
 const programs = [
   { icon: Brain, title: "Cognitive Behavioral Therapy", desc: "Evidence-based approach to treating anxiety, depression, and other mental health conditions through structured therapeutic sessions." },
@@ -26,7 +30,7 @@ const programs = [
   { icon: Sparkles, title: "Mindfulness & Stress Relief", desc: "Meditation, breathing exercises, and mindfulness practices for daily mental wellness." },
   { icon: HeartPulse, title: "Substance Abuse Support", desc: "Holistic recovery programs addressing the root causes of addiction with compassion." },
   { icon: Leaf, title: "Youth & Adolescent Care", desc: "Age-appropriate interventions for children and teens navigating emotional and behavioral challenges." },
-  { icon: Activity, title: "Crisis Intervention", desc: "24/7 emergency mental health support for individuals in acute distress or danger." },
+  { icon: Activity, title: "Crisis Support & Referral", desc: "Compassionate psychosocial support with warm referral to appropriate emergency care for individuals in acute distress. We provide scheduled care, not a 24-hour emergency line." },
   { icon: Stethoscope, title: "Psychiatric Evaluation", desc: "Comprehensive diagnostic assessments to identify conditions and create personalized treatment plans." },
   { icon: BookOpen, title: "Psychoeducation Workshops", desc: "Community-based educational programs to build awareness and reduce mental health stigma." },
   { icon: HandHeart, title: "Grief & Loss Counseling", desc: "Compassionate support helping individuals navigate bereavement and life transitions." },
@@ -36,64 +40,34 @@ const programs = [
 
 const professionals = [
   {
-    name: "Dr. Sarah Mitchell", role: "Clinical Psychologist", specialty: "Anxiety & Depression", image: null,
-    bio: "Dr. Sarah Mitchell is a registered Clinical Psychologist with over 12 years of experience specialising in anxiety disorders, clinical depression, and mood regulation. She holds a PhD in Clinical Psychology from the University of Cape Town and is trained in Cognitive Behavioral Therapy (CBT), Dialectical Behavior Therapy (DBT), and Acceptance and Commitment Therapy (ACT).",
-    days: ["Monday", "Tuesday", "Wednesday"], times: ["09:00", "10:00", "11:00", "14:00", "15:00"],
+    name: "Bongiwe Nomshado Mthembu", role: "Licensed Social Worker", specialty: "Anxiety & Depression", image: bongiweMthembu,
+    bio: "Bongiwe Nomshado Mthembu is a qualified Social Worker with extensive experience in child protection, family support, and statutory social work services. She holds a Bachelor of Arts Honours in Social Work from the University of Johannesburg and a Master's Degree in Occupational Social Work from the University of the Witwatersrand, specialising in psychosocial assessments, family mediation, and child welfare interventions.",
+    byAppointment: true,
   },
   {
-    name: "Dr. James Hartwell", role: "Psychiatrist", specialty: "Trauma & PTSD", image: null,
-    bio: "Dr. James Hartwell is a board-certified Psychiatrist with 15 years of clinical experience in trauma recovery, PTSD, and complex dissociative disorders. He completed his medical degree at the University of the Witwatersrand and trained in psychopharmacology and trauma-focused interventions.",
-    days: ["Monday", "Wednesday", "Friday"], times: ["09:00", "10:00", "11:00", "12:00"],
+    name: "Masego Mitchell", role: "Licensed Counsellor", specialty: "Anxiety & Depression", image: masegoMitchell,
+    bio: "Masego Mitchell is a qualified Social Worker with four years of experience providing counselling, psychosocial support, and mental health advocacy services. She is passionate about empowering individuals and communities to build resilience and improve wellbeing, and is currently pursuing postgraduate studies in Clinical Social Work.",
+    byAppointment: true,
   },
   {
-    name: "Dr. Amara Osei", role: "Licensed Counselor", specialty: "Family Therapy", image: null,
-    bio: "Dr. Amara Osei is a Licensed Professional Counselor (LPC) with a Master's in Marriage and Family Therapy. With 10 years of experience, she specialises in systemic family therapy, couples counseling, and intergenerational trauma.",
-    days: ["Tuesday", "Thursday", "Friday"], times: ["10:00", "11:00", "13:00", "14:00", "15:00", "16:00"],
+    name: "Nicky Vlantis", role: "Licensed Counsellor", specialty: "Anxiety & Depression", image: nickyVlantis,
+    bio: "Nicky Vlantis is a qualified Counsellor with over six years of experience supporting learners, young professionals, and individuals facing personal and emotional challenges. She holds a BSc in Nutrition from the University of Natal and has completed counselling and life coaching training through Lifeline and Trifocus Academy, specialising in anxiety, depression, bereavement, addiction, eating disorders, and personal development using person-centred and cognitive behavioural approaches.",
+    byAppointment: true,
   },
   {
-    name: "Dr. Linda Khumalo", role: "Neuropsychologist", specialty: "Cognitive Disorders", image: null,
-    bio: "Dr. Linda Khumalo is a Neuropsychologist specialising in cognitive assessment, brain injury rehabilitation, and neurodevelopmental disorders. With over 14 years of experience, she conducts comprehensive neuropsychological evaluations.",
-    days: ["Monday", "Tuesday", "Thursday"], times: ["09:00", "10:00", "11:00", "14:00"],
+    name: "Patience Thabede", role: "Social Worker / Mental Health Practitioner", specialty: "Trauma-Informed Care", image: patienceThabede,
+    bio: "Patience Thabede is a registered Social Worker and Mental Health Practitioner with over 10 years of experience in trauma-informed psychosocial care. She holds a BA in Social Work from the University of KwaZulu-Natal, a Master's degree in Social Development and Policy from the University of Pretoria, and an International Diploma in Humanitarian Assistance from Fordham University, specialising in evidence-based counselling, crisis intervention, and mental health support.",
+    byAppointment: true,
   },
   {
-    name: "Dr. Michael Chen", role: "Child Psychiatrist", specialty: "Youth Mental Health", image: null,
-    bio: "Dr. Michael Chen is a Child and Adolescent Psychiatrist with 11 years of experience treating ADHD, autism spectrum disorders, childhood anxiety, and behavioral challenges.",
-    days: ["Monday", "Wednesday", "Thursday"], times: ["09:00", "10:00", "13:00", "14:00", "15:00"],
+    name: "Shelley Roets", role: "Mental Health Counsellor", specialty: "Anxiety, Stress & Grief", image: shelleyRoets,
+    bio: "Shelley Roets is a Mental Health Counsellor dedicated to helping individuals navigate life's challenges while building resilience, confidence, and emotional wellbeing. She specialises in supporting clients experiencing anxiety, stress, grief, relationship difficulties, and major life transitions through a compassionate, client-centred approach.",
+    byAppointment: true,
   },
   {
-    name: "Dr. Fatima Al-Rashid", role: "Clinical Psychologist", specialty: "OCD & Phobias", image: null,
-    bio: "Dr. Fatima Al-Rashid is a Clinical Psychologist specialising in Obsessive-Compulsive Disorder (OCD), specific phobias, and anxiety-related conditions. She is extensively trained in Exposure and Response Prevention (ERP) therapy.",
-    days: ["Tuesday", "Wednesday", "Friday"], times: ["10:00", "11:00", "12:00", "14:00", "15:00"],
-  },
-  {
-    name: "Dr. Robert Ndlovu", role: "Addiction Specialist", specialty: "Substance Abuse", image: null,
-    bio: "Dr. Robert Ndlovu is a certified Addiction Medicine Specialist with over 16 years of experience in substance abuse treatment, detoxification management, and relapse prevention.",
-    days: ["Monday", "Tuesday", "Wednesday", "Thursday"], times: ["09:00", "10:00", "11:00"],
-  },
-  {
-    name: "Dr. Emily Torres", role: "Trauma Therapist", specialty: "EMDR Therapy", image: null,
-    bio: "Dr. Emily Torres is a specialised Trauma Therapist and certified EMDR practitioner with 8 years of experience. She works with survivors of abuse, accident trauma, and combat-related PTSD.",
-    days: ["Wednesday", "Thursday", "Friday"], times: ["09:00", "10:00", "14:00", "15:00", "16:00"],
-  },
-  {
-    name: "Dr. David Moyo", role: "Forensic Psychologist", specialty: "Behavioral Analysis", image: null,
-    bio: "Dr. David Moyo is a Forensic Psychologist with 13 years of experience in criminal behavioural profiling, risk assessment, and court-mandated psychological evaluations.",
-    days: ["Monday", "Thursday", "Friday"], times: ["09:00", "11:00", "13:00", "14:00"],
-  },
-  {
-    name: "Dr. Priya Sharma", role: "Psychiatrist", specialty: "Bipolar Disorder", image: null,
-    bio: "Dr. Priya Sharma is a Psychiatrist with expertise in bipolar disorder, schizoaffective disorder, and treatment-resistant depression. With 12 years of clinical experience.",
-    days: ["Tuesday", "Wednesday", "Thursday"], times: ["10:00", "11:00", "12:00", "14:00", "15:00"],
-  },
-  {
-    name: "Dr. Nathan Brooks", role: "Geriatric Psychiatrist", specialty: "Elderly Care", image: null,
-    bio: "Dr. Nathan Brooks is a Geriatric Psychiatrist dedicated to the mental health of older adults. With 14 years of experience, he manages conditions including dementia-related behavioral issues and late-life depression.",
-    days: ["Monday", "Tuesday", "Friday"], times: ["09:00", "10:00", "11:00", "14:00"],
-  },
-  {
-    name: "Dr. Grace Okonkwo", role: "Licensed Counselor", specialty: "Grief Counseling", image: null,
-    bio: "Dr. Grace Okonkwo is a Licensed Grief Counselor with a Master's in Bereavement Studies and 10 years of experience helping individuals process loss through death, divorce, miscarriage, and significant life transitions.",
-    days: ["Monday", "Wednesday", "Thursday"], times: ["10:00", "11:00", "13:00", "14:00", "15:00"],
+    name: "Takalani Mulaudzi", role: "Social Worker / EAP Specialist", specialty: "Workplace Wellbeing", image: takalaniMulaudzi,
+    bio: "Ms Takalani Mulaudzi is a qualified Social Worker and Employee Assistance Programme (EAP) Specialist with over 15 years of experience in psychosocial support, counselling, and workplace wellbeing. She holds a Bachelor of Social Work, a BA Honours in Psychology, an Advanced EAP Certificate, and is currently pursuing a Master's degree in Psychology at the University of South Africa (UNISA), with a focus on employee wellbeing and mental health support.",
+    byAppointment: true,
   },
 ];
 
@@ -114,8 +88,7 @@ const fadeUp = {
 const MentalHealth = () => {
   const { t } = useTranslation();
   const [bookingOpen, setBookingOpen] = useState(false);
-  const [date, setDate] = useState<Date>();
-  const [time, setTime] = useState("");
+  const [preferredTime, setPreferredTime] = useState("");
   const [sessionType, setSessionType] = useState("");
   const [selectedProvider, setSelectedProvider] = useState("");
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
@@ -127,15 +100,13 @@ const MentalHealth = () => {
   const [submitting, setSubmitting] = useState(false);
   const { user } = useAuth();
 
-  const selectedProfessional = professionals.find((p) => p.name === selectedProvider);
-  const availableDays = selectedProfessional?.days || [];
-  const availableTimes = selectedProfessional?.times || [];
-
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!date || !time || !sessionType || !selectedProvider) return;
+    if (!sessionType || !selectedProvider) return;
     setSubmitting(true);
     try {
+      const today = new Date();
+      const requestDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
       const bookingData = {
         user_id: user?.id || null,
         full_name: bookingName,
@@ -143,16 +114,16 @@ const MentalHealth = () => {
         phone: bookingPhone,
         provider_name: selectedProvider,
         session_type: sessionType,
-        session_date: format(date, "yyyy-MM-dd"),
-        session_time: time,
-        reason: bookingReason || null,
-        status: "upcoming",
+        session_date: requestDate,
+        session_time: "By appointment",
+        reason: [preferredTime ? `Preferred time: ${preferredTime}` : null, bookingReason || null].filter(Boolean).join(" — ") || null,
+        status: "requested",
         session_mode: "Virtual",
       };
       const { error } = await supabase.from("bookings").insert(bookingData);
       if (error) throw error;
       setBookingSubmitted(true);
-      toast.success("Booking confirmed!");
+      toast.success("Appointment request sent!");
 
       // Send confirmation email (fire-and-forget)
       supabase.functions.invoke("send-booking-confirmation", {
@@ -180,6 +151,13 @@ const MentalHealth = () => {
 
       <SEO title="Mental Health Care Programs & Booking — World Changers" description="Book counseling, therapy and wellness programs with our qualified mental health providers. Confidential care across Southern Africa." path="/mental-health" />
       <PageHero title={t("mentalHealth.heroTitle")} subtitle={t("mentalHealth.heroSubtitle")} bgImage={mentalHealthBg} />
+
+      {/* Crisis safety note */}
+      <section className="pt-8 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <SafetyNote />
+        </div>
+      </section>
 
       {/* Programs */}
       <section className="section-padding">
@@ -249,28 +227,20 @@ const MentalHealth = () => {
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <CalendarDays className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Booking Confirmed!</h3>
-                  <p className="text-muted-foreground">Your 60-minute virtual {sessionType} session with {selectedProvider} is scheduled for {date && format(date, "PPP")} at {time}.</p>
+                  <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Appointment Requested!</h3>
+                  <p className="text-muted-foreground">Your {sessionType} request with {selectedProvider} has been received. We'll confirm your session by email or phone shortly.</p>
                   <p className="text-sm text-muted-foreground mt-2">A confirmation has been sent to info@worldchangersmh.org.</p>
                   <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-center">
-                    <a
-                      href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`Virtual ${sessionType} — ${selectedProvider}`)}&dates=${date ? format(date, "yyyyMMdd") : ""}T${time.replace(":", "")}00/${date ? format(date, "yyyyMMdd") : ""}T${(() => { const [h, m] = time.split(":").map(Number); return `${String(h + 1).padStart(2, "0")}${String(m).padStart(2, "0")}`; })()}00&details=${encodeURIComponent(`Virtual session with ${selectedProvider}\nType: ${sessionType}\nMode: Virtual`)}&location=Virtual`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity"
-                    >
-                      <CalendarDays className="w-4 h-4" /> Add to Google Calendar <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                    <Button onClick={() => { setBookingSubmitted(false); setDate(undefined); setTime(""); setSessionType(""); setSelectedProvider(""); setBookingName(""); setBookingEmail(""); setBookingPhone(""); setBookingReason(""); }}
+                    <Button onClick={() => { setBookingSubmitted(false); setPreferredTime(""); setSessionType(""); setSelectedProvider(""); setBookingName(""); setBookingEmail(""); setBookingPhone(""); setBookingReason(""); }}
                       variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                      Book Another Session
+                      Request Another Appointment
                     </Button>
                   </div>
                 </div>
               ) : (
                 <form onSubmit={handleBookingSubmit} className="space-y-5">
-                  <h3 className="font-heading text-xl font-bold text-foreground mb-2">Schedule Your Virtual Session</h3>
-                  <p className="text-sm text-muted-foreground mb-2">All sessions are 60 minutes and conducted virtually. Select your preferred provider to see their availability.</p>
+                  <h3 className="font-heading text-xl font-bold text-foreground mb-2">Request an Appointment</h3>
+                  <p className="text-sm text-muted-foreground mb-2">All sessions are 60 minutes and conducted virtually. Every provider is By Appointment only — tell us your preference and we'll confirm.</p>
                   <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
                     <Video className="w-3.5 h-3.5" /> Session Mode: Virtual
                   </div>
@@ -293,7 +263,7 @@ const MentalHealth = () => {
 
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Preferred Provider</label>
-                    <Select value={selectedProvider} onValueChange={(val) => { setSelectedProvider(val); setDate(undefined); setTime(""); }}>
+                    <Select value={selectedProvider} onValueChange={setSelectedProvider}>
                       <SelectTrigger><SelectValue placeholder="Select a provider" /></SelectTrigger>
                       <SelectContent>
                         {professionals.map((p) => (
@@ -316,48 +286,18 @@ const MentalHealth = () => {
                   </div>
 
                   {selectedProvider && (
-                    <>
-                      <div>
-                        <label className="text-sm font-medium text-foreground mb-1.5 block">
-                          Preferred Date <span className="text-xs text-muted-foreground">({selectedProfessional?.days.join(", ")})</span>
-                        </label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}>
-                              <CalendarDays className="mr-2 h-4 w-4" />
-                              {date ? format(date, "PPP") : "Pick a date"}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single" selected={date} onSelect={setDate}
-                              disabled={(d) => {
-                                if (d < new Date()) return true;
-                                const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][d.getDay()];
-                                return !availableDays.includes(dayName);
-                              }}
-                              initialFocus className={cn("p-3 pointer-events-auto")}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </div>
-
-                      <div>
-                        <label className="text-sm font-medium text-foreground mb-1.5 block">Preferred Time</label>
-                        <div className="grid grid-cols-4 gap-2">
-                          {availableTimes.map((slot) => (
-                            <button key={slot} type="button" onClick={() => setTime(slot)}
-                              className={cn(
-                                "px-3 py-2 rounded-lg text-sm font-medium border transition-all",
-                                time === slot ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border text-foreground hover:border-primary"
-                              )}>
-                              <Clock className="w-3 h-3 inline mr-1" />{slot}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </>
+                    <div className="rounded-lg bg-muted/60 border border-border px-4 py-3">
+                      <p className="text-sm font-medium text-foreground flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5 text-primary" /> By Appointment only
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">This provider does not take live bookings — tell us your preferred day/time below and we'll confirm by email or phone.</p>
+                    </div>
                   )}
+
+                  <div>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">Preferred Date/Time <span className="text-xs text-muted-foreground">(optional)</span></label>
+                    <Input placeholder="e.g. Weekday mornings, or Tuesday after 2pm" value={preferredTime} onChange={(e) => setPreferredTime(e.target.value)} />
+                  </div>
 
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Brief Reason for Visit</label>
@@ -365,8 +305,8 @@ const MentalHealth = () => {
                   </div>
 
                   <Button type="submit" size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90"
-                    disabled={!date || !time || !sessionType || !selectedProvider || submitting}>
-                    {submitting ? "Booking..." : "Confirm Booking"}
+                    disabled={!sessionType || !selectedProvider || submitting}>
+                    {submitting ? "Sending..." : "Request Appointment"}
                   </Button>
                 </form>
               )}
@@ -398,7 +338,7 @@ const MentalHealth = () => {
                     <p className="text-primary text-sm font-medium mt-0.5">{p.role}</p>
                     <p className="text-muted-foreground text-xs mt-0.5">{p.specialty}</p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      <span className="font-medium text-foreground">Available:</span> {p.days.join(", ")}
+                      <span className="font-medium text-foreground">Available:</span> By Appointment only
                     </p>
                   </div>
                 </div>
