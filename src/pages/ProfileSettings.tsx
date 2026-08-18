@@ -10,9 +10,11 @@ import PageHero from "@/components/PageHero";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const ProfileSettings = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -51,7 +53,7 @@ const ProfileSettings = () => {
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !user) return;
-    if (file.size > 2 * 1024 * 1024) { toast.error("File must be under 2MB"); return; }
+    if (file.size > 2 * 1024 * 1024) { toast.error(t("profileSettings.toastFileTooLarge")); return; }
 
     setUploading(true);
     try {
@@ -61,9 +63,9 @@ const ProfileSettings = () => {
       if (uploadError) throw uploadError;
       const { data: { publicUrl } } = supabase.storage.from("avatars").getPublicUrl(path);
       setAvatarUrl(`${publicUrl}?t=${Date.now()}`);
-      toast.success("Avatar uploaded!");
+      toast.success(t("profileSettings.toastAvatarUploaded"));
     } catch (err: any) {
-      toast.error(err.message || "Upload failed");
+      toast.error(err.message || t("profileSettings.toastUploadFailed"));
     } finally {
       setUploading(false);
     }
@@ -85,9 +87,9 @@ const ProfileSettings = () => {
       if (error) throw error;
 
       await supabase.auth.updateUser({ data: { full_name: fullName, avatar_url: avatarUrl } });
-      toast.success("Profile updated!");
+      toast.success(t("profileSettings.toastProfileUpdated"));
     } catch (err: any) {
-      toast.error(err.message || "Failed to save");
+      toast.error(err.message || t("profileSettings.toastSaveFailed"));
     } finally {
       setSaving(false);
     }
@@ -103,12 +105,12 @@ const ProfileSettings = () => {
 
   return (
     <div>
-      <PageHero title="Profile Settings" subtitle="Update your personal information and preferences" bgImage={aboutBg} />
+      <PageHero title={t("profileSettings.heroTitle")} subtitle={t("profileSettings.heroSubtitle")} bgImage={aboutBg} />
 
       <section className="section-padding">
         <div className="container mx-auto max-w-2xl">
           <Button variant="ghost" size="sm" onClick={() => navigate("/login")} className="mb-6">
-            <ArrowLeft className="w-4 h-4 mr-1" /> Back to Dashboard
+            <ArrowLeft className="w-4 h-4 mr-1" /> {t("profileSettings.backToDashboard")}
           </Button>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -116,7 +118,7 @@ const ProfileSettings = () => {
             {/* Avatar & Name */}
             <div className="bg-card rounded-2xl p-6 shadow-card border border-border">
               <h2 className="font-heading text-lg font-bold text-foreground mb-5 flex items-center gap-2">
-                <User className="w-5 h-5 text-primary" /> Personal Information
+                <User className="w-5 h-5 text-primary" /> {t("profileSettings.personalInformation")}
               </h2>
               <div className="flex items-center gap-6 mb-6">
                 <div className="relative group">
@@ -137,20 +139,20 @@ const ProfileSettings = () => {
                   <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-muted-foreground mb-1">Click avatar to change photo</p>
-                  <p className="text-xs text-muted-foreground">Max 2MB, JPG or PNG</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t("profileSettings.clickAvatar")}</p>
+                  <p className="text-xs text-muted-foreground">{t("profileSettings.avatarConstraints")}</p>
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="fullName">Full Name</Label>
-                  <Input id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Your name" className="mt-1.5" />
+                  <Label htmlFor="fullName">{t("profileSettings.fullName")}</Label>
+                  <Input id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder={t("profileSettings.fullNamePlaceholder")} className="mt-1.5" />
                 </div>
                 <div>
-                  <Label>Email</Label>
+                  <Label>{t("profileSettings.email")}</Label>
                   <Input value={user.email || ""} disabled className="mt-1.5 bg-muted" />
-                  <p className="text-xs text-muted-foreground mt-1">Email cannot be changed here</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("profileSettings.emailReadonly")}</p>
                 </div>
               </div>
             </div>
@@ -158,34 +160,34 @@ const ProfileSettings = () => {
             {/* Notification Preferences */}
             <div className="bg-card rounded-2xl p-6 shadow-card border border-border">
               <h2 className="font-heading text-lg font-bold text-foreground mb-5 flex items-center gap-2">
-                <Bell className="w-5 h-5 text-accent" /> Notification Preferences
+                <Bell className="w-5 h-5 text-accent" /> {t("profileSettings.notificationPreferences")}
               </h2>
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center"><Mail className="w-4 h-4 text-primary" /></div>
-                    <div><p className="text-sm font-medium text-foreground">Email Notifications</p><p className="text-xs text-muted-foreground">Receive updates via email</p></div>
+                    <div><p className="text-sm font-medium text-foreground">{t("profileSettings.emailNotifications")}</p><p className="text-xs text-muted-foreground">{t("profileSettings.emailNotificationsDesc")}</p></div>
                   </div>
                   <Switch checked={notifEmail} onCheckedChange={setNotifEmail} />
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center"><MessageSquare className="w-4 h-4 text-primary" /></div>
-                    <div><p className="text-sm font-medium text-foreground">SMS Notifications</p><p className="text-xs text-muted-foreground">Receive text message alerts</p></div>
+                    <div><p className="text-sm font-medium text-foreground">{t("profileSettings.smsNotifications")}</p><p className="text-xs text-muted-foreground">{t("profileSettings.smsNotificationsDesc")}</p></div>
                   </div>
                   <Switch checked={notifSms} onCheckedChange={setNotifSms} />
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center"><Calendar className="w-4 h-4 text-accent" /></div>
-                    <div><p className="text-sm font-medium text-foreground">Booking Reminders</p><p className="text-xs text-muted-foreground">Get reminded about upcoming sessions</p></div>
+                    <div><p className="text-sm font-medium text-foreground">{t("profileSettings.bookingReminders")}</p><p className="text-xs text-muted-foreground">{t("profileSettings.bookingRemindersDesc")}</p></div>
                   </div>
                   <Switch checked={notifBookings} onCheckedChange={setNotifBookings} />
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center"><Heart className="w-4 h-4 text-accent" /></div>
-                    <div><p className="text-sm font-medium text-foreground">Wellness Tips</p><p className="text-xs text-muted-foreground">Daily wellness suggestions & prompts</p></div>
+                    <div><p className="text-sm font-medium text-foreground">{t("profileSettings.wellnessTips")}</p><p className="text-xs text-muted-foreground">{t("profileSettings.wellnessTipsDesc")}</p></div>
                   </div>
                   <Switch checked={notifWellness} onCheckedChange={setNotifWellness} />
                 </div>
@@ -195,7 +197,7 @@ const ProfileSettings = () => {
             {/* Save Button */}
             <Button onClick={handleSave} size="lg" className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90" disabled={saving}>
               {saving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-              Save Changes
+              {t("profileSettings.saveChanges")}
             </Button>
           </motion.div>
         </div>

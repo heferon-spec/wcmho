@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Loader2, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
@@ -10,6 +11,7 @@ import { toast } from "sonner";
 import ProductReviews from "@/components/ProductReviews";
 
 const ProductDetail = () => {
+  const { t } = useTranslation();
   const { handle } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState<any>(null);
@@ -48,8 +50,8 @@ const ProductDetail = () => {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <ShoppingBag className="w-16 h-16 text-muted-foreground/30" />
-        <p className="text-lg text-muted-foreground">Product not found</p>
-        <Button onClick={() => navigate('/shop')}>Back to Shop</Button>
+        <p className="text-lg text-muted-foreground">{t("productDetail.productNotFound")}</p>
+        <Button onClick={() => navigate('/shop')}>{t("productDetail.backToShop")}</Button>
       </div>
     );
   }
@@ -68,14 +70,14 @@ const ProductDetail = () => {
       quantity: 1,
       selectedOptions: selectedVariant.selectedOptions || [],
     });
-    toast.success("Added to cart", { description: `${product.title} - ${selectedVariant.title}` });
+    toast.success(t("productDetail.addedToCart"), { description: `${product.title} - ${selectedVariant.title}` });
   };
 
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-4">
         <Button variant="ghost" onClick={() => navigate('/shop')} className="mb-6">
-          <ArrowLeft className="w-4 h-4 mr-2" /> Back to Shop
+          <ArrowLeft className="w-4 h-4 mr-2" /> {t("productDetail.backToShop")}
         </Button>
 
         <div className="fixed bottom-6 right-6 z-40">
@@ -122,7 +124,7 @@ const ProductDetail = () => {
                 {images.map((img: any, idx: number) => (
                   <button key={idx} onClick={() => setSelectedImageIndex(idx)}
                     className={`w-16 h-16 rounded-lg overflow-hidden border-2 shrink-0 transition-colors ${idx === selectedImageIndex ? "border-primary" : "border-transparent"}`}>
-                    <img src={img.node.url} alt={img.node.altText || `View ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img src={img.node.url} alt={img.node.altText || t("productDetail.viewAlt", { num: idx + 1 })} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -168,7 +170,7 @@ const ProductDetail = () => {
               disabled={isLoading || !selectedVariant}
               className="mt-6 w-full md:w-auto"
             >
-              {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add to Cart"}
+              {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("productDetail.addToCart")}
             </Button>
           </div>
         </motion.div>

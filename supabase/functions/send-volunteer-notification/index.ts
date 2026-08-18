@@ -19,20 +19,21 @@ Deno.serve(async (req) => {
     }
 
     const body = await req.json();
-    const first_name = e(body.first_name);
-    const last_name = e(body.last_name);
-    const email = String(body.email || '').trim();
-    const phone = e(body.phone);
-    const date_of_birth = e(body.date_of_birth);
-    const city = e(body.city);
-    const address = e(body.address);
-    const area_of_interest = e(body.area_of_interest);
-    const availability = e(body.availability);
-    const previous_experience = e(body.previous_experience);
-    const motivation = e(body.motivation).replace(/\n/g, '<br/>');
-    const special_skills = e(body.special_skills);
-    const emergency_contact_name = e(body.emergency_contact_name);
-    const emergency_contact_phone = e(body.emergency_contact_phone);
+    const cap = (v: unknown, n: number) => String(v ?? '').slice(0, n);
+    const first_name = e(cap(body.first_name, 120));
+    const last_name = e(cap(body.last_name, 120));
+    const email = String(body.email || '').trim().slice(0, 200);
+    const phone = e(cap(body.phone, 40));
+    const date_of_birth = e(cap(body.date_of_birth, 40));
+    const city = e(cap(body.city, 120));
+    const address = e(cap(body.address, 300));
+    const area_of_interest = e(cap(body.area_of_interest, 200));
+    const availability = e(cap(body.availability, 200));
+    const previous_experience = e(cap(body.previous_experience, 3000));
+    const motivation = e(cap(body.motivation, 3000)).replace(/\n/g, '<br/>');
+    const special_skills = e(cap(body.special_skills, 2000));
+    const emergency_contact_name = e(cap(body.emergency_contact_name, 120));
+    const emergency_contact_phone = e(cap(body.emergency_contact_phone, 40));
 
     if (!email || !body.first_name || !body.last_name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return new Response(JSON.stringify({ error: 'Invalid input' }), {
@@ -48,13 +49,13 @@ Deno.serve(async (req) => {
 
     const htmlBody = `
       <div style="font-family:'Segoe UI',Arial,sans-serif;max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;">
-        <div style="background:linear-gradient(135deg,#1a6b4a,#2d9d6f);padding:28px 32px;text-align:center;">
+        <div style="background:linear-gradient(135deg,#1D55B2,#1746A0);padding:28px 32px;text-align:center;">
           <h1 style="color:#fff;margin:0;font-size:22px;">New Volunteer Application</h1>
-          <p style="color:#d1fae5;margin:6px 0 0;font-size:13px;">World Changers Mental Health Care Org</p>
+          <p style="color:#dbe6ff;margin:6px 0 0;font-size:13px;">World Changers Mental Health Care Org</p>
         </div>
         <div style="padding:28px 32px;">
           <p style="color:#374151;font-size:15px;margin:0 0 20px;">A new volunteer application has been submitted:</p>
-          <h3 style="font-size:14px;color:#1a6b4a;margin:0 0 8px;">Personal Information</h3>
+          <h3 style="font-size:14px;color:#1D55B2;margin:0 0 8px;">Personal Information</h3>
           <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
             ${row('Name', `${first_name} ${last_name}`)}
             ${row('Email', e(email))}
@@ -63,17 +64,17 @@ Deno.serve(async (req) => {
             ${row('City', city)}
             ${row('Address', address)}
           </table>
-          <h3 style="font-size:14px;color:#1a6b4a;margin:0 0 8px;">Volunteer Details</h3>
+          <h3 style="font-size:14px;color:#1D55B2;margin:0 0 8px;">Volunteer Details</h3>
           <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
             ${row('Area of Interest', area_of_interest)}
             ${row('Availability', availability)}
             ${row('Previous Experience', previous_experience)}
             ${row('Special Skills', special_skills)}
           </table>
-          <h3 style="font-size:14px;color:#1a6b4a;margin:0 0 8px;">Motivation</h3>
+          <h3 style="font-size:14px;color:#1D55B2;margin:0 0 8px;">Motivation</h3>
           <p style="color:#374151;font-size:14px;line-height:1.6;background:#f9fafb;padding:12px 16px;border-radius:8px;margin:0 0 20px;">${motivation}</p>
           ${emergency_contact_name ? `
-          <h3 style="font-size:14px;color:#1a6b4a;margin:0 0 8px;">Emergency Contact</h3>
+          <h3 style="font-size:14px;color:#1D55B2;margin:0 0 8px;">Emergency Contact</h3>
           <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
             ${row('Name', emergency_contact_name)}
             ${row('Phone', emergency_contact_phone)}
@@ -89,8 +90,9 @@ Deno.serve(async (req) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${RESEND_API_KEY}` },
       body: JSON.stringify({
-        from: 'World Changers MHC Volunteers <onboarding@resend.dev>',
-        to: ['info@worldchangersmh.org'],
+        from: 'World Changers MHC Volunteers <noreply@worldchangersmh.org>',
+        to: ['hr@worldchangersmh.org'],
+        cc: ['info@worldchangersmh.org'],
         reply_to: email,
         subject: `New Volunteer Application — ${String(body.first_name).slice(0,60)} ${String(body.last_name).slice(0,60)}`,
         html: htmlBody,

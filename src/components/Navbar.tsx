@@ -24,35 +24,35 @@ const Navbar = () => {
     {
       label: t("nav.about"),
       children: [
-        { label: "About Us", path: "/about" },
+        { label: t("nav.about"), path: "/about" },
+        { label: t("nav.ourTeam"), path: "/team" },
       ],
     },
     {
-      label: "Our Work",
+      label: t("nav.ourWork"),
       children: [
-        { label: "Mental Health Services", path: "/mental-health" },
-        { label: "Programmes & Impact", path: "/philanthropy" },
-        { label: "Portfolio", path: "/portfolio" },
+        { label: t("nav.mentalHealthServices"), path: "/mental-health" },
+        { label: t("nav.programmesImpact"), path: "/philanthropy" },
+        { label: t("nav.portfolio"), path: "/portfolio" },
         { label: t("nav.events"), path: "/events" },
       ],
     },
     {
-      label: "Media",
+      label: t("nav.media"),
       children: [
-        { label: "News", path: "/news" },
-        { label: "Gallery", path: "/gallery" },
+        { label: t("nav.news"), path: "/news" },
+        { label: t("nav.gallery"), path: "/gallery" },
       ],
     },
-    { label: "Our Team", path: "/team" },
     {
-      label: "Get Involved",
+      label: t("nav.getInvolved"),
       children: [
         { label: t("nav.becomeVolunteer"), path: "/become-volunteer" },
-        { label: "Campaigns", path: "/campaigns" },
-        { label: "Partnerships", path: "/partnerships" },
+        { label: t("nav.campaigns"), path: "/campaigns" },
+        { label: t("nav.partnerships"), path: "/partnerships" },
       ],
     },
-    { label: "FAQ", path: "/faq" },
+    { label: t("nav.faq"), path: "/faq" },
     { label: t("nav.contact"), path: "/contact" },
   ];
 
@@ -132,7 +132,7 @@ const Navbar = () => {
           </div>
 
           <Button asChild variant="outline" className="hidden md:inline-flex border-primary text-primary hover:bg-primary hover:text-primary-foreground ml-2">
-            <Link to="/mental-health">Get Help</Link>
+            <Link to="/mental-health">{t("nav.getHelp")}</Link>
           </Button>
           <Button asChild className="hidden md:inline-flex bg-accent text-accent-foreground hover:bg-accent/90">
             <a href={DONATE_URL} target="_blank" rel="noopener noreferrer">{t("nav.donateNow")}</a>
@@ -146,7 +146,7 @@ const Navbar = () => {
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[350px] p-0">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+              <SheetTitle className="sr-only">{t("nav.menu")}</SheetTitle>
               <nav className="flex flex-col py-6 px-4 gap-1 h-full overflow-y-auto">
                 <div className="mb-4">
                   <img alt="World Changers" className="h-20 w-auto mix-blend-multiply" src="/lovable-uploads/23ca8ce6-94a0-490f-b830-aa186f641c8c.png" />
@@ -193,7 +193,7 @@ const Navbar = () => {
                   )
                 )}
                 <Button asChild variant="outline" className="mt-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  <Link to="/mental-health" onClick={() => setMobileOpen(false)}>Get Help</Link>
+                  <Link to="/mental-health" onClick={() => setMobileOpen(false)}>{t("nav.getHelp")}</Link>
                 </Button>
                 <Button asChild className="mt-2 bg-accent text-accent-foreground hover:bg-accent/90">
                   <a href={DONATE_URL} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>{t("nav.donateNow")}</a>

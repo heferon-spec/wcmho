@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import { Shield, FileText, Lock, Eye, Scale, UserCheck, BookOpen, Download } from "lucide-react";
 import PageHero from "@/components/PageHero";
@@ -57,16 +58,19 @@ const documents = [
   { name: "Tax Exemption Certificate", type: "PDF" },
 ];
 
-const Policies = () => (
+const Policies = () => {
+  const { t } = useTranslation();
+
+  return (
   <div>
 
-    <SEO title="Site Policies — World Changers MHCO" description="Privacy, governance and compliance documents for World Changers Mental Health Care Organisation." path="/policies" />
-    <PageHero title="Site Policies" subtitle="Transparency, compliance, and governance" bgImage={aboutBg} />
+    <SEO title={t("policies.seoTitle")} description={t("policies.seoDescription")} path="/policies" />
+    <PageHero title={t("policies.heroTitle")} subtitle={t("policies.heroSubtitle")} bgImage={aboutBg} />
 
     {/* Policies Grid */}
     <section className="section-padding">
       <div className="container mx-auto">
-        <SectionHeading label="Governance" title="Our Policies" description="We are committed to the highest standards of transparency, ethics, and compliance." />
+        <SectionHeading label={t("policies.governanceLabel")} title={t("policies.governanceTitle")} description={t("policies.governanceDescription")} />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {policies.map((p, i) => (
             <motion.div key={p.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
@@ -85,7 +89,7 @@ const Policies = () => (
     {/* Financial & Compliance Documents */}
     <section className="section-padding bg-muted">
       <div className="container mx-auto">
-        <SectionHeading label="Documents" title="Financial & Compliance Documents" description="Access our official financial reports and compliance certificates. Contact us for document access." />
+        <SectionHeading label={t("policies.documentsLabel")} title={t("policies.documentsTitle")} description={t("policies.documentsDescription")} />
         <div className="max-w-3xl mx-auto">
           <div className="bg-card rounded-2xl shadow-card border border-border overflow-hidden">
             {documents.map((doc, i) => (
@@ -97,24 +101,25 @@ const Policies = () => (
                   </div>
                   <div>
                     <h4 className="font-heading font-semibold text-foreground text-sm">{doc.name}</h4>
-                    <p className="text-xs text-muted-foreground">{doc.type} Document</p>
+                    <p className="text-xs text-muted-foreground">{doc.type} {t("policies.documentSuffix")}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Lock className="w-4 h-4" />
-                  <span>Secure</span>
+                  <span>{t("policies.secureLabel")}</span>
                 </div>
               </motion.div>
             ))}
           </div>
           <p className="text-center text-sm text-muted-foreground mt-6">
-            To request access to any document, please email{" "}
+            {t("policies.documentAccessIntro")}{" "}
             <a href="mailto:info@worldchangersmh.org" className="text-primary hover:underline font-medium">info@worldchangersmh.org</a>
           </p>
         </div>
       </div>
     </section>
   </div>
-);
+  );
+};
 
 export default Policies;

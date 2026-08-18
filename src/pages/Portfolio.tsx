@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -18,18 +19,18 @@ import portfolioWell2 from "@/assets/portfolio-wellness-2.jpg";
 import portfolioWell3 from "@/assets/portfolio-wellness-3.jpg";
 
 const portfolioProjects = [
-  { title: "Mental Health Seminars in Tertiary or Universities", cats: ["Education", "Mental Health"], desc: "Delivering comprehensive mental health awareness workshops and peer support programs tailored for university students and educators.", image: portfolioEdu1 },
-  { title: "Campus Wellness & Stress Management", cats: ["Education", "Wellness"], desc: "Specialized training programs empowering tertiary students and faculty to manage academic pressure, prevent burnout, and support their peers.", image: portfolioEdu2 },
-  { title: "Student Mental Health Literacy", cats: ["Education", "Youth"], desc: "Interactive educational sessions hosted on university campuses, equipping young adults with vital mental health knowledge and coping strategies.", image: portfolioEdu3 },
-  { title: "Community Food Drive Initiative", cats: ["Community", "Food Security"], desc: "Distributing food parcels to over 5,000 families across underserved communities in Gauteng and KwaZulu-Natal.", image: portfolioCom1 },
-  { title: "Winter Relief Campaign", cats: ["Community", "Charity"], desc: "Annual campaign providing warm blankets, clothing, and essentials to homeless individuals and vulnerable families.", image: portfolioCom2 },
-  { title: "Community Outreach", cats: ["Community", "Humanitarian"], desc: "Deploying volunteers to rural communities with food parcels, hygiene kits, and children's educational materials.", image: portfolioCom3 },
-  { title: "Mental Health Awareness Golf Day", cats: ["Wellness", "Fundraising"], desc: "Using the power of sport to break the stigma around men's mental health. Our annual golf day creates a safe space for men to open up, be vulnerable, and have honest conversations about their emotional wellbeing.", image: portfolioWell1 },
-  { title: "Mindfulness & Wellbeing Programs", cats: ["Wellness", "Self-Care"], desc: "Partner with us to host a Mental Health Golf Day for your organisation. A unique team-building experience that promotes open dialogue, mindfulness, and emotional wellness.", image: portfolioWell2 },
-  { title: "Annual Awards & Recognition Gala", cats: ["Wellness", "Community"], desc: "Celebrating outstanding volunteers, donors, and community heroes at our annual recognition ceremony.", image: portfolioWell3 },
+  { title: "portfolio.seminarsTitle", cats: ["portfolio.catEducation", "portfolio.catMentalHealth"], desc: "portfolio.seminarsDesc", image: portfolioEdu1 },
+  { title: "portfolio.campusWellnessTitle", cats: ["portfolio.catEducation", "portfolio.catWellness"], desc: "portfolio.campusWellnessDesc", image: portfolioEdu2 },
+  { title: "portfolio.literacyTitle", cats: ["portfolio.catEducation", "portfolio.catYouth"], desc: "portfolio.literacyDesc", image: portfolioEdu3 },
+  { title: "portfolio.foodDriveTitle", cats: ["portfolio.catCommunity", "portfolio.catFoodSecurity"], desc: "portfolio.foodDriveDesc", image: portfolioCom1 },
+  { title: "portfolio.winterReliefTitle", cats: ["portfolio.catCommunity", "portfolio.catCharity"], desc: "portfolio.winterReliefDesc", image: portfolioCom2 },
+  { title: "portfolio.outreachTitle", cats: ["portfolio.catCommunity", "portfolio.catHumanitarian"], desc: "portfolio.outreachDesc", image: portfolioCom3 },
+  { title: "portfolio.golfDayTitle", cats: ["portfolio.catWellness", "portfolio.catFundraising"], desc: "portfolio.golfDayDesc", image: portfolioWell1 },
+  { title: "portfolio.mindfulnessTitle", cats: ["portfolio.catWellness", "portfolio.catSelfCare"], desc: "portfolio.mindfulnessDesc", image: portfolioWell2 },
+  { title: "portfolio.galaTitle", cats: ["portfolio.catWellness", "portfolio.catCommunity"], desc: "portfolio.galaDesc", image: portfolioWell3 },
 ];
 
-const filters = ["All", "Education", "Community", "Wellness"];
+const filters = ["portfolio.catAll", "portfolio.catEducation", "portfolio.catCommunity", "portfolio.catWellness"];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -37,24 +38,25 @@ const fadeUp = {
 };
 
 const Portfolio = () => {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const filtered = activeFilter === "All" ? portfolioProjects : portfolioProjects.filter((p) => p.cats.some((c) => c === activeFilter));
+  const { t } = useTranslation();
+  const [activeFilter, setActiveFilter] = useState("portfolio.catAll");
+  const filtered = activeFilter === "portfolio.catAll" ? portfolioProjects : portfolioProjects.filter((p) => p.cats.some((c) => c === activeFilter));
 
   return (
     <div>
 
-      <SEO title="Project Portfolio — World Changers MHCO" description="Browse our portfolio of mental health, education, community and wellness projects delivered across Southern Africa." path="/portfolio" />
-      <PageHero title="Our Portfolio" subtitle="Successful projects and case studies from our global mission" bgImage={aboutBg} />
+      <SEO title={t("portfolio.seoTitle")} description={t("portfolio.seoDescription")} path="/portfolio" />
+      <PageHero title={t("portfolio.heroTitle")} subtitle={t("portfolio.heroSubtitle")} bgImage={aboutBg} />
 
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeading label="Case Studies" title="Successful Projects" description="See the impact of our programs across the globe." />
+          <SectionHeading label={t("portfolio.sectionLabel")} title={t("portfolio.sectionTitle")} description={t("portfolio.sectionDescription")} />
 
           <div className="flex flex-wrap justify-center gap-3 mb-10">
             {filters.map((f) => (
               <button key={f} onClick={() => setActiveFilter(f)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${activeFilter === f ? "bg-primary text-primary-foreground" : "border border-border hover:bg-primary hover:text-primary-foreground"}`}>
-                {f}
+                {t(f)}
               </button>
             ))}
           </div>
@@ -64,16 +66,16 @@ const Portfolio = () => {
               <motion.div key={project.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="bg-card rounded-xl overflow-hidden shadow-soft border border-border group">
                 <div className="aspect-video overflow-hidden">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={project.image} alt={t(project.title)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-3 sm:p-5">
                   <div className="flex gap-2 mb-2 flex-wrap">
                     {project.cats.map((c) => (
-                      <span key={c} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{c}</span>
+                      <span key={c} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{t(c)}</span>
                     ))}
                   </div>
-                  <h3 className="font-heading text-sm sm:text-lg font-semibold text-foreground mb-1 sm:mb-2 leading-tight">{project.title}</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">{project.desc}</p>
+                  <h3 className="font-heading text-sm sm:text-lg font-semibold text-foreground mb-1 sm:mb-2 leading-tight">{t(project.title)}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">{t(project.desc)}</p>
                 </div>
               </motion.div>
             ))}
@@ -81,7 +83,7 @@ const Portfolio = () => {
 
           <div className="text-center mt-10">
             <Button asChild className="bg-hero-gradient text-primary-foreground hover:opacity-90">
-              <Link to="/contact">Start A Project <ArrowRight className="w-4 h-4 ml-2" /></Link>
+              <Link to="/contact">{t("portfolio.startProjectButton")} <ArrowRight className="w-4 h-4 ml-2" /></Link>
             </Button>
           </div>
         </div>
