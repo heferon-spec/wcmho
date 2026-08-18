@@ -38,6 +38,34 @@ const SafetyNote = ({ className, compact = false }: { className?: string; compac
             <span>Or go to your nearest hospital emergency department</span>
           </li>
         </ul>
+        <p className="mt-3 font-medium">Free national mental-health helplines, available to everyone 24/7:</p>
+        <ul className="mt-1 space-y-1">
+          <li className="flex items-center gap-2">
+            <Phone className="w-4 h-4 text-amber-700" aria-hidden="true" />
+            <span>
+              SADAG Suicide Crisis Helpline —{" "}
+              <a href="tel:0800567567" className="font-semibold underline underline-offset-2 hover:text-amber-950">0800 567 567</a>
+            </span>
+          </li>
+          <li className="flex items-center gap-2">
+            <Phone className="w-4 h-4 text-amber-700" aria-hidden="true" />
+            <span>
+              SADAG Mental Health Line —{" "}
+              <a href="tel:0112344837" className="font-semibold underline underline-offset-2 hover:text-amber-950">011 234 4837</a>
+            </span>
+          </li>
+          <li className="flex items-center gap-2">
+            <Phone className="w-4 h-4 text-amber-700" aria-hidden="true" />
+            <span>
+              Cipla 24hr Mental Health Helpline —{" "}
+              <a href="tel:0800456789" className="font-semibold underline underline-offset-2 hover:text-amber-950">0800 456 789</a>{" "}
+              (SMS 31393)
+            </span>
+          </li>
+        </ul>
+        <p className="mt-2 text-xs text-amber-800">
+          SADAG (the South African Depression and Anxiety Group) and Cipla operate these public national helplines independently of World Changers.
+        </p>
       </div>
     </div>
   </div>

@@ -11,6 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import { format, subDays, parseISO } from "date-fns";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import { useTranslation } from "react-i18next";
 import aboutBg from "@/assets/about-bg.jpg";
 
 const moodOptions = [
@@ -30,6 +31,7 @@ interface MoodEntry {
 }
 
 const MoodTracker = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [entries, setEntries] = useState<MoodEntry[]>([]);
@@ -72,12 +74,12 @@ const MoodTracker = () => {
         entry_date: today,
       });
       if (error) throw error;
-      toast.success("Mood logged!");
+      toast.success(t("moodTracker.toastMoodLogged"));
       setSelectedMood(null);
       setNote("");
       await fetchEntries();
     } catch (err: any) {
-      toast.error(err.message || "Failed to log mood");
+      toast.error(err.message || t("moodTracker.toastLogFailed"));
     } finally {
       setSubmitting(false);
     }
@@ -85,9 +87,9 @@ const MoodTracker = () => {
 
   const handleDelete = async (id: string) => {
     const { error } = await supabase.from("mood_entries").delete().eq("id", id);
-    if (error) toast.error("Failed to delete");
+    if (error) toast.error(t("moodTracker.toastDeleteFailed"));
     else {
-      toast.success("Entry removed");
+      toast.success(t("moodTracker.toastEntryRemoved"));
       await fetchEntries();
     }
   };
@@ -114,12 +116,12 @@ const MoodTracker = () => {
 
   return (
     <div>
-      <PageHero title="Mood Tracker" subtitle="Log your daily mood and discover patterns in your wellbeing" bgImage={aboutBg} />
+      <PageHero title={t("moodTracker.heroTitle")} subtitle={t("moodTracker.heroSubtitle")} bgImage={aboutBg} />
 
       <section className="section-padding">
         <div className="container mx-auto max-w-4xl">
           <Button variant="ghost" size="sm" onClick={() => navigate("/login")} className="mb-6">
-            <ArrowLeft className="w-4 h-4 mr-1" /> Back to Dashboard
+            <ArrowLeft className="w-4 h-4 mr-1" /> {t("moodTracker.backToDashboard")}
           </Button>
 
           {loading ? (
@@ -131,15 +133,15 @@ const MoodTracker = () => {
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-card rounded-xl p-5 shadow-card border border-border text-center">
                   <p className="text-3xl font-bold text-primary">{avgMood}</p>
-                  <p className="text-xs text-muted-foreground mt-1">Avg Mood (30d)</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("moodTracker.avgMood30d")}</p>
                 </div>
                 <div className="bg-card rounded-xl p-5 shadow-card border border-border text-center">
                   <p className="text-3xl font-bold text-accent">{streak}</p>
-                  <p className="text-xs text-muted-foreground mt-1">Day Streak</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("moodTracker.dayStreak")}</p>
                 </div>
                 <div className="bg-card rounded-xl p-5 shadow-card border border-border text-center">
                   <p className="text-3xl font-bold text-foreground">{entries.length}</p>
-                  <p className="text-xs text-muted-foreground mt-1">Total Entries</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("moodTracker.totalEntries")}</p>
                 </div>
               </div>
 
@@ -147,9 +149,9 @@ const MoodTracker = () => {
               {!todayLogged ? (
                 <div className="bg-card rounded-2xl p-6 shadow-card border border-border">
                   <h2 className="font-heading text-lg font-bold text-foreground mb-1 flex items-center gap-2">
-                    <Plus className="w-5 h-5 text-primary" /> How are you feeling today?
+                    <Plus className="w-5 h-5 text-primary" /> {t("moodTracker.howFeelingToday")}
                   </h2>
-                  <p className="text-sm text-muted-foreground mb-5">Select your mood and optionally add a note</p>
+                  <p className="text-sm text-muted-foreground mb-5">{t("moodTracker.selectMoodPrompt")}</p>
 
                   <div className="flex justify-center gap-3 mb-5">
                     {moodOptions.map((mood) => (
@@ -171,7 +173,7 @@ const MoodTracker = () => {
                   </div>
 
                   <Textarea
-                    placeholder="What's on your mind? (optional)"
+                    placeholder={t("moodTracker.notePlaceholder")}
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     rows={2}
@@ -185,14 +187,14 @@ const MoodTracker = () => {
                     className="w-full bg-hero-gradient text-primary-foreground hover:opacity-90"
                   >
                     {submitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                    Log Mood
+                    {t("moodTracker.logMood")}
                   </Button>
                 </div>
               ) : (
                 <div className="bg-card rounded-2xl p-6 shadow-card border border-border text-center">
                   <Sun className="w-10 h-10 text-accent mx-auto mb-2" />
-                  <p className="font-heading font-bold text-foreground">Today's mood logged!</p>
-                  <p className="text-sm text-muted-foreground">Come back tomorrow to keep your streak going</p>
+                  <p className="font-heading font-bold text-foreground">{t("moodTracker.todayLoggedTitle")}</p>
+                  <p className="text-sm text-muted-foreground">{t("moodTracker.todayLoggedSubtitle")}</p>
                 </div>
               )}
 
@@ -200,7 +202,7 @@ const MoodTracker = () => {
               {chartData.length > 1 && (
                 <div className="bg-card rounded-2xl p-6 shadow-card border border-border">
                   <h2 className="font-heading text-lg font-bold text-foreground mb-5 flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-primary" /> Mood Trend (Last 30 Days)
+                    <TrendingUp className="w-5 h-5 text-primary" /> {t("moodTracker.moodTrendTitle")}
                   </h2>
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
@@ -211,7 +213,7 @@ const MoodTracker = () => {
                           tickFormatter={(v) => moodOptions.find((m) => m.value === v)?.label || ""} width={50} />
                         <Tooltip
                           contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px", fontSize: 13 }}
-                          formatter={(value: number) => [moodOptions.find((m) => m.value === value)?.label || value, "Mood"]}
+                          formatter={(value: number) => [moodOptions.find((m) => m.value === value)?.label || value, t("moodTracker.tooltipMoodLabel")]}
                         />
                         <Line type="monotone" dataKey="mood" stroke="hsl(var(--primary))" strokeWidth={2.5} dot={{ r: 4, fill: "hsl(var(--primary))" }} activeDot={{ r: 6 }} />
                       </LineChart>
@@ -222,9 +224,9 @@ const MoodTracker = () => {
 
               {/* Recent Entries */}
               <div className="bg-card rounded-2xl p-6 shadow-card border border-border">
-                <h2 className="font-heading text-lg font-bold text-foreground mb-5">Recent Entries</h2>
+                <h2 className="font-heading text-lg font-bold text-foreground mb-5">{t("moodTracker.recentEntries")}</h2>
                 {entries.length === 0 ? (
-                  <p className="text-sm text-muted-foreground text-center py-4">No mood entries yet. Start logging above!</p>
+                  <p className="text-sm text-muted-foreground text-center py-4">{t("moodTracker.noEntries")}</p>
                 ) : (
                   <div className="space-y-3">
                     {[...entries].reverse().slice(0, 10).map((entry) => {

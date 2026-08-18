@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
@@ -40,63 +41,63 @@ interface TeamMember {
 
 const boardMembers: TeamMember[] = [
   {
-    name: "Nigel Jeche", role: "CEO & Founder", image: nigelJeche,
+    name: "Nigel Jeche", role: "team.roleCeoFounder", image: nigelJeche,
     bio: "Meet Nigel Jeche, a visionary leader and passionate advocate for mental health awareness. As the Founder of World Changers Mental Health Care Org, he has dedicated his life to breaking down stigmas and promoting holistic well-being. With a successful career as a Property Developer and Director of Elite Construction, Nigel brings a unique blend of business acumen and compassion to his work. A sought-after speaker, he inspires audiences with his insights on mental health, entrepreneurship, and personal growth.",
     linkedin: "https://www.linkedin.com/in/nigel-jeche-676b211a5",
     instagram: "https://www.instagram.com/nj_nigel",
   },
   {
-    name: "Teboho Nthoana", role: "Chairperson", image: tebohoNthoana,
+    name: "Teboho Nthoana", role: "team.roleChairperson", image: tebohoNthoana,
     bio: "Teboho Nthoana is a seasoned executive, investor, thought leader, policy advocate, and human rights champion currently serving as Board Chair of World Changers. With a strong background in business rescue, governance, and inclusive economic development, he has led transformative initiatives across Africa, Europe & USA. He is the CEO of Nono Capital and holds an MBA with advanced qualifications in law, finance, and business.",
     linkedin: "https://www.linkedin.com/in/teboho",
   },
   {
-    name: "Kojo Hudson", role: "Vice Chairperson", image: kojoHudson,
+    name: "Kojo Hudson", role: "team.roleViceChairperson", image: kojoHudson,
     bio: "Kojo Hudson is an accomplished built environment professional dedicated to shaping resilient infrastructure and advancing sustainability. As Executive Director of Ohene Africa, he leads initiatives that integrate innovation, governance, and sustainable development. A Chartered Member of RICS and a registered Professional Construction Project Manager (PrCPM), he holds a BSc (Hons) in Quantity Surveying and is pursuing an MBA at Rhodes Business School.",
     linkedin: "https://www.linkedin.com/in/jojoh/",
     instagram: "https://www.instagram.com/Kojo_Hudson",
   },
   {
-    name: "Lungelo Ntobongwana", role: "Board Member", image: lungeloNtobongwana,
+    name: "Lungelo Ntobongwana", role: "team.roleBoardMember", image: lungeloNtobongwana,
     bio: "Lungelo has over 23 years of experience in senior leadership roles, including CEO, COO, and Managing Director across Chemicals, Automotive, Power Generation, Waste Management, Property Management and Quality Assurance industries. His motto is \"passion, purpose and impact reimagined\".",
     linkedin: "https://www.linkedin.com/in/lungelo-ntobongwana/",
   },
   {
-    name: "Boitumelo Sedupane", role: "Board Member", image: boitumeloSedupane,
+    name: "Boitumelo Sedupane", role: "team.roleBoardMember", image: boitumeloSedupane,
     bio: "Boitumelo Sedupane is a distinguished HR executive and board director, renowned for empowering people and fostering organisational well-being. With extensive experience at AngloGold Ashanti, Accenture, and BMW Group, she holds an Executive MBA from UCT and has completed executive programs at Wits Business School and the Global Network for Advanced Management.",
     linkedin: "https://www.linkedin.com/in/boitumelo-sedupane-emba-m-inst-d-b5b206217/",
   },
   {
-    name: "Adv. Florence Maleka", role: "Board Member", image: florenceMaleka,
+    name: "Adv. Florence Maleka", role: "team.roleBoardMember", image: florenceMaleka,
     bio: "Advocate Florence Maleka is an accomplished legal and governance professional with extensive experience in legal services, compliance, and investigations. She is the Director of Progressive Compliance Company, holds an LLB degree and a Management Advancement Programme (MAP) qualification, and is a member of the Centurion Society of Advocates.",
     linkedin: "https://www.linkedin.com/in/adv-florence-maleka-a903b677/",
   },
   {
-    name: "Adv. Celiwe Rahlagane", role: "Board Member", image: celiweRahlagane,
+    name: "Adv. Celiwe Rahlagane", role: "team.roleBoardMember", image: celiweRahlagane,
     bio: "Adv. Celiwe Rahlagane is a seasoned governance and legal specialist with over 15 years of experience across public and private sectors. An Advocate of the High Court of South Africa, she holds an LLB from UNISA with postgraduate certificates in Corporate Governance and Financial Markets. A former Chairperson of the SAMRO Foundation Board.",
     linkedin: "https://www.linkedin.com/in/adv-celiwe-nkosi-rahlagane-29989727/",
   },
   {
-    name: "Beaulah Rose", role: "Board Member", image: beaulahRose,
+    name: "Beaulah Rose", role: "team.roleBoardMember", image: beaulahRose,
     bio: "Beaulah Rose is a seasoned Registered Counsellor committed to creating real change in the mental health space. A private practitioner and Case Manager with global reach in therapy and education, she has trained in multiple therapeutic modalities and built practices that promote excellence and long-term impact.",
     linkedin: "https://www.linkedin.com/in/beaulah-rose-62584996/",
   },
   {
-    name: "Prof. Kumari Sukhdeo", role: "Board Member", image: kumariSukhdeo,
+    name: "Prof. Kumari Sukhdeo", role: "team.roleBoardMember", image: kumariSukhdeo,
     bio: "Professor Kumari Sukhdeo is a Professor of Entrepreneurship, Management & Business Studies, and a distinguished International Business and Management Consultant. She holds an MBA from UKZN and is the first South African female to earn International Double Doctorates from Sheffield-Hallam University (UK) and Business School Amsterdam (Netherlands).",
     linkedin: "https://www.linkedin.com/in/drkumari-sukhdeo/",
   },
   {
-    name: "Selu Msweli", role: "Board Member", image: seluMsweli,
+    name: "Selu Msweli", role: "team.roleBoardMember", image: seluMsweli,
     bio: "Selu Msweli is a respected business leader, education strategist, and board member driving leadership development, corporate education, and organisational transformation globally. As Head of Strategic Support at DaVinci Business School, he leads strategic growth and designs innovative leadership programmes for executives.",
     linkedin: "https://www.linkedin.com/in/selu-msweli-35906b94/",
     instagram: "https://www.instagram.com/selumsweli",
   },
   {
-    name: "Sibusiso Ndlovu", role: "Board Member", image: sibusisoNdlovu,
+    name: "Sibusiso Ndlovu", role: "team.roleBoardMember", image: sibusisoNdlovu,
   },
   {
-    name: "Thabang Mokaka", role: "Board Member", image: thabangMokaka,
+    name: "Thabang Mokaka", role: "team.roleBoardMember", image: thabangMokaka,
     bio: "Thabang Kutluisiso Mokaka is a distinguished Senior Management Service executive and academic. With a career spanning over 15 years across both public and private sectors — including executive roles in provincial government and leadership positions in academic institutions and digital innovation hubs — he brings comprehensive expertise in corporate governance, strategic innovation, and ICT governance.",
     linkedin: "https://www.linkedin.com/in/thabang-mokoka-mphilbs-pgdippm-b-techpm-ndpa-12454549/",
   },
@@ -104,28 +105,28 @@ const boardMembers: TeamMember[] = [
 
 const executiveLeadership: TeamMember[] = [
   {
-    name: "Nicola M. Vlantis", role: "Stakeholder Manager", image: nicolaVlantis,
+    name: "Nicola M. Vlantis", role: "team.roleStakeholderManager", image: nicolaVlantis,
   },
   {
-    name: "Thulisile P. Buthelezi", role: "Secretary", image: thulisileButhelezi,
+    name: "Thulisile P. Buthelezi", role: "team.roleSecretary", image: thulisileButhelezi,
     bio: "Thulisile serves as Secretary at World Changers Mental Health Care Organisation, supporting the mission to promote mental wellness and community transformation. She holds a National Diploma in Human Resources Management with extensive experience across private, public, and NGO sectors, and is the founder of Faith Hope Love Kingdom Minded Leaders.",
     linkedin: "https://www.linkedin.com/in/thulisile-patience-buthelezi-36a23bb8/",
   },
   {
-    name: "Patricia Moloiwa", role: "Chief Marketing Officer", image: patriciaMoloiwa,
+    name: "Patricia Moloiwa", role: "team.roleCmo", image: patriciaMoloiwa,
     bio: "With over ten years in broadcasting, advertising sales, and operations, Patricia is the founder of PBGC Consulting's Digital Division. She is currently pursuing a Bachelor of Commerce in Information Technology Management, blending technical expertise, business acumen, and entrepreneurial skill to drive measurable results and community impact.",
     linkedin: "https://www.linkedin.com/in/lerato-manaka-1071a327",
   },
   {
-    name: "Letlotlo K. Moleko", role: "Digital Marketing Officer", image: letlotloMoleko,
+    name: "Letlotlo K. Moleko", role: "team.roleDigitalMarketingOfficer", image: letlotloMoleko,
     bio: "Letlotlo Kenneth Moleko is a visionary entrepreneur, author, and social impact leader. As Founder and CEO of CEO Lifestyle, Protege Brands, UpGR8 Group, and the nonprofit Lead Movement, he merges digital media, brand strategy, and social innovation to unlock opportunities for young people across South Africa. He holds a Master's degree in Business.",
     linkedin: "https://www.linkedin.com/in/kenneth-letlotlo-moleko-1ab0b345/",
   },
   {
-    name: "Dr. Talifhani Khubana", role: "Chief Financial Officer", image: null,
+    name: "Dr. Talifhani Khubana", role: "team.roleCfo", image: null,
   },
   {
-    name: "Vuka Khumalo", role: "Internal Auditor", image: vukaKhumalo,
+    name: "Vuka Khumalo", role: "team.roleInternalAuditor", image: vukaKhumalo,
     bio: "A seasoned Accountant and Auditor with a BCom in Financial Management and BCompt in Accounting Science, Vuka brings over 18 years of experience across accounting, auditing, insurance, banking, non-profit, government, and mining. He is currently pursuing the ACCA UK postgraduate accounting qualification.",
     linkedin: "https://www.linkedin.com/in/vuka-kumalo-07741072/",
   },
@@ -152,7 +153,9 @@ const InstagramIcon = () => (
   </svg>
 );
 
-const TeamSection = ({ title: sectionTitle, members, onClickMember }: { title: string; members: TeamMember[]; onClickMember: (m: TeamMember) => void }) => (
+const TeamSection = ({ title: sectionTitle, members, onClickMember }: { title: string; members: TeamMember[]; onClickMember: (m: TeamMember) => void }) => {
+  const { t } = useTranslation();
+  return (
   <div className="mb-16">
     <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">{sectionTitle}</h3>
     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -171,7 +174,7 @@ const TeamSection = ({ title: sectionTitle, members, onClickMember }: { title: s
           </div>
           <div className="p-3 sm:p-5">
             <h4 className="font-heading text-sm sm:text-lg font-semibold text-foreground leading-tight">{m.name}</h4>
-            <p className="text-xs sm:text-sm text-primary mt-1">{m.role}</p>
+            <p className="text-xs sm:text-sm text-primary mt-1">{t(m.role)}</p>
             {(m.linkedin || m.instagram) && (
               <div className="flex items-center justify-center gap-3 mt-3">
                 {m.linkedin && (
@@ -191,29 +194,31 @@ const TeamSection = ({ title: sectionTitle, members, onClickMember }: { title: s
       ))}
     </div>
   </div>
-);
+  );
+};
 
 const Team = () => {
+  const { t } = useTranslation();
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   return (
     <div>
-      <SEO title="Our Team & Leadership — World Changers MHCO" description="Meet the Board and Executive Leadership driving World Changers Mental Health Care Organisation across Southern Africa." path="/team" />
-      <PageHero title="Our Team" subtitle="The dedicated people behind our mission" bgImage={aboutBg} />
+      <SEO title={t("team.seoTitle")} description={t("team.seoDescription")} path="/team" />
+      <PageHero title={t("team.heroTitle")} subtitle={t("team.heroSubtitle")} bgImage={aboutBg} />
 
       <section className="px-4 -mt-10 relative z-10">
         <div className="container mx-auto">
           <div className="rounded-2xl overflow-hidden shadow-elevated">
-            <img src={teamPhoto} alt="World Changers Team" className="w-full object-cover" />
+            <img src={teamPhoto} alt={t("team.teamPhotoAlt")} className="w-full object-cover" />
           </div>
         </div>
       </section>
 
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeading label="Leadership" title="Meet Our Team" description="Passionate professionals committed to making a difference." />
-          <TeamSection title="Board Members" members={boardMembers} onClickMember={setSelectedMember} />
-          <TeamSection title="Executive Leadership" members={executiveLeadership} onClickMember={setSelectedMember} />
+          <SectionHeading label={t("team.sectionLabel")} title={t("team.sectionTitle")} description={t("team.sectionDescription")} />
+          <TeamSection title={t("team.boardMembersTitle")} members={boardMembers} onClickMember={setSelectedMember} />
+          <TeamSection title={t("team.executiveLeadershipTitle")} members={executiveLeadership} onClickMember={setSelectedMember} />
         </div>
       </section>
 
@@ -235,7 +240,7 @@ const Team = () => {
               )}
               <div className="text-center mt-4">
                 <p className="text-white font-heading text-xl font-bold">{selectedMember.name}</p>
-                <p className="text-white/90 text-sm">{selectedMember.role}</p>
+                <p className="text-white/90 text-sm">{t(selectedMember.role)}</p>
                 {(selectedMember.linkedin || selectedMember.instagram) && (
                   <div className="flex items-center justify-center gap-4 mt-3">
                     {selectedMember.linkedin && (

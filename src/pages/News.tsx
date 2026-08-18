@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, ArrowRight, Clock, Tag, X } from "lucide-react";
@@ -110,18 +111,19 @@ const fadeUp = {
 };
 
 const News = () => {
+  const { t } = useTranslation();
   const [selectedArticle, setSelectedArticle] = useState<typeof articles[0] | null>(null);
 
   return (
     <div>
 
-      <SEO title="News & Articles — World Changers MHCO" description="Latest articles, announcements and stories from World Changers Mental Health Care Organisation." path="/news" />
-      <PageHero title="News & Articles" subtitle="Mental health resources, humanitarian stories, and community outreach updates" bgImage={heroBg} />
+      <SEO title={t("news.seoTitle")} description={t("news.seoDescription")} path="/news" />
+      <PageHero title={t("news.heroTitle")} subtitle={t("news.heroSubtitle")} bgImage={heroBg} />
 
       {/* Featured Article */}
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeading label="Featured" title="Latest Headlines" />
+          <SectionHeading label={t("news.featuredLabel")} title={t("news.featuredTitle")} />
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="grid lg:grid-cols-2 gap-8 mb-16 cursor-pointer" onClick={() => setSelectedArticle(articles[0])}>
             <div className="aspect-video rounded-2xl overflow-hidden">
@@ -133,10 +135,10 @@ const News = () => {
               <p className="text-muted-foreground mb-4 leading-relaxed">{articles[0].excerpt}</p>
               <div className="flex items-center gap-4 text-xs text-muted-foreground mb-6">
                 <span className="flex items-center gap-1"><CalendarDays className="w-3.5 h-3.5" /> {articles[0].date}</span>
-                <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {articles[0].readTime} read</span>
+                <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {articles[0].readTime} {t("news.readLabel")}</span>
               </div>
               <span className="text-sm font-medium text-accent flex items-center gap-1 hover:gap-2 transition-all">
-                Read Full Article <ArrowRight className="w-3.5 h-3.5" />
+                {t("news.readFullArticle")} <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </div>
           </motion.div>
@@ -146,7 +148,7 @@ const News = () => {
       {/* All Articles */}
       <section className="section-padding bg-muted pt-0">
         <div className="container mx-auto">
-          <SectionHeading label="Blog & News" title="All Articles" description="Stay informed about mental health, humanitarian efforts, and community outreach across South Africa." />
+          <SectionHeading label={t("news.allArticlesLabel")} title={t("news.allArticlesTitle")} description={t("news.allArticlesDescription")} />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.slice(1).map((a, i) => (
               <motion.article key={a.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
@@ -167,7 +169,7 @@ const News = () => {
                   <h3 className="font-heading text-lg font-semibold text-foreground mb-2 line-clamp-2">{a.title}</h3>
                   <p className="text-sm text-muted-foreground line-clamp-3 mb-3">{a.excerpt}</p>
                   <span className="text-sm font-medium text-accent flex items-center gap-1 group-hover:gap-2 transition-all">
-                    Read More <ArrowRight className="w-3.5 h-3.5" />
+                    {t("news.readMore")} <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </motion.article>
@@ -193,7 +195,7 @@ const News = () => {
                 <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
                   <span className="bg-accent text-accent-foreground px-3 py-1 rounded-full font-bold">{selectedArticle.category}</span>
                   <span className="flex items-center gap-1"><CalendarDays className="w-3.5 h-3.5" /> {selectedArticle.date}</span>
-                  <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {selectedArticle.readTime} read</span>
+                  <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {selectedArticle.readTime} {t("news.readLabel")}</span>
                 </div>
                 <h1 className="font-heading text-2xl md:text-4xl font-bold text-foreground mb-6">{selectedArticle.title}</h1>
                 <div className="prose prose-sm max-w-none text-muted-foreground leading-relaxed">

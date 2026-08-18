@@ -125,16 +125,18 @@ const MentalHealth = () => {
       setBookingSubmitted(true);
       toast.success("Appointment request sent!");
 
-      // Send confirmation email (fire-and-forget)
+      // Notify the selected professional (server resolves their address) + CC info@ (fire-and-forget)
       supabase.functions.invoke("send-booking-confirmation", {
         body: {
           full_name: bookingData.full_name,
-          email: "info@worldchangersmh.org",
+          client_email: bookingData.email,
+          phone: bookingData.phone,
           provider_name: bookingData.provider_name,
           session_type: bookingData.session_type,
           session_date: bookingData.session_date,
           session_time: bookingData.session_time,
           session_mode: bookingData.session_mode,
+          reason: bookingData.reason,
         },
       }).then(({ error: emailErr }) => {
         if (emailErr) console.error("Email send failed:", emailErr);
@@ -159,22 +161,12 @@ const MentalHealth = () => {
         </div>
       </section>
 
-      {/* Programs */}
-      <section className="section-padding">
-        <div className="container mx-auto">
-          <SectionHeading label={t("mentalHealth.programsLabel")} title={t("mentalHealth.programsTitle")} description={t("mentalHealth.programsDesc")} />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {programs.map((p, i) => (
-              <motion.div key={p.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-                className="bg-card rounded-xl p-6 shadow-soft hover:shadow-card transition-all border border-border group">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-hero-gradient transition-all">
-                  <p.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground" />
-                </div>
-                <h3 className="font-heading text-xl font-semibold text-foreground mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+      {/* Booking headline — encourages visitors to book a session */}
+      <section className="pt-10 pb-2 px-4">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="font-heading text-2xl md:text-4xl font-bold text-foreground leading-tight">
+            {t("mentalHealth.bookHeadline")}
+          </h2>
         </div>
       </section>
 
@@ -187,8 +179,8 @@ const MentalHealth = () => {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                 <Phone className="w-8 h-8 text-primary" />
               </div>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Call Now</h2>
-              <p className="text-muted-foreground flex-1">Speak to our receptionist instantly for questions, scheduling, or support.</p>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">{t("mentalHealth.callNowTitle")}</h2>
+              <p className="text-muted-foreground flex-1">{t("mentalHealth.callNowDesc")}</p>
               <div className="mt-6">
                 <VoiceAgent variant="button" />
               </div>
@@ -199,13 +191,13 @@ const MentalHealth = () => {
               <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
                 <CalendarDays className="w-8 h-8 text-accent" />
               </div>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Book a Virtual Session</h2>
-              <p className="text-muted-foreground flex-1">Schedule a 60-minute virtual counseling session with your preferred provider.</p>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">{t("mentalHealth.bookSession")}</h2>
+              <p className="text-muted-foreground flex-1">{t("mentalHealth.bookSessionDesc")}</p>
               <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mt-4 mb-4">
-                <Video className="w-3.5 h-3.5" /> All sessions are conducted virtually
+                <Video className="w-3.5 h-3.5" /> {t("mentalHealth.virtualNote")}
               </div>
               <Button onClick={() => setBookingOpen(true)} size="lg" className="bg-hero-gradient text-primary-foreground hover:opacity-90">
-                <CalendarDays className="w-5 h-5 mr-2" /> Open Booking Calendar
+                <CalendarDays className="w-5 h-5 mr-2" /> {t("mentalHealth.openBooking")}
               </Button>
             </div>
           </div>
@@ -229,7 +221,7 @@ const MentalHealth = () => {
                   </div>
                   <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Appointment Requested!</h3>
                   <p className="text-muted-foreground">Your {sessionType} request with {selectedProvider} has been received. We'll confirm your session by email or phone shortly.</p>
-                  <p className="text-sm text-muted-foreground mt-2">A confirmation has been sent to info@worldchangersmh.org.</p>
+                  <p className="text-sm text-muted-foreground mt-2">Your chosen professional has been notified, and our team at info@worldchangersmh.org has been copied for follow-up.</p>
                   <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-center">
                     <Button onClick={() => { setBookingSubmitted(false); setPreferredTime(""); setSessionType(""); setSelectedProvider(""); setBookingName(""); setBookingEmail(""); setBookingPhone(""); setBookingReason(""); }}
                       variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
@@ -318,15 +310,15 @@ const MentalHealth = () => {
       {/* Professionals */}
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeading label="Our Professionals" title="Meet the Experts Who Care" description="Review our providers below and choose your preferred professional when booking." />
+          <SectionHeading label={t("mentalHealth.professionalsLabel")} title={t("mentalHealth.professionalsTitle")} description={t("mentalHealth.professionalsDesc")} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {professionals.map((p, i) => (
               <motion.div key={p.name} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="bg-card rounded-2xl overflow-hidden shadow-card border border-border group">
                 <div className="flex items-start gap-4 p-5">
-                  <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-muted flex items-center justify-center">
+                  <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 bg-muted flex items-center justify-center">
                     {p.image ? (
-                      <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                      <img src={p.image} alt={p.name} className="w-full h-full object-cover object-top" />
                     ) : (
                       <svg className="w-10 h-10 text-muted-foreground/40" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
@@ -338,7 +330,7 @@ const MentalHealth = () => {
                     <p className="text-primary text-sm font-medium mt-0.5">{p.role}</p>
                     <p className="text-muted-foreground text-xs mt-0.5">{p.specialty}</p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      <span className="font-medium text-foreground">Available:</span> By Appointment only
+                      <span className="font-medium text-foreground">{t("mentalHealth.available")}:</span> {t("mentalHealth.byAppointmentOnly")}
                     </p>
                   </div>
                 </div>
@@ -348,9 +340,28 @@ const MentalHealth = () => {
                   </p>
                   <button onClick={() => setExpandedBio(expandedBio === p.name ? null : p.name)}
                     className="text-xs text-primary font-medium mt-2 hover:underline">
-                    {expandedBio === p.name ? "Show Less" : "Read Full Bio"}
+                    {expandedBio === p.name ? t("mentalHealth.showLess") : t("mentalHealth.readFullBio")}
                   </button>
                 </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Programs */}
+      <section className="section-padding bg-card">
+        <div className="container mx-auto">
+          <SectionHeading label={t("mentalHealth.programsLabel")} title={t("mentalHealth.programsTitle")} description={t("mentalHealth.programsDesc")} />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {programs.map((p, i) => (
+              <motion.div key={p.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+                className="bg-card rounded-xl p-6 shadow-soft hover:shadow-card transition-all border border-border group">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-hero-gradient transition-all">
+                  <p.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground" />
+                </div>
+                <h3 className="font-heading text-xl font-semibold text-foreground mb-2">{p.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -360,7 +371,7 @@ const MentalHealth = () => {
       {/* YouTube Videos */}
       <section className="section-padding bg-muted">
         <div className="container mx-auto">
-          <SectionHeading label="Watch & Learn" title="Mental Health Videos" description="Educational videos on mental health awareness and wellbeing." />
+          <SectionHeading label={t("mentalHealth.videosLabel")} title={t("mentalHealth.videosTitle")} description={t("mentalHealth.videosDesc")} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {youtubeVideos.map((video, i) => (
               <motion.div key={video.id} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}

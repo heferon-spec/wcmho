@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -58,60 +59,61 @@ import gallery51 from "@/assets/gallery-51.jpg";
 import gallery52 from "@/assets/gallery-52.jpg";
 
 const images = [
-  { src: gallery1, alt: "Men's Day Summit audience" },
-  { src: gallery2, alt: "Volunteer registration" },
-  { src: gallery3, alt: "EmpowaMen Speaker badge" },
-  { src: gallery4, alt: "Depression and Mental Health panel" },
-  { src: gallery5, alt: "Metro FM speaker session" },
-  { src: gallery6, alt: "World Changers speaker" },
-  { src: gallery7, alt: "Panel discussion on stage" },
-  { src: gallery8, alt: "Community event audience" },
-  { src: gallery9, alt: "Event attendees" },
-  { src: gallery10, alt: "Youth at community event" },
-  { src: gallery11, alt: "Guest speaker presentation" },
-  { src: gallery12, alt: "Audience engagement" },
-  { src: gallery13, alt: "Speaker addressing crowd" },
-  { src: gallery14, alt: "Event attendees seated" },
-  { src: gallery15, alt: "Community members at venue" },
-  { src: gallery16, alt: "Youth audience" },
-  { src: gallery17, alt: "Attendees at summit" },
-  { src: gallery18, alt: "Community gathering" },
-  { src: gallery19, alt: "Discussion session" },
-  { src: gallery20, alt: "Crowd participation" },
-  { src: gallery21, alt: "Golf Day team photo" },
-  { src: gallery22, alt: "Mental Health Awareness Golf Day" },
-  { src: gallery23, alt: "Golf Day ladies team" },
-  { src: gallery24, alt: "Golfers on the course" },
-  { src: gallery25, alt: "Golf Day at Lavo Wines" },
-  { src: gallery26, alt: "Golf Day backdrop" },
-  { src: gallery27, alt: "Golfers with umbrellas" },
-  { src: gallery28, alt: "Community food distribution" },
-  { src: gallery29, alt: "Humanitarian aid drive" },
-  { src: gallery30, alt: "Community outreach event" },
-  { src: gallery31, alt: "Community volunteer event" },
-  
-  { src: gallery33, alt: "Team collaboration" },
-  { src: gallery34, alt: "Outreach program" },
-  { src: gallery35, alt: "Mental health awareness event" },
-  { src: gallery36, alt: "Community support gathering" },
-  { src: gallery38, alt: "Community workshop" },
-  { src: gallery39, alt: "Youth engagement program" },
-  { src: gallery40, alt: "Impact initiative" },
-  { src: gallery41, alt: "Community outreach program" },
-  { src: gallery42, alt: "Volunteer event" },
-  { src: gallery43, alt: "World Changers team group photo" },
-  { src: gallery44, alt: "Community event auditorium" },
-  { src: gallery45, alt: "Youth workshop session" },
-  { src: gallery46, alt: "Community awareness event" },
-  { src: gallery47, alt: "Audience at community event" },
-  { src: gallery48, alt: "Community outreach gathering" },
-  { src: gallery49, alt: "Event venue audience" },
-  { src: gallery50, alt: "Volunteer outreach team" },
-  { src: gallery51, alt: "Community hall event" },
-  { src: gallery52, alt: "Youth engagement session" },
+  { src: gallery1, altKey: "gallery.altMensDaySummitAudience" },
+  { src: gallery2, altKey: "gallery.altVolunteerRegistration" },
+  { src: gallery3, altKey: "gallery.altEmpowaMenSpeakerBadge" },
+  { src: gallery4, altKey: "gallery.altDepressionAndMentalHealthPanel" },
+  { src: gallery5, altKey: "gallery.altMetroFmSpeakerSession" },
+  { src: gallery6, altKey: "gallery.altWorldChangersSpeaker" },
+  { src: gallery7, altKey: "gallery.altPanelDiscussionOnStage" },
+  { src: gallery8, altKey: "gallery.altCommunityEventAudience" },
+  { src: gallery9, altKey: "gallery.altEventAttendees" },
+  { src: gallery10, altKey: "gallery.altYouthAtCommunityEvent" },
+  { src: gallery11, altKey: "gallery.altGuestSpeakerPresentation" },
+  { src: gallery12, altKey: "gallery.altAudienceEngagement" },
+  { src: gallery13, altKey: "gallery.altSpeakerAddressingCrowd" },
+  { src: gallery14, altKey: "gallery.altEventAttendeesSeated" },
+  { src: gallery15, altKey: "gallery.altCommunityMembersAtVenue" },
+  { src: gallery16, altKey: "gallery.altYouthAudience" },
+  { src: gallery17, altKey: "gallery.altAttendeesAtSummit" },
+  { src: gallery18, altKey: "gallery.altCommunityGathering" },
+  { src: gallery19, altKey: "gallery.altDiscussionSession" },
+  { src: gallery20, altKey: "gallery.altCrowdParticipation" },
+  { src: gallery21, altKey: "gallery.altGolfDayTeamPhoto" },
+  { src: gallery22, altKey: "gallery.altMentalHealthAwarenessGolfDay" },
+  { src: gallery23, altKey: "gallery.altGolfDayLadiesTeam" },
+  { src: gallery24, altKey: "gallery.altGolfersOnTheCourse" },
+  { src: gallery25, altKey: "gallery.altGolfDayAtLavoWines" },
+  { src: gallery26, altKey: "gallery.altGolfDayBackdrop" },
+  { src: gallery27, altKey: "gallery.altGolfersWithUmbrellas" },
+  { src: gallery28, altKey: "gallery.altCommunityFoodDistribution" },
+  { src: gallery29, altKey: "gallery.altHumanitarianAidDrive" },
+  { src: gallery30, altKey: "gallery.altCommunityOutreachEvent" },
+  { src: gallery31, altKey: "gallery.altCommunityVolunteerEvent" },
+
+  { src: gallery33, altKey: "gallery.altTeamCollaboration" },
+  { src: gallery34, altKey: "gallery.altOutreachProgram" },
+  { src: gallery35, altKey: "gallery.altMentalHealthAwarenessEvent" },
+  { src: gallery36, altKey: "gallery.altCommunitySupportGathering" },
+  { src: gallery38, altKey: "gallery.altCommunityWorkshop" },
+  { src: gallery39, altKey: "gallery.altYouthEngagementProgram" },
+  { src: gallery40, altKey: "gallery.altImpactInitiative" },
+  { src: gallery41, altKey: "gallery.altCommunityOutreachProgram" },
+  { src: gallery42, altKey: "gallery.altVolunteerEvent" },
+  { src: gallery43, altKey: "gallery.altWorldChangersTeamGroupPhoto" },
+  { src: gallery44, altKey: "gallery.altCommunityEventAuditorium" },
+  { src: gallery45, altKey: "gallery.altYouthWorkshopSession" },
+  { src: gallery46, altKey: "gallery.altCommunityAwarenessEvent" },
+  { src: gallery47, altKey: "gallery.altAudienceAtCommunityEvent" },
+  { src: gallery48, altKey: "gallery.altCommunityOutreachGathering" },
+  { src: gallery49, altKey: "gallery.altEventVenueAudience" },
+  { src: gallery50, altKey: "gallery.altVolunteerOutreachTeam" },
+  { src: gallery51, altKey: "gallery.altCommunityHallEvent" },
+  { src: gallery52, altKey: "gallery.altYouthEngagementSession" },
 ];
 
 const Gallery = () => {
+  const { t } = useTranslation();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const openLightbox = (i: number) => setLightboxIndex(i);
@@ -122,11 +124,11 @@ const Gallery = () => {
   return (
     <div>
 
-      <SEO title="Photo Gallery — World Changers MHCO" description="Photos from our programs, outreach campaigns, events and community wellness initiatives across Southern Africa." path="/gallery" />
-      <PageHero title="Gallery" subtitle="Moments that capture our impact" bgImage={philanthropyBg} />
+      <SEO title={t("gallery.seoTitle")} description={t("gallery.seoDescription")} path="/gallery" />
+      <PageHero title={t("gallery.heroTitle")} subtitle={t("gallery.heroSubtitle")} bgImage={philanthropyBg} />
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeading label="Visual Impact" title="Our Work in Pictures" />
+          <SectionHeading label={t("gallery.sectionLabel")} title={t("gallery.sectionTitle")} />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {images.map((img, i) => (
               <motion.div
@@ -140,7 +142,7 @@ const Gallery = () => {
               >
                 <img
                   src={img.src}
-                  alt={img.alt}
+                  alt={t(img.altKey)}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </motion.div>
@@ -163,11 +165,11 @@ const Gallery = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               src={images[lightboxIndex].src}
-              alt={images[lightboxIndex].alt}
+              alt={t(images[lightboxIndex].altKey)}
               className="max-w-full max-h-[85vh] object-contain rounded-lg"
               onClick={(e) => e.stopPropagation()}
             />
-            <p className="absolute bottom-6 text-white/90 text-sm">{images[lightboxIndex].alt} • {lightboxIndex + 1}/{images.length}</p>
+            <p className="absolute bottom-6 text-white/90 text-sm">{t(images[lightboxIndex].altKey)} • {lightboxIndex + 1}/{images.length}</p>
           </motion.div>
         )}
       </AnimatePresence>
